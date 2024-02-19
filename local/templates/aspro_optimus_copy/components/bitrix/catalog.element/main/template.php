@@ -1528,29 +1528,34 @@ if(!$weight)
 					</div>
 				<?else:?>
 					<table class="props_list">
-						<?foreach($arResult["PROPERTIES"] as $arProp):
-								if($arProp['PROPERTY_TYPE'] == 'F') continue;
-?>
-							<?if(!in_array($arProp["CODE"], array("PRODUCTINSTOCK", "SERVICES", "BRAND", "HIT", "RECOMMEND", "NEW", "STOCK", "VIDEO", "VIDEO_YOUTUBE", "CML2_ARTICLE"))):?>
-								<?if((!is_array($arProp["VALUE"]) && strlen($arProp["VALUE"])) || (is_array($arProp["VALUE"]) && implode('', $arProp["VALUE"]))):?>
-									<tr itemprop="additionalProperty" itemscope itemtype="http://schema.org/PropertyValue">
-										<td class="char_name">
-											<span <?if($arProp["HINT"] && $arParams["SHOW_HINTS"] == "Y"){?>class="whint"<?}?>><?if($arProp["HINT"] && $arParams["SHOW_HINTS"] == "Y"):?><div class="hint"><span class="icon"><i>?</i></span><div class="tooltip"><?=$arProp["HINT"]?></div></div><?endif;?><span itemprop="name"><?=$arProp["NAME"]?></span></span>
-										</td>
-										<td class="char_value">
-											<span itemprop="value">
-												<?if(is_array($arProp["VALUE"])):?>
-													<?=implode(', ', $arProp["VALUE"]);?>
-												<?else:?>
-													<?=$arProp["VALUE"];?>
-												<?endif;?>
-											</span>
-										</td>
-									</tr>
-								<?endif;?>
-							<?endif;?>
-						<?endforeach;?>
-					</table>
+                        <?foreach($arResult["PROPERTIES"] as $arProp):
+                            if($arProp['PROPERTY_TYPE'] == 'F') continue;
+                            ?>
+                            <?if(!in_array($arProp["CODE"], array("PRODUCTINSTOCK", "SERVICES", "BRAND", "HIT", "RECOMMEND", "NEW", "STOCK", "VIDEO", "VIDEO_YOUTUBE", "CML2_ARTICLE"))):?>
+                            <?if((!is_array($arProp["VALUE"]) && strlen($arProp["VALUE"])) || (is_array($arProp["VALUE"]) && implode('', $arProp["VALUE"]))):?>
+                                <?php // Filtering condition:
+                                $excludeList = array("typePrefix", "yModel", "vendorCode", "sales_notes", "sales_notes_avito");
+                                if (!in_array($arProp["NAME"], $excludeList)) : ?>
+                                    <tr itemprop="additionalProperty" itemscope itemtype="http://schema.org/PropertyValue">
+                                        <td class="char_name">
+                                            <span <?if($arProp["HINT"] && $arParams["SHOW_HINTS"] == "Y"){?>class="whint"<?}?>><?if($arProp["HINT"] && $arParams["SHOW_HINTS"] == "Y"):?><div class="hint"><span class="icon"><i>?</i></span><div class="tooltip"><?=$arProp["HINT"]?></div></div><?endif;?><span itemprop="name"><?=$arProp["NAME"]?></span></span>
+                                        </td>
+                                        <td class="char_value">
+                    <span itemprop="value">
+                        <?if(is_array($arProp["VALUE"])):?>
+                            <?=implode(', ', $arProp["VALUE"]);?>
+                        <?else:?>
+                            <?=$arProp["VALUE"];?>
+                        <?endif;?>
+                    </span>
+                                        </td>
+                                    </tr>
+                                <?php endif; ?>
+                            <?endif;?>
+                        <?endif;?>
+                        <?endforeach;?>
+
+                    </table>
 					<table class="props_list" id="<? echo $arItemIDs["ALL_ITEM_IDS"]['DISPLAY_PROP_DIV']; ?>"></table>
 				<?endif;?></div>
 			</li>

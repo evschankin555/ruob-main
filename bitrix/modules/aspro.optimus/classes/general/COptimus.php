@@ -3814,19 +3814,24 @@ static function showMoreText( $text ){
     }
 
     public static function AddComponentTemplateModulePageBlocksParams($templateAbsPath, &$arParams, $arExtParams = array()){
-    	if($templateAbsPath && $arParams && is_array($arParams)){
-    		$templateAbsPath = str_replace('//', '//', $templateAbsPath).'/';
-    		$templateName = basename($templateAbsPath);
-    		if(self::IsComponentTemplateHasModuleElementsPageBlocksParam($templateName, $arExtParams)){
-    			$arParams['SECTION_ELEMENTS_TYPE_VIEW']['VALUES'] = array_merge(array('FROM_MODULE' => GetMessage('M_FROM_MODULE_PARAMS')), $arParams['SECTION_ELEMENTS_TYPE_VIEW']['VALUES']);
-    			$arParams['SECTION_ELEMENTS_TYPE_VIEW']['DEFAULT'] = 'FROM_MODULE';
-    		}
-    		if(self::IsComponentTemplateHasModuleElementPageBlocksParam($templateName, $arExtParams)){
-    			$arParams['ELEMENT_TYPE_VIEW']['VALUES'] = array_merge(array('FROM_MODULE' => GetMessage('M_FROM_MODULE_PARAMS')), $arParams['ELEMENT_TYPE_VIEW']['VALUES']);
-    			$arParams['ELEMENT_TYPE_VIEW']['DEFAULT'] = 'FROM_MODULE';
-    		}
-    	}
+        if($templateAbsPath && $arParams && is_array($arParams)){
+            $templateAbsPath = str_replace('//', '//', $templateAbsPath).'/';
+            $templateName = basename($templateAbsPath);
+
+            $optimusInstance = new COptimus(); // Создаём экземпляр класса
+
+            if($optimusInstance->IsComponentTemplateHasModuleElementsPageBlocksParam($templateName, $arExtParams)){
+                $arParams['SECTION_ELEMENTS_TYPE_VIEW']['VALUES'] = array_merge(array('FROM_MODULE' => GetMessage('M_FROM_MODULE_PARAMS')), $arParams['SECTION_ELEMENTS_TYPE_VIEW']['VALUES']);
+                $arParams['SECTION_ELEMENTS_TYPE_VIEW']['DEFAULT'] = 'FROM_MODULE';
+            }
+
+            if($optimusInstance->IsComponentTemplateHasModuleElementPageBlocksParam($templateName, $arExtParams)){
+                $arParams['ELEMENT_TYPE_VIEW']['VALUES'] = array_merge(array('FROM_MODULE' => GetMessage('M_FROM_MODULE_PARAMS')), $arParams['ELEMENT_TYPE_VIEW']['VALUES']);
+                $arParams['ELEMENT_TYPE_VIEW']['DEFAULT'] = 'FROM_MODULE';
+            }
+        }
     }
+
 
     public static function CheckComponentTemplatePageBlocksParams(&$arParams, $templateAbsPath, $pageBlocksDirName = 'page_blocks'){
     	$arPageBlocks = self::GetComponentTemplatePageBlocks($templateAbsPath, $pageBlocksDirName);

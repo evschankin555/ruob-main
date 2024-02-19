@@ -1,0 +1,26 @@
+<?
+if(!defined('OPTIMUS_MODULE_ID'))
+	define('OPTIMUS_MODULE_ID', 'aspro.optimus');
+
+use \Bitrix\Main\Localization\Loc;
+Loc::loadMessages(__FILE__);
+
+class COptimusEvents{
+	const partnerName	= 'aspro';
+    const solutionName	= 'optimus';
+	const moduleID		= OPTIMUS_MODULE_ID;
+    const wizardID		= 'aspro:optimus';
+	
+	static function OnBeforeSubscriptionAddHandler(&$arFields){
+		if(!defined('ADMIN_SECTION'))
+		{
+			global $APPLICATION;
+			$show_licenses = COption::GetOptionString(self::moduleID, 'SHOW_LICENCE', 'Y', SITE_ID);
+			if($show_licenses == 'Y' && !isset($_REQUEST['licenses_subscribe']))
+			{
+				$APPLICATION->ThrowException(Loc::getMessage('ERROR_FORM_LICENSE'));
+				return false;
+			}
+		}
+	}
+}

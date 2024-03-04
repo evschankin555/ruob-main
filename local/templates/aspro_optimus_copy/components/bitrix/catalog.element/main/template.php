@@ -1534,7 +1534,7 @@ if(!$weight)
                             <?if(!in_array($arProp["CODE"], array("PRODUCTINSTOCK", "SERVICES", "BRAND", "HIT", "RECOMMEND", "NEW", "STOCK", "VIDEO", "VIDEO_YOUTUBE", "CML2_ARTICLE"))):?>
                             <?if((!is_array($arProp["VALUE"]) && strlen($arProp["VALUE"])) || (is_array($arProp["VALUE"]) && implode('', $arProp["VALUE"]))):?>
                                 <?php // Filtering condition:
-                                $excludeList = array("typePrefix", "yModel", "vendorCode", "sales_notes", "sales_notes_avito");
+                                $excludeList = array("Авито: Характеристики", "typePrefix", "yModel", "vendorCode", "sales_notes", "sales_notes_avito");
                                 if (!in_array($arProp["NAME"], $excludeList)) : ?>
                                     <tr itemprop="additionalProperty" itemscope itemtype="http://schema.org/PropertyValue">
                                         <td class="char_name">

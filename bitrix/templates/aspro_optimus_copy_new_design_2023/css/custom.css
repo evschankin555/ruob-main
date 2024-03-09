@@ -1,0 +1,217 @@
+/*NOTE: This file is intended for programmers. Aspro technical support is not advised to work with him.*/
+
+/* Examples (uncomment to use):*/
+
+/* Expand site width */
+/* body .wrapper { max-width: 1400px !important;  } */
+
+/* Set site background image */
+/* body {  background: url(image_source) top no-repeat; }
+
+/* Hide compare button */
+/* a.compare_item { display: none !important;  }*/
+
+@media (min-width: 993px){
+    .menu-nav{
+        display: none;
+    }
+    .only-mobile{
+        display: none;
+    }
+}
+@media (max-width: 992px){
+    .footer_bottom_inner .rows_block .menus .rows_block, .footer_bottom_inner .rows_block .menus .submenu {
+        display: unset;
+    }
+    .catalog_section_list .section_item li.name{
+        text-align: center;
+        margin-top: 10%;
+    }
+    .catalog_section_list .section_item .image {
+        width: 100%;
+    }
+    table.section_item_inner {
+        width: 100%;
+    }
+    table.section_item_inner tr {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+    .catalog_section_list.rows_block:not(.slides) .item_block{
+        width: 50% !important; 
+    }
+    .catalog_section_list .section_item li.name a span {
+        word-break: break-word;
+    }
+    .catalog_section_list .section_item{
+        overflow: hidden;
+    }
+    .bx-breadcrumb-item--mobile:not(.bx-breadcrumb-item--visible-mobile),
+    .bx-breadcrumb-item--mobile.bx-breadcrumb-item--visible-mobile
+    {
+        display: flex;
+        align-items: center;
+        border-radius: 2px;
+        padding: 6px 12px;
+        margin-right: 8px;
+        background: #fff;
+        border: 1px solid #eaebec;
+        white-space: nowrap;
+    }
+    body .breadcrumbs .bx-breadcrumb-item a span {
+        color: #0a0a0a;
+        font-size: 12px;
+        line-height: 16px;
+    }
+    body .breadcrumbs {
+        text-align: center;
+        max-height: 50px;
+        display: flex;
+        visibility: visible;
+        flex-flow: nowrap row;
+        overflow-x: auto;
+        overflow-y: hidden;
+        padding-bottom: 20px;
+        background: #f6f6f7;
+    }
+    .bx-breadcrumb-item--mobile:last-child,
+    .bx-breadcrumb-item--mobile:first-child
+    {
+        display: none;
+    }
+    .menu-nav {
+        display: block;
+        height: 50px;
+        width: 100vw;
+        margin: 0 auto;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        box-shadow: 0 -2px 8px rgb(0 0 0 / 15%);
+        z-index: 10001;
+        bottom: -1px;
+    }
+    .menu-nav__list {
+        display: flex;
+        padding: 0;
+        height: 100%;
+        align-items: center;
+        width: 100vw;
+        background: #f6f6f6;
+        margin: 0;
+        list-style: none;
+        justify-content: space-around;
+    }
+    .menu-nav__link {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-decoration: none;
+    }
+    .menu-nav__icon-svg {
+        height: 22px;
+        fill: #afafaf;
+        color: transparent;
+    }
+    .menu-nav__title {
+        font-style: normal;
+        font-weight: 400;
+        font-size: 12px;
+        line-height: 14px;
+        display: block;
+        color: #8c8c8c;
+    }
+    .menu-nav__link:focus .menu-nav__title, .menu-nav__link_active .menu-nav__title {
+        color: #006ac5;
+    }
+    .menu-nav__item::before{
+        display: none;
+    }
+    #footer {
+        padding-bottom: 50px;
+    }
+    .menu-nav__item:last-child svg{
+        transform: rotate(180deg);
+    }
+    .display_list .description_wrapp.mobile {
+        display: unset !important;
+    }
+    .display_list .description_wrapp .wrapp_stockers .rating,
+    .display_list .description_wrapp .wrapp_stockers .item-stock,
+    .display_list .description_wrapp .wrapp_stockers .article_block,
+    .display_list .description_wrapp .preview_text,
+    .display_list .description_wrapp .item-title
+    {
+        display: none;
+    }
+    .display_list .list_item .props_list_wrapp{
+        display: block;
+        padding-right: 15px;
+    }
+    .display_list .list_item .show_props{
+        display: none;
+    }
+    .display_list .description_wrapp .like_icons{
+        border: 0;
+        text-align: right;
+    }
+    .display_list .description_wrapp .like_icons>div{
+        padding: 0;
+    }
+    .list_item_wrapp .props_list tr td:first-child, 
+    .list_item_wrapp .props_list tr td:first-child > span {
+        padding-right: 0;
+    }
+    .display_list .cost.prices .price {
+        width: 112%;
+    }
+    .display_list .item-stock{
+        margin: 20px 0;
+    }
+    .display_list .cost.prices.clearfix.only-mobile {
+        margin: 20px 0;
+    }
+    .display_list .cost.prices.clearfix.only-mobile+.counter_wrapp {
+        padding: 0;
+    }
+    .display_list table.props_list {
+        width: 100%;
+    }
+    .display_list .list_item .image_block {
+        overflow: hidden;
+    }
+    .hide-mobile{
+        display: none;
+    }
+    .display_list .adaptive_name {
+        display: table-row;
+    }
+}
+@media (max-width: 569px){
+    
+}
+@media (max-width: 600px){
+    .soc_wrapper {
+        display: flex;
+    }
+}
+@media (max-width: 400px){
+    .soc_wrapper {
+        display: block;
+    }
+}
+@media (min-width: 570px) and (max-width:992px){
+    .display_list .description_wrapp:not(.mobile){
+        display: none;
+    }
+}
+.table-no-border{
+    background-size: cover !important;
+}
+.image_wrapper_block img{
+    height: 100%;
+    object-fit: contain;
+}

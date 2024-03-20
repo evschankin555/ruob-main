@@ -114,22 +114,6 @@
                     <img src="/images/dist/compare-icon.png" alt="">
                     <span class="basket__count" id="compare_line" ></span>
                 </a>
-                <script>
-                    $.ajax({
-                        url: '/ajax/show_compare_preview_top.php',
-                        method: 'GET',
-                        success: function(response) {
-                            // Парсим ответ как число
-                            var count = parseInt(response);
-
-                            // Вставляем число в указанный элемент
-                            $('#compare_line').text(count);
-                        },
-                        error: function(error) {
-                            console.error('Ошибка при выполнении AJAX-запроса:', error);
-                        }
-                    });
-                </script>
                 <a href="/basket/#delayed" class="header__btns-item">
                     <img src="/images/dist/favourites.png" alt="">
                     <span class="basket__count" id="favourites_line" >0</span>
@@ -139,54 +123,55 @@
                     <span class="basket__count" id="basket_line" ><?=$arCounters['READY']['COUNT'];?></span>
                 </a>
                 <script>
-                    window.onload = function (){
-                        // Функция для обновления количества в корзине
-                        function updateBasketCount() {
+                    var ShopInterface = {
+                        updateCount: function (elementId, url) {
                             $.ajax({
-                                url: '/ajax/basket_count.php',
+                                url: url,
                                 method: 'GET',
-                                success: function(response) {
+                                success: function (response) {
                                     var count = parseInt(response);
-                                    $('#basket_line').text(count);
+                                    $('#' + elementId).text(count);
                                 },
-                                error: function(error) {
+                                error: function (error) {
                                     console.error('Ошибка при выполнении AJAX-запроса:', error);
                                 }
                             });
+                        },
+
+                        bindUpdateEvent: function (selector, updateFunction) {
+                            $(selector).each(function () {
+                                $(this).on('click', function () {
+                                    setTimeout(updateFunction, 50);
+                                });
+                            });
+                        },
+
+                        init: function () {
+                            this.bindUpdateEvent('.to-cart', this.updateBasketCount.bind(this));
+                            this.bindUpdateEvent('.wish_item', this.updateHeartCount.bind(this));
+                            this.bindUpdateEvent('.compare_item', this.updateCompareCount.bind(this));
+
+                            // Начальное обновление счетчиков
+                            this.updateBasketCount();
+                            this.updateHeartCount();
+                            this.updateCompareCount();
+                        },
+
+                        updateBasketCount: function () {
+                            this.updateCount('basket_line', '/ajax/basket_count.php');
+                        },
+
+                        updateHeartCount: function () {
+                            this.updateCount('favourites_line', '/ajax/heart_count.php');
+                        },
+
+                        updateCompareCount: function () {
+                            this.updateCount('compare_line', '/ajax/show_compare_preview_top.php');
                         }
-
-                        // Обработчик событий для кнопок "Купить"
-                        $('.to-cart').each(function() {
-                            $(this).on('click', function() {
-
-                                // Ждем 300мс и вызываем функцию обновления количества в корзине
-                                setTimeout(updateBasketCount, 300);
-                            });
-                        });
-                        updateBasketCount();
-
-                        function updateHeartCount() {
-                            $.ajax({
-                                url: '/ajax/heart_count.php',
-                                method: 'GET',
-                                success: function(response) {
-                                    var count = parseInt(response);
-                                    $('#favourites_line').text(count);
-                                },
-                                error: function(error) {
-                                    console.error('Ошибка при выполнении AJAX-запроса:', error);
-                                }
-                            });
-                        }
-                        updateHeartCount();
-
-                        $('.wish_item ').each(function() {
-                            $(this).on('click', function() {
-                                // Ждем 300мс и вызываем функцию обновления количества в корзине
-                                setTimeout(updateHeartCount, 300);
-                            });
-                        });
                     };
+
+                    $(window).on('load', ShopInterface.init.bind(ShopInterface));
+
                 </script>
 
                 <a href="/personal/" class="header__btns-item">

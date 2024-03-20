@@ -1,10 +1,16 @@
+<?php if (isset($_GET['test']) && $_GET['test'] == 1):
+   include 'index_2023.php';
+    ?>
+<?php else: ?>
 <?
 require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
 $APPLICATION->SetPageProperty("description", "Промышленное оборудование для пищевого производства и общепита. Профессиональное оборудование для HoReCa с доставкой по РФ.");
 $APPLICATION->SetPageProperty("title", "Оборудование для пищевого производства | РУОБОРУДОВАНИЕ.РУ");
 $APPLICATION->SetPageProperty("viewed_show", "Y");
 $APPLICATION->SetTitle("RuOborudovanie.ru");
-?><?$APPLICATION->IncludeComponent(
+?>
+
+<?$APPLICATION->IncludeComponent(
 	"bitrix:main.include",
 	".default",
 	Array(
@@ -127,4 +133,7 @@ $APPLICATION->SetTitle("RuOborudovanie.ru");
 		"EDIT_TEMPLATE" => "standard.php",
 		"PATH" => SITE_DIR."include/mainpage/comp_brands.php"
 	)
-);?><?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php");?>
+);?>
+
+<?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php");?>
+<?php endif; ?>

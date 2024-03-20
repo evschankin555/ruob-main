@@ -370,7 +370,7 @@
                                                 $min_price_id=0;?>
                                                 <?php if($arItem["PRICES"]["BASE"]["VALUE"] != 0):?>
                                                     <div class="products-row__price-header"><svg class="products-row__price-info js-btn"  data-credit="<?=
-                                                number_format(round($arItem["PRICES"]["BASE"]["VALUE"]/10), 0, '.', ' ')
+                                                number_format(round($arItem["PRICES"]["BASE"]["VALUE"]/24 * 1.205), 0, '.', ' ')
                                                 ?>₽" data-price=" <?=
                                                 number_format($arItem["PRICES"]["BASE"]["VALUE"],0,'.', ' ')
                                                 ?>₽" data-title="<?=
@@ -381,7 +381,7 @@
                                                 <?php if($arItem["PRICES"]["BASE"]["VALUE"] != 0):?>
                                                     </div>
                                                 <div class="products-row__price-days">
-                                                    от <?=round($arItem["PRICES"]["BASE"]["VALUE"]/10)?> ₽/ мес.
+                                                    от <?=round($arItem["PRICES"]["BASE"]["VALUE"]/24 * 1.205)?> ₽/ мес.
                                                 </div>
                                                 <?php endif;?>
                                             <?}?>

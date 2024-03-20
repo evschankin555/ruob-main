@@ -334,7 +334,7 @@ setViewedProduct(<?=$arResult['ID']?>, <?=CUtil::PhpToJSObject($arViewedData, fa
 						if($arDiscount["ACTIVE_TO"]){?>
 							<div class="view_sale_block <?=($arQuantityData["HTML"] ? '' : 'wq');?>"">
 								<div class="count_d_block">
-									<span class="active_to hidden"><?=$arDiscount["ACTIVE_TO"];?></span>
+									<span class="active_to"><?=$arDiscount["ACTIVE_TO"];?></span>
 									<div class="title"><?=GetMessage("UNTIL_AKC");?></div>
 									<span class="countdown values"></span>
 								</div>
@@ -449,19 +449,32 @@ setViewedProduct(<?=$arResult['ID']?>, <?=CUtil::PhpToJSObject($arViewedData, fa
 				<?endif;?>
 			</div>
 			<?if($arParams["DISPLAY_WISH_BUTTONS"] != "N" || $arParams["DISPLAY_COMPARE"] == "Y"):?>
-				<div class="description_wrapp top_info">
+				<div class="description_wrapp top_info" style="display: none">
 					<div class="like_icons">
 						<?if($arParams["DISPLAY_WISH_BUTTONS"] != "N"):?>
 							<?if(!$arResult["OFFERS"]):?>
 								<div class="wish_item_button">
-									<span class="wish_item to" data-item="<?=$arResult["ID"]?>" data-iblock="<?=$arResult["IBLOCK_ID"]?>"><i></i><div><?=GetMessage('CATALOG_WISH')?></div></span>
-									<span class="wish_item in added" style="display: none;" data-item="<?=$arResult["ID"]?>" data-iblock="<?=$arResult["IBLOCK_ID"]?>"><i></i><div><?=GetMessage('CATALOG_WISH_OUT2')?></div></span>
+									<span class="wish_item to" data-item="<?=$arResult["ID"]?>" data-iblock="<?=$arResult["IBLOCK_ID"]?>">
+                                        <svg class="heart-btn"><use xlink:href="#heart"></use></svg>
+                                       <?php /* <div><?=GetMessage('CATALOG_WISH')?></div>*/ ?>
+                                    </span>
+									<span class="wish_item in added" style="display: none;" data-item="<?=$arResult["ID"]?>"
+                                          data-iblock="<?=$arResult["IBLOCK_ID"]?>">
+                                        <svg class="heart-btn"><use xlink:href="#heart"></use></svg>
+                                        <?php /*<div><?=GetMessage('CATALOG_WISH_OUT2')?></div>*/ ?>
+                                    </span>
 								</div>
 							<?elseif($arResult["OFFERS"] && !empty($arResult['OFFERS_PROP'])):?>
 								<div class="wish_item_button">
 									<div class="wish_item text " data-item="" data-iblock="<?=$arResult["IBLOCK_ID"]?>" data-offers="Y" data-props="<?=$arOfferProps?>">
-										<span class="value <?=$arParams["TYPE_SKU"];?>"><i></i><div><?=GetMessage('CATALOG_WISH')?></div></span>
-										<span class="value added <?=$arParams["TYPE_SKU"];?>"><i></i><div><?=GetMessage('CATALOG_WISH_OUT2')?></div></span>
+										<span class="value <?=$arParams["TYPE_SKU"];?>">
+                                                <svg class="heart-btn"><use xlink:href="#heart"></use></svg>
+                                            <?php /*<div><?=GetMessage('CATALOG_WISH')?></div>*/ ?>
+                                        </span>
+										<span class="value added <?=$arParams["TYPE_SKU"];?>">
+                                            <svg class="heart-btn"><use xlink:href="#heart"></use></svg>
+                                            <?php /*<div><?=GetMessage('CATALOG_WISH_OUT2')?></div>*/ ?>
+                                        </span>
 									</div>
 								</div>
 							<?endif;?>
@@ -469,24 +482,235 @@ setViewedProduct(<?=$arResult['ID']?>, <?=CUtil::PhpToJSObject($arViewedData, fa
 						<?if($arParams["DISPLAY_COMPARE"] == "Y"):?>
 							<?if(!$arResult["OFFERS"] || ($arParams["TYPE_SKU"] !== 'TYPE_1' || ($arParams["TYPE_SKU"] == 'TYPE_1' && !$arResult["OFFERS_PROP"]))):?>
 								<div class="compare_item_button">
-									<span class="compare_item to" data-iblock="<?=$arParams["IBLOCK_ID"]?>" data-item="<?=$arResult["ID"]?>" ><i></i><div><?=GetMessage('CATALOG_COMPARE')?></div></span>
-									<span class="compare_item in added" style="display: none;" data-iblock="<?=$arParams["IBLOCK_ID"]?>" data-item="<?=$arResult["ID"]?>"><i></i><div><?=GetMessage('CATALOG_COMPARE_OUT')?></div></span>
+									<span class="compare_item to" data-iblock="<?=$arParams["IBLOCK_ID"]?>" data-item="<?=$arResult["ID"]?>" >
+                                           <svg class="chart-btn"><use xlink:href="#chart3"></use></svg>
+                                       <?php /* <div><?=GetMessage('CATALOG_COMPARE')?></div>*/ ?>
+                                    </span>
+									<span class="compare_item in added" style="display: none;" data-iblock="<?=$arParams["IBLOCK_ID"]?>"
+                                          data-item="<?=$arResult["ID"]?>">
+                                        <svg class="chart-btn"><use xlink:href="#chart3"></use></svg>
+                                       <?php /* <div><?=GetMessage('CATALOG_COMPARE_OUT')?></div>*/ ?>
+                                    </span>
 								</div>
 							<?elseif($arResult["OFFERS"]):?>
 								<div class="compare_item_button">
-									<span class="compare_item to <?=$arParams["TYPE_SKU"];?>" data-iblock="<?=$arParams["IBLOCK_ID"]?>" data-item="" ><i></i><div><?=GetMessage('CATALOG_COMPARE')?></div></span>
-									<span class="compare_item in added <?=$arParams["TYPE_SKU"];?>" style="display: none;" data-iblock="<?=$arParams["IBLOCK_ID"]?>" data-item=""><i></i><div><?=GetMessage('CATALOG_COMPARE_OUT')?></div></span>
+									<span class="compare_item to <?=$arParams["TYPE_SKU"];?>" data-iblock="<?=$arParams["IBLOCK_ID"]?>"
+                                          data-item="" >
+                                           <svg class="chart-btn"><use xlink:href="#chart3"></use></svg>
+                                       <?php /* <div>
+                                            <?=GetMessage('CATALOG_COMPARE')?></div>*/ ?>
+
+                                    </span>
+									<span class="compare_item in added <?=$arParams["TYPE_SKU"];?>" style="display: none;"
+                                          data-iblock="<?=$arParams["IBLOCK_ID"]?>" data-item="">
+                                        <svg class="chart-btn"><use xlink:href="#chart3"></use></svg>
+                                        <?php /*<div><?=GetMessage('CATALOG_COMPARE_OUT')?></div> */ ?>
+ </span>
 								</div>
 							<?endif;?>
 						<?endif;?>
 					</div>
 				</div>
 			<?endif;?>
-			<?$frame->end();?>
+        <?=$arQuantityData["HTML"];?>
+        <div class="delivery-order delivered-order--popup">
+                <?php
+                // Исходная строка
+                $originalString = $arResult['PROPERTIES']['VES']['VALUE_ENUM'];
+
+                // Используем floatval для извлечения числа
+                $numericValue = floatval($originalString);
+
+                // Устанавливаем значение по умолчанию в 1, если $numericValue равно 0 или не существует
+                $defaultValue = ($numericValue == 0 || !isset($numericValue)) ? 1 : $numericValue;
+
+
+
+                $curl = curl_init();
+                $ipAddress = \Bitrix\Main\Service\GeoIp\Manager::getRealIp();
+
+                curl_setopt_array($curl, [
+                    CURLOPT_URL => 'https://api.esplc.ru/locality/geo',
+                    CURLOPT_RETURNTRANSFER => true,
+                    CURLOPT_CUSTOMREQUEST => 'POST',
+                    CURLOPT_POSTFIELDS => ['key' => 'bb7339da3450975521478b46dcf355e6',
+                        'ip' => $ipAddress],
+                ]);
+
+                $response = curl_exec($curl);
+                $decodedResponse = json_decode($response, true);
+                curl_close($curl);
+                if (isset($decodedResponse['data']['fias'])) {
+                    $fias = $decodedResponse['data']['fias'];
+
+
+                    $curl = curl_init();
+
+                    curl_setopt_array($curl, [
+                        CURLOPT_URL => 'https://api.esplc.ru/delivery/calculation',
+                        CURLOPT_RETURNTRANSFER => true,
+                        CURLOPT_CUSTOMREQUEST => 'POST',
+                        CURLOPT_POSTFIELDS => ['key' => 'bb7339da3450975521478b46dcf355e6',
+                            'to' => $fias, 'service' => 'delline', 'weight' => $defaultValue],
+                    ]);
+
+                    $response = curl_exec($curl);
+                    $decodedResponse2 = json_decode($response, true);
+
+                    curl_close($curl);
+                    $cityName = $decodedResponse2['data']['terminals'][0]['name'];
+
+                    // Проверка на существование переменной
+                    if (isset($decodedResponse2['data']['terminals'][0]['name'])) {
+                        $cityName = $decodedResponse2['data']['terminals'][0]['name'];
+
+                        ?>
+                        <div class="delivery-order__title">Способы получения заказа</div>
+                        <div class="delivery-order__list">
+                            <?php foreach ($decodedResponse2['data']['terminals'] as $index => $terminal) { ?>
+                                <div class="delivery-order__list-item">
+                                    <div class="delivery-order__list-time">
+                                        <span>Ближайшая доставка до <?php echo $cityName; ?></span> <?php echo $terminal['time']['value'] . ' ' . $terminal['time']['unit'] . ', ' . $terminal['time']['text']; ?>
+                                    </div>
+                                    <div class="delivery-order__list-price">
+                                        <?php echo $terminal['price']['value'] . ' ' . $terminal['price']['unit']; ?>
+                                    </div>
+                                </div>
+                                <div class="delivery-order__list-item">
+                                    <div class="delivery-order__list-time">
+                                        <span>Ближайшая доставка до терминала </span> <?php echo $terminal['time']['value'] . ' ' . $terminal['time']['unit'] . ', ' . $terminal['time']['text']; ?>
+                                    </div>
+                                    <div class="delivery-order__list-price">
+                                        <?php echo $terminal['price']['value'] . ' ' . $terminal['price']['unit']; ?>
+                                    </div>
+                                </div>
+                            <?php }
+
+                            // Функция для определения ближайшего рабочего дня
+                            function getNextWorkingDay($currentDate) {
+                                // Преобразование даты в объект
+                                $currentDateObj = new DateTime($currentDate);
+
+                                // Увеличиваем дату на 1 день
+                                $currentDateObj->modify('+1 day');
+
+                                // Если текущий день - суббота (6), увеличиваем дату еще на 2 дня
+                                if ($currentDateObj->format('N') == 6) {
+                                    $currentDateObj->modify('+2 days');
+                                }
+
+                                // Возвращаем день и месяц в нужном формате
+                                $monthTranslations = [
+                                    'January' => 'января',
+                                    'February' => 'февраля',
+                                    'March' => 'марта',
+                                    'April' => 'апреля',
+                                    'May' => 'мая',
+                                    'June' => 'июня',
+                                    'July' => 'июля',
+                                    'August' => 'августа',
+                                    'September' => 'сентября',
+                                    'October' => 'октября',
+                                    'November' => 'ноября',
+                                    'December' => 'декабря',
+                                ];
+
+                                return $currentDateObj->format('d ') . $monthTranslations[$currentDateObj->format('F')];
+                            }
+
+                            // Функция для определения, когда это: сегодня, завтра, послезавтра или просто дата
+                            function getNextWorkingDay2($currentDate) {
+                                // Преобразование даты в объект
+                                $currentDateObj = new DateTime($currentDate);
+
+                                // Увеличиваем дату на 1 день
+                                $currentDateObj->modify('+1 day');
+
+                                // Если текущий день - суббота (6), увеличиваем дату еще на 2 дня
+                                if ($currentDateObj->format('N') == 6) {
+                                    $currentDateObj->modify('+2 days');
+                                }
+
+                                // Определение, когда это: сегодня, завтра, послезавтра или просто дата
+                                $now = new DateTime();
+                                $interval = date_diff($now, $currentDateObj);
+
+                                $dayString = $currentDateObj->format('d F');
+
+                                if ($interval->days + 1 == 0) {
+                                    $dayString = 'Сегодня';
+                                } elseif ($interval->days + 1 == 1) {
+                                    $dayString = 'Завтра';
+                                } elseif ($interval->days + 1 == 2) {
+                                    $dayString = 'Послезавтра';
+                                }
+
+                                // Возвращаем результат
+                                return $dayString;
+                            }
+
+                            // Получаем ближайший рабочий день для самовывоза
+                            $pickupDate = getNextWorkingDay(date('Y-m-d'));
+                            $pickupDate2 = getNextWorkingDay2(date('Y-m-d'));
+
+                            ?>
+                            <div class="delivery-order__list-item">
+                                <div class="delivery-order__list-time">
+                                    <span>Самовывоз <span><?php echo $pickupDate2; ?></span>,</span> <?php echo $pickupDate; ?>
+                                </div>
+                                <div class="delivery-order__list-price">Бесплатно</div>
+                            </div>
+                        </div>
+                        <?php
+
+                    }
+
+                }
+                ?>
+
+                <div id="eShopLogisticWidgetModal"
+                     data-lazy-load="true"
+                     data-key="331792-174-238"
+                     data-offers='[{ "weight":<?=$defaultValue?> }]'>
+                </div>
+                <!-- /.deliver-order__list -->
+                <a href="#" class="delivery-order__btn" data-esl-widget  data-offers='[{ "weight":<?=$defaultValue?> }]'>Рассчитать стоимость доставки в ваш город</a>
+            </div>
+            <!-- /.delivery-order -->
+        <div class="payment-way payment-way--popup">
+            <div class="payment-way__title">Принимаем оплату</div>
+            <div class="payment-way__icons">
+                <picture>
+                    <source srcset="/dist/images/dist/payment-way-1-1024.png" media="(max-width: 1300px)">
+                    <img src="/dist/images/dist/payment-way-1.png" alt="">
+                </picture>
+                <picture>
+                    <source srcset="/dist/images/dist/payment-way-2-1024.png" media="(max-width: 1300px)">
+                    <img src="/dist/images/dist/payment-way-2.png" alt="">
+                </picture>
+                <picture>
+                    <source srcset="/dist/images/dist/payment-way-3-1024.png" media="(max-width: 1300px)">
+                    <img src="/dist/images/dist/payment-way-3.png" alt="">
+                </picture>
+                <picture>
+                    <source srcset="/dist/images/dist/payment-way-4-1024.png" media="(max-width: 1300px)">
+                    <img src="/dist/images/dist/payment-way-4.png" alt="">
+                </picture>
+                <picture>
+                    <source srcset="/dist/images/dist/payment-way-5-1024.png" media="(max-width: 1300px)">
+                    <img src="/dist/images/dist/payment-way-5.png" alt="">
+                </picture>
+                <picture>
+                    <source srcset="/dist/images/dist/payment-way-6-1024.png" media="(max-width: 1300px)">
+                    <img src="/dist/images/dist/payment-way-6.png" alt="">
+                </picture>
+            </div>
+        </div>
+        <?$frame->end();?>
 		</div>
 	</div>
-	<div class="right_info">
-		<div class="info_item scrollbar">
+	<div class="right_info popup__view">
+		<div class="info_item scrollbar ">
 			<?
 			$showProps = false;
 			if($arResult["DISPLAY_PROPERTIES"]){
@@ -523,9 +747,9 @@ setViewedProduct(<?=$arResult['ID']?>, <?=CUtil::PhpToJSObject($arViewedData, fa
 				}
 			}
 			?>
-			<div class="title hidden"><a href="<?=$arResult["DETAIL_PAGE_URL"];?>" class="dark_link"><?=$elementName;?></a></div>
+			<div class="title"><a href="<?=$arResult["DETAIL_PAGE_URL"];?>" class="dark_link"><?=$elementName;?></a></div>
 			<div class="top_info">
-				<?if($arParams["USE_RATING"] == "Y"):?>
+				<?/*if($arParams["USE_RATING"] == "Y"):?>
 					<?$frame = $this->createFrame('dv_'.$arResult["ID"])->begin('');?>
 						<div class="rating">
 							<?$APPLICATION->IncludeComponent(
@@ -545,26 +769,25 @@ setViewedProduct(<?=$arResult['ID']?>, <?=CUtil::PhpToJSObject($arViewedData, fa
 							);?>
 						</div>
 					<?$frame->end();?>
-				<?endif;?>
-				<div class="rows_block">
+				<?endif;*/?>
+                <!--<div class="rows_block">
 					<div class="item_block">
-						<?if(strlen($arResult["DISPLAY_PROPERTIES"]["CML2_ARTICLE"]["VALUE"]) || ($arResult['SHOW_OFFERS_PROPS'] && $showCustomOffer)):?>
+						<?/*if(strlen($arResult["DISPLAY_PROPERTIES"]["CML2_ARTICLE"]["VALUE"]) || ($arResult['SHOW_OFFERS_PROPS'] && $showCustomOffer)):?>
 							<div class="article iblock" itemprop="additionalProperty" itemscope itemtype="http://schema.org/PropertyValue" <?if($arResult['SHOW_OFFERS_PROPS']){?>id="<? echo $arItemIDs["ALL_ITEM_IDS"]['DISPLAY_PROP_ARTICLE_DIV'] ?>" style="display: none;"<?}?>>
 								<span class="block_title" itemprop="name"><?=GetMessage("ARTICLE");?></span>
 								<span class="value" itemprop="value"><?=$arResult["DISPLAY_PROPERTIES"]["CML2_ARTICLE"]["VALUE"]?></span>
 							</div>
-						<?endif;?>
+						<?endif;*/?>
 						<?if($useStores){?>
 							<div class="p_block">
 						<?}?>
-						<?=$arQuantityData["HTML"];?>
 						<?if($useStores){?>
 							</div>
 						<?}?>
-						<?if($arParams["SHOW_CHEAPER_FORM"] == "Y"):?>
+						<?/*if($arParams["SHOW_CHEAPER_FORM"] == "Y"):?>
 							<? /* <div class="cheaper_form order_wrap_btn">
 								<span class="animate-load cheaper callback_btn" data-name="<?=COptimus::formatJsName($arResult["NAME"]);?>" data-item="<?=$arResult['ID'];?>"><?=($arParams["CHEAPER_FORM_NAME"] ? $arParams["CHEAPER_FORM_NAME"] : GetMessage("CHEAPER"));?></span>
-							</div> */ ?>
+							</div> */ /*?>
 
 							<div class="cheaper_form">
 								<span class="callback_btn123"><?=($arParams["CHEAPER_FORM_NAME"] ? $arParams["CHEAPER_FORM_NAME"] : GetMessage("CHEAPER"));?></span>
@@ -576,11 +799,11 @@ setViewedProduct(<?=$arResult['ID']?>, <?=CUtil::PhpToJSObject($arViewedData, fa
 									$('.order_wrap_btn .callback_btn').click();
 								});
 							</script>
-						<?endif;?>
+						<?endif;*/?>
 					</div>
-				</div>
-				<div class="sku_block">
-					<?if($arResult["OFFERS"] && $showCustomOffer){?>
+				</div>/-->
+                <!--<div class="sku_block">
+					<?/*if($arResult["OFFERS"] && $showCustomOffer){?>
 						<div class="sku_props">
 							<?if (!empty($arResult['OFFERS_PROP'])){?>
 								<div class="bx_catalog_item_scu wrapper_sku" id="<? echo $arItemIDs["ALL_ITEM_IDS"]['PROP_DIV']; ?>">
@@ -596,14 +819,14 @@ setViewedProduct(<?=$arResult['ID']?>, <?=CUtil::PhpToJSObject($arViewedData, fa
 								var <? echo $arItemIDs["strObName"]; ?> = new JCCatalogElementFast(<? echo CUtil::PhpToJSObject($arItemJSParams, false, true); ?>);
 							</script>
 						</div>
-					<?}?>
-				</div>
-				<?if(strlen($arResult["PREVIEW_TEXT"])):?>
+					<?}*/?>
+				</div>/-->
+				<?/*if(strlen($arResult["PREVIEW_TEXT"])):?>
 					<div class="preview_text"><?=$arResult["PREVIEW_TEXT"]?></div>
-				<?endif;?>
+				<?endif;*/?>
 				<?$strGrupperType = $arParams["GRUPPER_PROPS"];?>
 				<div class="iblock char_block" <?=(!$showProps ? 'style="display:none;"' : '');?>>
-					<div class="title_tab"><?=GetMessage("PROPERTIES_TAB");?></div>
+					<!--<div class="title_tab"><?=GetMessage("PROPERTIES_TAB");?></div>/-->
 					<table class="props_list">
 						<?foreach($arResult["DISPLAY_PROPERTIES"] as $arProp):?>
 							<?if(!in_array($arProp["CODE"], array("SERVICES", "HIT", "RECOMMEND", "NEW", "STOCK", "VIDEO", "VIDEO_YOUTUBE", "POPUP_VIDEO", "CML2_ARTICLE"))):?>
@@ -617,7 +840,8 @@ setViewedProduct(<?=$arResult['ID']?>, <?=CUtil::PhpToJSObject($arViewedData, fa
 										</td>
 										<td class="char_value">
 											<span itemprop="value">
-												<?if(count($arProp["DISPLAY_VALUE"]) > 1):?>
+												<?
+                                                if(is_array($arProp["DISPLAY_VALUE"]) && count( $arProp["DISPLAY_VALUE"]) > 1):?>
 													<?=implode(', ', $arProp["DISPLAY_VALUE"]);?>
 												<?else:?>
 													<?=$arProp["DISPLAY_VALUE"];?>
@@ -631,6 +855,55 @@ setViewedProduct(<?=$arResult['ID']?>, <?=CUtil::PhpToJSObject($arViewedData, fa
 					</table>
 					<table class="props_list" id="<? echo $arItemIDs["ALL_ITEM_IDS"]['DISPLAY_PROP_DIV']; ?>"></table>
 				</div>
+
+                <div class="orangeBlock">
+                    <div class="orangeBlock__text">
+                        В лизинг выгоднее <img src="/dist/images/dist/arenza-logo.png" alt="">
+                    </div>
+                    <a href="" class="orangeBlock__btn">Оформить</a>
+                </div>
+                <?php if(isset($arResult['ITEM_PRICES'][0]['PRICE']) && !empty($arResult['ITEM_PRICES'][0]['PRICE'])): ?>
+                    <script src="https://forma.tinkoff.ru/static/onlineScript.js"></script>
+
+                <div class="credit-block" style="cursor: pointer"
+                     onclick="tinkoff.create(
+                             {
+                             sum: <?=$arResult['ITEM_PRICES'][0]['PRICE']?>,
+                             items: [{name: '<?=$arResult['NAME']?>', price: <?=$arResult['ITEM_PRICES'][0]['PRICE']?>, quantity: 1}],
+                             promoCode: 'default',
+                             shopId: 'e1413c51-5daa-4bed-970f-64061a214b19',
+                             showcaseId: 'da084094-309b-4729-b6f6-505d8b514e32',
+                             },
+                             {view: 'modal'}
+                             )">
+
+                <script>
+                    function closeModal() {
+                        // Найдите модальное окно
+                        const modal = document.querySelector('.fast_view_frame');
+                        const modaljqmOverlay = document.querySelector('.jqmOverlay');
+
+                        // Скройте модальное окно
+                        modal.style.display = 'none';
+                        modaljqmOverlay.style.display = 'none';
+                    }
+
+                    // Добавьте обработчик события `onclick` к элементу `div.credit-block`
+                    document.querySelector('.credit-block').addEventListener('click', closeModal);
+                </script>
+
+                <div class="credit-block__title tinkoff">Покупайте товар в кредит</div>
+                    <div class="credit-block__row">
+                        <?php
+                        $result = round($arResult['ITEM_PRICES'][0]['PRICE'] / 24 * 1.205 );
+                        $raschet = number_format($result, 0, '.', ' ');
+                        ?>
+                        <div class="credit-block__row-item">В кредит от <span><?=$raschet?> ₽</span>/мес</div>
+                        <img src="/dist/images/dist/tinkoff.png" alt="">
+                        <img src="/dist/images/dist/other-logo.png" alt="">
+                    </div>
+                </div>
+                <?php endif;?>
 			</div>
 		</div>
 	</div>
@@ -676,3 +949,11 @@ setViewedProduct(<?=$arResult['ID']?>, <?=CUtil::PhpToJSObject($arViewedData, fa
 		SITE_ID: '<? echo SITE_ID; ?>'
 	})
 </script>
+<style>
+    .fast_view_frame.popup .catalog_detail .item-stock{
+        display:none;
+    }
+    .delivery-order{
+        margin-top: 10px;
+    }
+</style>

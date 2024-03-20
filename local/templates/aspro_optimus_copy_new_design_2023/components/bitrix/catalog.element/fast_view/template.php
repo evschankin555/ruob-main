@@ -895,7 +895,7 @@ setViewedProduct(<?=$arResult['ID']?>, <?=CUtil::PhpToJSObject($arViewedData, fa
                 <div class="credit-block__title tinkoff">Покупайте товар в кредит</div>
                     <div class="credit-block__row">
                         <?php
-                        $result = round($arResult['ITEM_PRICES'][0]['PRICE'] / 24 * 1.205, );
+                        $result = round($arResult['ITEM_PRICES'][0]['PRICE'] / 24 * 1.205 );
                         $raschet = number_format($result, 0, '.', ' ');
                         ?>
                         <div class="credit-block__row-item">В кредит от <span><?=$raschet?> ₽</span>/мес</div>

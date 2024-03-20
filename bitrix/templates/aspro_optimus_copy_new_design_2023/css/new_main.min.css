@@ -1415,6 +1415,14 @@ ul.menu, ul.mini-menu{
     top: 3px;
     right: -10px;
 }
+
+.card__reviews{
+    margin-top: 15px;
+}
+.card__articul{
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
     @media (min-width: 1460px){
             #main #bx-soa-order .bx-soa-cart-total-button-container a{
                 font-size: 14px!important;
@@ -1922,7 +1930,7 @@ input[type=email], input[type=password], input[type=tel], input[type=text], sele
 }
 .write-review__icons.set-review{
     height: 30px;
-    margin-top: 20px;
+    margin-top: 0px;
 }
 .write-review__icons.set-review svg{
     height: 30px;

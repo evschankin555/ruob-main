@@ -1423,6 +1423,11 @@ ul.menu, ul.mini-menu{
     margin-top: 15px;
     margin-bottom: 15px;
 }
+    @media (min-width: 1610px){
+        .your-rev {
+            background: url(/images/dist/your-rev-bg2.png) no-repeat center top;
+        }
+    }
     @media (min-width: 1460px){
             #main #bx-soa-order .bx-soa-cart-total-button-container a{
                 font-size: 14px!important;

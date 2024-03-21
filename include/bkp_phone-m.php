@@ -1,0 +1,1 @@
+<a href="tel:#WD_SEO_REGION_PHONE#">#WD_SEO_REGION_PHONE#</a><br>

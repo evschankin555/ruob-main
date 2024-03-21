@@ -1429,6 +1429,9 @@ ul.menu, ul.mini-menu{
 .order_page .col-sm-9.bx-soa{
     width: 100%;
 }
+.cert .slick-list{
+    max-height: 340px;
+}
 @media (min-width: 1610px){
         .your-rev {
             background: url(/images/dist/your-rev-bg2.png) no-repeat center top;

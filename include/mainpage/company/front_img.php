@@ -1,0 +1,1 @@
+<img width="200" alt="companypic.png" src="/images/dostavka1.png" height="244" title="companypic.png">

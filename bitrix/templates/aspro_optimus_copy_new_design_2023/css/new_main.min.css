@@ -1432,6 +1432,9 @@ ul.menu, ul.mini-menu{
 .cert .slick-list{
     max-height: 340px;
 }
+#content .slider-top{
+    max-height: 100px;
+}
 @media (min-width: 1610px){
         .your-rev {
             background: url(/images/dist/your-rev-bg2.png) no-repeat center top;

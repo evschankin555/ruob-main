@@ -82,7 +82,7 @@ if ($arSection = $res->GetNext()) {
             <div class="slider-top__wrap js-slider-top">
                 <?foreach ($arAdsIds as $adId):
                     $arAdsFilter = array(
-                        "IBLOCK_ID" => 31, // ID инфоблока объявлений
+                        "IBLOCK_ID" => 29, // ID инфоблока объявлений
                         "ID" => $adId
                     );
                     $arAdsSelect = array("ID", "NAME", "DETAIL_TEXT", "DETAIL_PICTURE");

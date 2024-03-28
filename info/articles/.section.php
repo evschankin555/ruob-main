@@ -1,5 +1,5 @@
 <?
-if(isset($_GET['test']) && $_GET['test'] == 1){
+if(true || isset($_GET['test']) && $_GET['test'] == 1){
     $sSectionName = "Новости";
     $arDirProperties = array(
         "description" => "Новости от RuOborudovanie.ru"

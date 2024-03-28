@@ -14,7 +14,7 @@ while ($arFields = $res->GetNext()) {
     $imgHoverSrc = CFile::GetPath($arFields['PROPERTY_IMG_HOVER_VALUE']);
     $titleShort = $arFields['PROPERTY_TITLE_SHORT_VALUE'];
 
-    echo "<a href='/equipment/".$arFields['CODE']."/?test=1&clear_cache=Y' class='equipment__grid-item'>";
+    echo "<a href='/equipment/".$arFields['CODE']."/' class='equipment__grid-item'>";
     echo "<div class='equipment__grid-default'>";
     if ($imgDefaultSrc) {
         echo "<img src='$imgDefaultSrc' loading='lazy' class='equipment__grid-img' width='150' height='150' alt='" . htmlspecialchars($arFields['NAME']) . "'>";

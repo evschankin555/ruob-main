@@ -1,4 +1,4 @@
-<?php if (isset($_GET['test']) && $_GET['test'] == 1):
+<?php if (true || isset($_GET['test']) && $_GET['test'] == 1):
 	include $_SERVER["DOCUMENT_ROOT"].'/info/articles/index_2023.php';
 	?>
 <?php else: ?>

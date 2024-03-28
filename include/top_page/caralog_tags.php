@@ -110,10 +110,3 @@ if ($arSection = $res->GetNext()) {
         <?php
     }
 }
-/*
-
-                        <div>
-                            <a href="<?php echo $link ?>" class="slider-top__link">
-                                <img src="<?= htmlspecialchars($imageSrc) ?>" loading="lazy" />
-                            </a>
-                        </div>*/

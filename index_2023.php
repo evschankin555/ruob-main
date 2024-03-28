@@ -52,166 +52,18 @@ $APPLICATION->SetTitle("Dev RuOborudovanie.ru");
             <section class="equipment">
                 <h2 class="h2 equipment__title">Подбор оборудования по типу предприятия</h2>
                 <div class="equipment__grid">
-                    <div class="equipment__grid-item">
-                        <div class="equipment__grid-default">
-                            <img src="images/dist/equipment-1.png" loading="lazy" class="equipment__grid-img" width="150" height="150" alt="">
-                            Ресторан
-                        </div>
-                        <div class="equipment__grid-hover">
-                            <img src="images/dist/equipment-white-1.png" loading="lazy" class="equipment__grid-img" width="150" height="150" alt="">
-                            Ресторан
-                        </div>
-                    </div>
-                    <div class="equipment__grid-item">
-                        <div class="equipment__grid-default">
-                            <img src="images/dist/equipment-2.png" loading="lazy" class="equipment__grid-img" width="150" height="150" alt="">
-                            Кафе
-                        </div>
-                        <div class="equipment__grid-hover">
-                            <img src="images/dist/equipment-white-2.png" loading="lazy" class="equipment__grid-img" width="150" height="150" alt="">
-                            Кафе
-                        </div>
-                    </div>
-                    <div class="equipment__grid-item">
-                        <div class="equipment__grid-default">
-                            <img src="images/dist/equipment-3.png" loading="lazy" class="equipment__grid-img" width="114" height="150" alt="">
-                            Бар
-                        </div>
-                        <div class="equipment__grid-hover">
-                            <img src="images/dist/equipment-white-3.png" loading="lazy" class="equipment__grid-img" width="114" height="150" alt="">
-                            Бар
-                        </div>
-                    </div>
-                    <div class="equipment__grid-item">
-                        <div class="equipment__grid-default">
-                            <img src="images/dist/equipment-4.png" loading="lazy" class="equipment__grid-img" width="200" height="200" alt="">
-                            Кофейня
-                        </div>
-                        <div class="equipment__grid-hover">
-                            <img src="images/dist/equipment-white-4.png" loading="lazy" class="equipment__grid-img" width="150" height="150" alt="">
-                            Кофейня
-                        </div>
-                    </div>
-                    <div class="equipment__grid-item">
-                        <div class="equipment__grid-default">
-                            <img src="images/dist/equipment-5.png" loading="lazy" class="equipment__grid-img" width="200" height="200" alt="">
-                            Пиццерия
-                        </div>
-                        <div class="equipment__grid-hover">
-                            <img src="images/dist/equipment-white-5.png" loading="lazy" class="equipment__grid-img" width="150" height="150" alt="">
-                            Пиццерия
-                        </div>
-                    </div>
-                    <div class="equipment__grid-item">
-                        <div class="equipment__grid-default">
-                            <img src="images/dist/equipment-6.png" loading="lazy" class="equipment__grid-img" width="200" height="200" alt="">
-                            Фастфуд
-                        </div>
-                        <div class="equipment__grid-hover">
-                            <img src="images/dist/equipment-white-6.png" loading="lazy" class="equipment__grid-img" width="150" height="150" alt="">
-                            Фастфуд
-                        </div>
-                    </div>
-                    <div class="equipment__grid-item">
-                        <div class="equipment__grid-default">
-                            <img src="images/dist/equipment-7.png" loading="lazy" class="equipment__grid-img" width="200" height="200" alt="">
-                            Кондитерская
-                        </div>
-                        <div class="equipment__grid-hover">
-                            <img src="images/dist/equipment-white-7.png" loading="lazy" class="equipment__grid-img" width="150" height="150" alt="">
-                            Кондитерская
-                        </div>
-                    </div>
-                    <div class="equipment__grid-item">
-                        <div class="equipment__grid-default">
-                            <img src="images/dist/equipment-8.png" loading="lazy" class="equipment__grid-img" width="200" height="200" alt="">
-                            Джеллатерия
-                        </div>
-                        <div class="equipment__grid-hover">
-                            <img src="images/dist/equipment-white-8.png" loading="lazy" class="equipment__grid-img" width="150" height="150" alt="">
-                            Джеллатерия
-                        </div>
-                    </div>
-                    <div class="equipment__grid-item">
-                        <div class="equipment__grid-default">
-                            <img src="images/dist/equipment-9.png" loading="lazy" class="equipment__grid-img" width="200" height="200" alt="">
-                            Столовая
-                        </div>
-                        <div class="equipment__grid-hover">
-                            <img src="images/dist/equipment-white-9.png" loading="lazy" class="equipment__grid-img" width="150" height="150" alt="">
-                            Столовая
-                        </div>
-                    </div>
-                    <div class="equipment__grid-item">
-                        <div class="equipment__grid-default">
-                            <img src="images/dist/equipment-10.png" loading="lazy" class="equipment__grid-img" width="200" height="200" alt="">
-                            Пекарня
-                        </div>
-                        <div class="equipment__grid-hover">
-                            <img src="images/dist/equipment-white-10.png" loading="lazy" class="equipment__grid-img" width="150" height="150" alt="">
-                            Пекарня
-                        </div>
-                    </div>
-                    <div class="equipment__grid-item">
-                        <div class="equipment__grid-default">
-                            <img src="images/dist/equipment-11.png" loading="lazy" class="equipment__grid-img" width="200" height="200" alt="">
-                            Супермаркет
-                        </div>
-                        <div class="equipment__grid-hover">
-                            <img src="images/dist/equipment-white-11.png" loading="lazy" class="equipment__grid-img" width="150" height="150" alt="">
-                            Супермаркет
-                        </div>
-                    </div>
-                    <div class="equipment__grid-item">
-                        <div class="equipment__grid-default">
-                            <img src="images/dist/equipment-12.png" loading="lazy" class="equipment__grid-img" width="200" height="200" alt="">
-                            Фуд-трак
-                        </div>
-                        <div class="equipment__grid-hover">
-                            <img src="images/dist/equipment-white-12.png" loading="lazy" class="equipment__grid-img" width="150" height="150" alt="">
-                            Фуд-трак
-                        </div>
-                    </div>
-                    <div class="equipment__grid-item">
-                        <div class="equipment__grid-default">
-                            <img src="images/dist/equipment-13.png" loading="lazy" class="equipment__grid-img" width="200" height="200" alt="">
-                            Цветочный магазин
-                        </div>
-                        <div class="equipment__grid-hover">
-                            <img src="images/dist/equipment-white-13.png" loading="lazy" class="equipment__grid-img" width="150" height="150" alt="">
-                            Цветочный магазин
-                        </div>
-                    </div>
-                    <div class="equipment__grid-item">
-                        <div class="equipment__grid-default">
-                            <img src="images/dist/equipment-14.png" loading="lazy" class="equipment__grid-img" width="200" height="200" alt="">
-                            Мясное производство
-                        </div>
-                        <div class="equipment__grid-hover">
-                            <img src="images/dist/equipment-white-14.png" loading="lazy" class="equipment__grid-img" width="150" height="150" alt="">
-                            Мясное производство
-                        </div>
-                    </div>
-                    <div class="equipment__grid-item">
-                        <div class="equipment__grid-default">
-                            <img src="images/dist/equipment-15.png" loading="lazy" class="equipment__grid-img" width="200" height="200" alt="">
-                            Фабрика кухни
-                        </div>
-                        <div class="equipment__grid-hover">
-                            <img src="images/dist/equipment-white-15.png" loading="lazy" class="equipment__grid-img" width="150" height="150" alt="">
-                            Фабрика кухни
-                        </div>
-                    </div>
-                    <div class="equipment__grid-item">
-                        <div class="equipment__grid-default">
-                            <img src="images/dist/equipment-16.png" loading="lazy" class="equipment__grid-img" width="200" height="200" alt="">
-                            Склад
-                        </div>
-                        <div class="equipment__grid-hover">
-                            <img src="images/dist/equipment-white-16.png" loading="lazy" class="equipment__grid-img" width="150" height="150" alt="">
-                            Склад
-                        </div>
-                    </div>
+                    <?$APPLICATION->IncludeComponent(
+                        "bitrix:main.include",
+                        ".default",
+                        Array(
+                            "AREA_FILE_RECURSIVE" => "Y",
+                            "AREA_FILE_SHOW" => "file",
+                            "AREA_FILE_SUFFIX" => "",
+                            "COMPONENT_TEMPLATE" => ".default",
+                            "EDIT_TEMPLATE" => "standard.php",
+                            "PATH" => SITE_DIR."include/mainpage/comp_equipment.php"
+                        )
+                    );?>
                 </div>
                 <!-- /.equipment__grid -->
             </section>

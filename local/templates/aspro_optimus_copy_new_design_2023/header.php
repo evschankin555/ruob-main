@@ -148,11 +148,11 @@ __cs.push(["setCsAccount", "tEFL0ZoXM1dNK9gTbWZ3Sof6apXMypHo"]);
 
     // Разбиваем путь на сегменты
     $pathSegments = explode('/', $currentPath);
-
     // Проверяем, что мы находимся на третьем уровне вложенности в каталоге
     if (count($pathSegments) == 3 && $pathSegments[0] == 'catalog') {
         ?>
         <script src="https://api.esplc.ru/widgets/block/app.js"></script>
+        <h1 id="pagetitle" class="h1 products__title" ><?=$APPLICATION->ShowTitle(false);?></h1>
         <?php
         include($_SERVER["DOCUMENT_ROOT"] . "/include/top_page/caralog_tags.php");
     } elseif (count($pathSegments) == 4 && is_numeric(end($pathSegments))) {

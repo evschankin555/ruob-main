@@ -2067,3 +2067,6 @@ h5, .h5 {
     font-size: 14px;
     color: #333;
 }
+.wraps .container h3 {
+    color: white;
+}

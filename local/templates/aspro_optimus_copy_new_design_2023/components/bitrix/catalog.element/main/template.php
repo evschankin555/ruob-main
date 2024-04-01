@@ -314,14 +314,25 @@ setViewedProduct(<?=$arResult['ID']?>, <?=CUtil::PhpToJSObject($arViewedData, fa
                     </div>
                     <div class="card__articul">Артикул: <span><?=$arResult["DISPLAY_PROPERTIES"]["CML2_ARTICLE"]["VALUE"]?></span></div>
                     <ul class="list-param card__list-param">
-                        <?php foreach ($arResult["DISPLAY_PROPERTIES"] as $arProp): ?>
-                            <?php if (!in_array($arProp["CODE"], array("SERVICES", "BRAND", "HIT", "RECOMMEND", "NEW", "STOCK", "VIDEO", "VIDEO_YOUTUBE", "CML2_ARTICLE"))): ?>
-                                <li class="list-param__item">
-                                    <span><?=$arProp["NAME"]?></span>
-                                    <span><?=$arProp["DISPLAY_VALUE"]?></span>
-                                </li>
-                            <?php endif; ?>
-                        <?php endforeach; ?>
+                        <?php
+                        $maxLines = 4;
+                        $lineCount = 0;
+                        foreach ($arResult["DISPLAY_PROPERTIES"] as $arProp):
+                            if (!in_array($arProp["CODE"], array("SERVICES", "BRAND", "HIT", "RECOMMEND", "NEW", "STOCK", "VIDEO", "VIDEO_YOUTUBE", "CML2_ARTICLE"))):
+                                if ($lineCount < $maxLines):
+                                    ?>
+                                    <li class="list-param__item">
+                                        <span><?= $arProp["NAME"] ?></span>
+                                        <span><?= $arProp["DISPLAY_VALUE"] ?></span>
+                                    </li>
+                                    <?php
+                                    $lineCount++;
+                                else:
+                                    break;
+                                endif;
+                            endif;
+                        endforeach;
+                        ?>
                     </ul>
                     <a href="#char" class="small-btn js-nav">Посмотреть все характеристики</a>
                     <script>
@@ -496,6 +507,19 @@ setViewedProduct(<?=$arResult['ID']?>, <?=CUtil::PhpToJSObject($arViewedData, fa
                     </div>
                 </div>
 
+                <div class="bite_price">
+                    <?
+                    $APPLICATION->IncludeComponent(
+                        "revo:buy.link",
+                        "",
+                        Array(
+                            // Элемент отображения цены
+                            "PRICE" => $arResult['PRICES']['BASE']['VALUE'],
+                            "BUY_BTN_SELECTOR" => '#'
+                        )
+                    );
+                    ?>
+                </div>
                 <div class="delivery-order" id="deliveryOrderContainer"
                      data-weight="<?php echo isset($arResult['PROPERTIES']['VES']['VALUE_ENUM']) ? htmlspecialchars($arResult['PROPERTIES']['VES']['VALUE_ENUM']) : 1; ?>">
                     <div class="delivery-order-ajax">

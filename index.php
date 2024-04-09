@@ -1,139 +1,130 @@
-<?php if (true || isset($_GET['test']) && $_GET['test'] == 1):
-   include 'index_2023.php';
-    ?>
-<?php else: ?>
 <?
 require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
 $APPLICATION->SetPageProperty("description", "Промышленное оборудование для пищевого производства и общепита. Профессиональное оборудование для HoReCa с доставкой по РФ.");
 $APPLICATION->SetPageProperty("title", "Оборудование для пищевого производства | РУОБОРУДОВАНИЕ.РУ");
 $APPLICATION->SetPageProperty("viewed_show", "Y");
-$APPLICATION->SetTitle("RuOborudovanie.ru");
+$APPLICATION->SetTitle("Dev RuOborudovanie.ru");
+
 ?>
+    <div class="container">
+        <div class="card-product">
+            <div class="main-box">
+                <h2 class="h2 main-box__title">Полное оборудование вашего бизнеса за 3 дня</h2>
+            </div>
+            <div class="threeCol">
+                <div class="threeCol__item threeCol__item-green">
+                    <div class="threeCol__title">Более 150 000<br> позиций</div>
+                </div>
+                <div class="threeCol__item threeCol__item-project">
+                    <div class="threeCol__title">Проектирование и комплексное оснащение предприятий пищевой промышленности и торговли</div>
+                </div>
+                <div class="threeCol__item threeCol__item-gold">
+                    <picture>
+                        <source srcset="images/dist/of-warranty-mobile.svg" media="(max-width: 580px)">
+                        <img src="images/dist/of-warranty.svg" width="424" height="386" alt="">
+                    </picture>
+                    <div class="threeCol__title threeCol__title-position">Официальная гарантия от производителя</div>
+                </div>
+                <div class="threeCol__item threeCol__item-delivery">
+                    <div class="threeCol__title">Доставка по всей России</div>
+                </div>
+                <div class="threeCol__item threeCol__item-blue">
+                    <div class="threeCol__title">Индивидуальные решения и особый подход</div>
+                </div>
+            </div>
+            <!-- /.threeCol -->
 
-<?$APPLICATION->IncludeComponent(
-	"bitrix:main.include",
-	".default",
-	Array(
-		"AREA_FILE_RECURSIVE" => "Y",
-		"AREA_FILE_SHOW" => "file",
-		"AREA_FILE_SUFFIX" => "",
-		"COMPONENT_TEMPLATE" => ".default",
-		"EDIT_TEMPLATE" => "standard.php",
-		"PATH" => SITE_DIR."include/mainpage/comp_banners_top_slider.php"
-	)
-);?>
-<?$APPLICATION->IncludeComponent(
-	"bitrix:main.include",
-	".default",
-	Array(
-		"AREA_FILE_RECURSIVE" => "Y",
-		"AREA_FILE_SHOW" => "file",
-		"AREA_FILE_SUFFIX" => "",
-		"COMPONENT_TEMPLATE" => ".default",
-		"EDIT_TEMPLATE" => "standard.php",
-		"PATH" => SITE_DIR."include/mainpage/comp_tizers.php"
-	)
-);?>
-<?$APPLICATION->IncludeComponent(
-	"bitrix:main.include",
-	".default",
-	Array(
-		"AREA_FILE_RECURSIVE" => "Y",
-		"AREA_FILE_SHOW" => "file",
-		"AREA_FILE_SUFFIX" => "",
-		"COMPONENT_TEMPLATE" => ".default",
-		"EDIT_TEMPLATE" => "standard.php",
-		"PATH" => SITE_DIR."include/mainpage/comp_banners_float.php"
-	)
-);?>
-<?$APPLICATION->IncludeComponent(
-	"bitrix:main.include",
-	".default",
-	Array(
-		"AREA_FILE_RECURSIVE" => "Y",
-		"AREA_FILE_SHOW" => "file",
-		"AREA_FILE_SUFFIX" => "",
-		"COMPONENT_TEMPLATE" => ".default",
-		"EDIT_TEMPLATE" => "standard.php",
-		"PATH" => SITE_DIR."include/mainpage/comp_catalog_hit.php"
-	)
-);?>
-<?$APPLICATION->IncludeComponent(
-	"bitrix:main.include",
-	".default",
-	Array(
-		"AREA_FILE_RECURSIVE" => "Y",
-		"AREA_FILE_SHOW" => "file",
-		"AREA_FILE_SUFFIX" => "",
-		"COMPONENT_TEMPLATE" => ".default",
-		"EDIT_TEMPLATE" => "standard.php",
-		"PATH" => SITE_DIR."include/mainpage/comp_news_akc.php"
-	)
-);?>
-<?$APPLICATION->IncludeComponent(
-	"bitrix:main.include",
-	".default",
-	Array(
-		"AREA_FILE_RECURSIVE" => "Y",
-		"AREA_FILE_SHOW" => "file",
-		"AREA_FILE_SUFFIX" => "",
-		"COMPONENT_TEMPLATE" => ".default",
-		"EDIT_TEMPLATE" => "standard.php",
-		"PATH" => SITE_DIR."include/mainpage/comp_instagram.php"
-	)
-);?>
-<?$APPLICATION->IncludeComponent(
-	"bitrix:main.include",
-	".default",
-	Array(
-		"AREA_FILE_RECURSIVE" => "Y",
-		"AREA_FILE_SHOW" => "file",
-		"AREA_FILE_SUFFIX" => "",
-		"COMPONENT_TEMPLATE" => ".default",
-		"EDIT_TEMPLATE" => "standard.php",
-		"PATH" => SITE_DIR."include/mainpage/inc_company.php"
-	)
-);?>
+            <div class="four-items">
+                <div class="four-items__item">
+                    <div class="four-items__name">Комплексное оснащение предприятий</div>
+                </div>
+                <div class="four-items__item">
+                    <div class="four-items__name">Более 2000 реализованных проектов</div>
+                </div>
+                <div class="four-items__item">
+                    <div class="four-items__name">Высочайший уровень сервиса</div>
+                </div>
+                <div class="four-items__item">
+                    <div class="four-items__name">Вся продукция сертифицирована</div>
+                </div>
+            </div>
 
-<h1>Промышленное пищевое оборудование</h1>
-<p>Интернет-гипермаркет RuOborudovanie предлагает промышленное оборудование для пищевого производства по выгодным ценам. В каталоге большой выбор товаров от крупных надежных производителей.</p>
-<h2>Что мы предлагаем?</h2>
-<p>На сайте представлен широкий ассортимент промышленного пищевого оборудования:</p>
-<ul>
-<li>Все, что необходимо для мясопереработки;</li>
-<li>Аппаратура для хлебопекарни;</li>
-<li>Барное и кофейное оборудование;</li>
-<li>Молочное оборудование;</li>
-<li>Рыбоперерабатывающее оборудование;</li>
-<li>Аппараты для быстрого приготовления блюд восточной кухни;</li>
-<li>Аппаратура для фаст-фуда.</li>
-</ul>
-<p>Также мы предлагаем холодильное оборудование, мебель для кафе и ресторанов, аппараты для раздачи готовых блюд, для переработки овощей и многое другое. У нас вы сможете найти все необходимое для организации бизнеса.</p>
-<p>Если вы ищете оборудование для horeca, обращайтесь к нам. Чтобы сделать заказа, добавьте товар в корзину, а затем укажите свои данные, чтобы завершить процедуру. Есть функция быстрого заказа: вы оставляете контактные данные, наш менеджер перезванивает и уточняет детали. Оплатить покупку можно банковской картой или с помощью электронной платежной системы.</p>
-<h2>Преимущества интернет-гипермаркета</h2>
-<p>У нас можно заказать качественное оборудование с доставкой. Заказчик выбирает тип доставки: курьером или транспортной компанией. Стоимость и сроки определяются индивидуально.</p>
-<p>Воспользоваться нашими услугами стоит по нескольким причинам:</p>
-<ul>
-<li>Огромный выбор оборудования для общепита;</li>
-<li>Гарантия качества предоставляемых товаров;</li>
-<li>Удобная система поиска;</li>
-<li>Постоянное пополняющийся каталог.</li>
-</ul>
-<p>Наши сотрудники готовы предоставить всю информацию по товарам. Вы можете следить за скидками и акциями на сайте в разделе &laquo;Акции&raquo;. Если вы хотите уточнить детали, проконсультироваться, позвоните по указанным телефонам.</p>
+            <section class="equipment">
+                <h2 class="h2 equipment__title">Подбор оборудования по типу предприятия</h2>
+                <div class="equipment__grid">
+                    <?$APPLICATION->IncludeComponent(
+                        "bitrix:main.include",
+                        ".default",
+                        Array(
+                            "AREA_FILE_RECURSIVE" => "Y",
+                            "AREA_FILE_SHOW" => "file",
+                            "AREA_FILE_SUFFIX" => "",
+                            "COMPONENT_TEMPLATE" => ".default",
+                            "EDIT_TEMPLATE" => "standard.php",
+                            "PATH" => SITE_DIR."include/mainpage/comp_equipment.php"
+                        )
+                    );?>
+                </div>
+                <!-- /.equipment__grid -->
+            </section>
+
+            <section class="cert">
+                <h2 class="h2 cert__title">Сертификаты</h2>
+                <div class="slider-wrapper">
+                    <div class="cert__slider js-cert-slider">
+                        <div><a class="cert__slider-link" data-fancybox href="images/dist/cert-1.jpg"><img src="images/dist/cert-1.jpg" width="239" height="338" loading="lazy" alt=""></a></div>
+                        <div><a class="cert__slider-link" data-fancybox href="images/dist/cert-1.jpg"><img src="images/dist/cert-1.jpg" width="239" height="338" loading="lazy" alt=""></a></div>
+                        <div><a class="cert__slider-link" data-fancybox href="images/dist/cert-1.jpg"><img src="images/dist/cert-1.jpg" width="239" height="338" loading="lazy" alt=""></a></div>
+                        <div><a class="cert__slider-link" data-fancybox href="images/dist/cert-1.jpg"><img src="images/dist/cert-1.jpg" width="239" height="338" loading="lazy" alt=""></a></div>
+                        <div><a class="cert__slider-link" data-fancybox href="images/dist/cert-1.jpg"><img src="images/dist/cert-1.jpg" width="239" height="338" loading="lazy" alt=""></a></div>
+                        <div><a class="cert__slider-link" data-fancybox href="images/dist/cert-1.jpg"><img src="images/dist/cert-1.jpg" width="239" height="338" loading="lazy" alt=""></a></div>
+                    </div>
+                    <!-- /.cert__slider -->
+                </div>
+                <!-- /.cert__wrap -->
+            </section>
+
+            <section class="selection">
+                <h2 class="h2 selection__title">Подбор оборудования по производителю</h2>
+                <div class="slider-wrapper">
+                    <?$APPLICATION->IncludeComponent(
+                        "bitrix:main.include",
+                        ".default",
+                        Array(
+                            "AREA_FILE_RECURSIVE" => "Y",
+                            "AREA_FILE_SHOW" => "file",
+                            "AREA_FILE_SUFFIX" => "",
+                            "COMPONENT_TEMPLATE" => ".default",
+                            "EDIT_TEMPLATE" => "standard.php",
+                            "PATH" => SITE_DIR."include/mainpage/comp_brands.php"
+                        )
+                    );?>
+                </div>
+            </section>
+            <section class="clients">
+                <h2 class="h2 selection__title">Наши клиенты</h2>
+                <div class="slider-wrapper">
+                    <?$APPLICATION->IncludeComponent(
+                        "bitrix:main.include",
+                        ".default",
+                        Array(
+                            "AREA_FILE_RECURSIVE" => "Y",
+                            "AREA_FILE_SHOW" => "file",
+                            "AREA_FILE_SUFFIX" => "",
+                            "COMPONENT_TEMPLATE" => ".default",
+                            "EDIT_TEMPLATE" => "standard.php",
+                            "PATH" => SITE_DIR."include/mainpage/comp_clients.php"
+                        )
+                    );?>
+                </div>
+            </section>
+
+        </div>
+
+    </div>
+    <!-- /.container -->
 
 
-<?$APPLICATION->IncludeComponent(
-	"bitrix:main.include",
-	".default",
-	Array(
-		"AREA_FILE_RECURSIVE" => "Y",
-		"AREA_FILE_SHOW" => "file",
-		"AREA_FILE_SUFFIX" => "",
-		"COMPONENT_TEMPLATE" => ".default",
-		"EDIT_TEMPLATE" => "standard.php",
-		"PATH" => SITE_DIR."include/mainpage/comp_brands.php"
-	)
-);?>
+
 
 <?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php");?>
-<?php endif; ?>

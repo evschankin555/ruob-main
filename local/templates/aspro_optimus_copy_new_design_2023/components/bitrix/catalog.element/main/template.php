@@ -519,7 +519,7 @@ setViewedProduct(<?=$arResult['ID']?>, <?=CUtil::PhpToJSObject($arViewedData, fa
                         )
                     );
                     ?>
-                </div>
+                </div><?php /*
                 <div class="delivery-order" id="deliveryOrderContainer"
                      data-weight="<?php echo isset($arResult['PROPERTIES']['VES']['VALUE_ENUM']) ? htmlspecialchars($arResult['PROPERTIES']['VES']['VALUE_ENUM']) : 1; ?>">
                     <div class="delivery-order-ajax">
@@ -564,7 +564,7 @@ setViewedProduct(<?=$arResult['ID']?>, <?=CUtil::PhpToJSObject($arViewedData, fa
                     });
 
 
-                </script>
+                </script>*/?>
                 <!-- /.delivery-order -->
                 <div class="payment-way">
                     <div class="payment-way__title">Принимаем оплату</div>
@@ -603,7 +603,7 @@ setViewedProduct(<?=$arResult['ID']?>, <?=CUtil::PhpToJSObject($arViewedData, fa
 
         <div class="trust">
             <div class="trust__inner">
-                <h3 class="h3 trust__title">Мы превращаем сложное в простое!</h3>
+                <h3 class="h3 trust__title" id="white-font">Мы превращаем сложное в простое!</h3>
                 <div class="trust__grid">
                     <div class="trust__grid-item">
                         <div class="trust__grid-title">Быстрая доставка по России</div>

@@ -1,10 +1,9 @@
 <?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
 $APPLICATION->SetPageProperty("description", "Каталог пищевого и промышленного оборудование от компании RuOborudovanie.ru. Оборудование для пищевых производств и сегмента HoReCa.");
 $APPLICATION->SetPageProperty("title", "Каталог профессионального оборудования | RuOborudovanie.ru");
-
-
 use Bitrix\Main\Context;
 use Bitrix\Main\Loader;
+use Bitrix\Main\Data\Cache;
 use Bitrix\Iblock\ElementTable;
 use Bitrix\Iblock\SectionElementTable;
 
@@ -19,99 +18,97 @@ $path = $urlParts[0]; // Путь без параметров
 $pathParts = parse_url($path);
 $sectionCode = basename($pathParts['path']); // Получаем последний сегмент пути
 
-// Проверка, что последняя часть не пустая
 if (!empty($sectionCode)) {
     Loader::includeModule("iblock");
 
-    // Фильтр по инфоблоку и свойствам
-    $arFilter = array(
-        'IBLOCK_ID' => 30,
-        'CODE' => $sectionCode,
-    );
-    // Получение элементов инфоблока
-    $res = CIBlockElement::GetList(
-        array(),
-        $arFilter,
-        false,
-        false,
-        array('ID', 'NAME', 'PROPERTY_*') // Получаем все свойства элемента
-    );
-    // Обработка результатов запроса
-    if ($item = $res->Fetch()) {
-        $APPLICATION->SetTitle($item['NAME']);
-        // ID элемента инфоблока с нужным вам элементом UF_EQUIPMENT
-        $elementId = $item['ID'];
-        $targetEquipmentValue = $item['ID'];
+    $cache = Cache::createInstance();
+    $cacheTime = 86400; // 24 часа
+    $cacheId = 'sectionData_' . md5($path); // Уникальный ID кеша на основе пути
+    $cacheDir = '/sectionData/';
 
-// Получение всех разделов, где значение поля UF_EQUIPMENT равно $targetEquipmentValue
-        $dbSections = CIBlockSection::GetList(
-            array(),
-            array('IBLOCK_ID' => 14, 'UF_EQUIPMENT' => $targetEquipmentValue),
+    if ($cache->initCache($cacheTime, $cacheId, $cacheDir)) {
+        // Если кеш валиден, извлекаем сохраненные данные
+        $sectionsData = $cache->getVars();
+    } elseif ($cache->startDataCache()) {
+        $sectionsData = []; // Инициализация массива для данных разделов
+
+        $arFilter = [
+            'IBLOCK_ID' => 30,
+            'CODE' => $sectionCode,
+        ];
+        $res = CIBlockElement::GetList(
+            [],
+            $arFilter,
             false,
-            array('ID', 'NAME', 'PICTURE', 'CODE') // Выбираем ID, название раздела и основную картинку
+            false,
+            ['ID', 'NAME', 'PROPERTY_*'] // Получаем все свойства элемента
         );
 
-// Обработка результатов запроса
-        while ($section = $dbSections->Fetch()) {
-            // Получаем путь к основной картинке раздела
-            $pictureSrc = '';
-            if (!empty($section['PICTURE'])) {
-                $arSectionPicture = CFile::GetFileArray($section['PICTURE']);
-                if ($arSectionPicture) {
-                    $pictureSrc = $arSectionPicture['SRC'];
-                }
-            }
+        if ($item = $res->Fetch()) {
+            global $APPLICATION;
+            $APPLICATION->SetTitle($item['NAME']);
+            $elementId = $item['ID'];
+            $targetEquipmentValue = $item['ID'];
 
-            // Получаем количество товаров в категории
-            $dbItems = CIBlockElement::GetList(
-                array(),
-                array('IBLOCK_ID' => 14, 'SECTION_ID' => $section['ID'], '>CATALOG_PRICE_1' => 0, '>CATALOG_QUANTITY' => 0),
+            $dbSections = CIBlockSection::GetList(
+                [],
+                ['IBLOCK_ID' => 14, 'UF_EQUIPMENT' => $targetEquipmentValue],
                 false,
-                false,
-                array('ID')
+                ['ID', 'NAME', 'PICTURE', 'CODE']
             );
-            $itemCount = $dbItems->SelectedRowsCount();
 
-            // Сохраняем данные о разделе в массив
-            $sectionsData[] = array(
-                'ID' => $section['ID'],
-                'NAME' => $section['NAME'],
-                'PICTURE_SRC' => $pictureSrc,
-                'ITEM_COUNT' => $itemCount // Количество товаров в категории
-            );
-        }
-
-        // Получение всех родительских разделов для каждой категории
-        foreach ($sectionsData as &$sectionData) {
-            $sectionParents = [];
-            $parentSectionId = $sectionData['ID'];
-
-            // Получаем родительские разделы для текущей категории
-            while ($parentSectionId) {
-                $arParentSection = CIBlockSection::GetByID($parentSectionId)->GetNext();
-                if ($arParentSection) {
-                    // Добавляем в начало массива данных о родительской категории
-                    array_unshift($sectionParents, $arParentSection);
-                    $parentSectionId = $arParentSection['IBLOCK_SECTION_ID'];
-                } else {
-                    $parentSectionId = null;
+            while ($section = $dbSections->Fetch()) {
+                $pictureSrc = '';
+                if (!empty($section['PICTURE'])) {
+                    $arSectionPicture = CFile::GetFileArray($section['PICTURE']);
+                    if ($arSectionPicture) {
+                        $pictureSrc = $arSectionPicture['SRC'];
+                    }
                 }
+
+                $dbItems = CIBlockElement::GetList(
+                    [],
+                    ['IBLOCK_ID' => 14, 'SECTION_ID' => $section['ID'], '>CATALOG_PRICE_1' => 0, '>CATALOG_QUANTITY' => 0],
+                    false,
+                    false,
+                    ['ID']
+                );
+                $itemCount = $dbItems->SelectedRowsCount();
+
+                $sectionsData[] = [
+                    'ID' => $section['ID'],
+                    'NAME' => $section['NAME'],
+                    'PICTURE_SRC' => $pictureSrc,
+                    'ITEM_COUNT' => $itemCount,
+                ];
             }
 
-            // Собираем URL из кодов родительских категорий
-            $urlParts = ['/catalog']; // Начало URL
-            foreach ($sectionParents as $parentSection) {
-                $urlParts[] = $parentSection['CODE'];
+            foreach ($sectionsData as &$sectionData) {
+                $sectionParents = [];
+                $parentSectionId = $sectionData['ID'];
+                while ($parentSectionId) {
+                    $arParentSection = CIBlockSection::GetByID($parentSectionId)->GetNext();
+                    if ($arParentSection) {
+                        array_unshift($sectionParents, $arParentSection);
+                        $parentSectionId = $arParentSection['IBLOCK_SECTION_ID'];
+                    } else {
+                        break;
+                    }
+                }
+
+                $urlParts = ['/catalog'];
+                foreach ($sectionParents as $parentSection) {
+                    $urlParts[] = $parentSection['CODE'];
+                }
+                $urlParts[] = $sectionData['CODE'];
+                $sectionData['URL'] = implode('/', $urlParts);
             }
 
-            // Добавляем код текущей категории и формируем полный URL
-            $urlParts[] = $sectionData['CODE'];
-            $sectionData['URL'] = implode('/', $urlParts);
+            $cache->endDataCache($sectionsData);
+        } else {
+            $cache->abortDataCache();
+            echo "Элемент не найден";
         }
-
-
-    } else {
-        echo "Элемент не найден";
     }
 } else {
     echo "Неверный URL";
@@ -135,23 +132,7 @@ if (!empty($sectionCode)) {
         <!-- /.cat-grid -->
         <hr class="separator">
         <?php
-        /*<div class="sort">
-            <div class="sort__label">
-                Сортировка:
-                <select class="myselect">
-                    <option value="">По наличию</option>
-                    <option value="">Сначала недорогие</option>
-                    <option value="">Сначала дорогие</option>
-                    <option value="">Сначала популярные</option>
-                </select>
-            </div>
-            <div class="sort__view">
-                <a href="" class="filter-btn sort__filter-btn"><svg><use xlink:href="#filter"></use></svg>Фильтры</a>
-                <a href="" class="sort__view-link"><svg class="sort__view-gridfour"><use xlink:href="#grid-four"></use></svg></a>
-                <a href="" class="sort__view-link"><svg class="sort__view-gridrow"><use xlink:href="#view-row"></use></svg></a>
-            </div>
 
-        </div>*/
         // Получение всех разделов, где значение поля UF_EQUIPMENT равно $targetEquipmentValue
         $dbSections = CIBlockSection::GetList(
             array(),
@@ -239,7 +220,7 @@ if (!empty($sectionCode)) {
         // Рассчитываем количество страниц
         $itemsPerPage = 20; // Заданный лимит товаров на страницу
         $maxPage = ceil($totalItemCount / $itemsPerPage); // Определяем общее количество страниц
-ini_set('display_errors', 1);
+
 
         function get_product_url_my($item) {
             $sectionId = $item['IBLOCK_SECTION_ID'];

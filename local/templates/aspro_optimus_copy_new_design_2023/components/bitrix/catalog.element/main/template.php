@@ -194,60 +194,65 @@ setViewedProduct(<?=$arResult['ID']?>, <?=CUtil::PhpToJSObject($arViewedData, fa
                 <?php
                 use Bitrix\Main\Loader;
                 use Bitrix\Iblock\ElementTable;
+                use Bitrix\Main\Data\Cache;
 
                 // Подключаем модуль инфоблоков
                 Loader::includeModule('iblock');
 
-                // ID элемента инфоблока, соответствующего бренду
-                $brandElementId = $arResult["DISPLAY_PROPERTIES"]["CML2_MANUFACTURER"]['VALUE_XML_ID'];
+                $cache = Cache::createInstance();
+                $cacheTime = 86400; // 24 часа
+                $cacheId = 'brandData_' . md5($APPLICATION->GetCurPage()); // Уникальный ID кеша на основе текущего URL
+                $cacheDir = '/brand_data/'; // Каталог для хранения кеша
 
-                // Получаем имя производителя
-                $manufacturer = $arResult["DISPLAY_PROPERTIES"]["CML2_MANUFACTURER"]["VALUE"];
+                if ($cache->initCache($cacheTime, $cacheId, $cacheDir)) {
+                    // Если кеш валиден, получаем сохраненные данные
+                    extract($cache->getVars());
+                } elseif ($cache->startDataCache()) {
+                    // ID элемента инфоблока и имя производителя
+                    $brandElementId = $arResult["DISPLAY_PROPERTIES"]["CML2_MANUFACTURER"]['VALUE_XML_ID'];
+                    $manufacturer = $arResult["DISPLAY_PROPERTIES"]["CML2_MANUFACTURER"]["VALUE"];
+                    $manufacturerUrl = '/info/brands/' . $brandElementId.'/';
+                    $brandImage = "";
 
-                // Собираем URL для всех товаров производителя
-                $manufacturerUrl = '/info/brands/' . $brandElementId.'/';
+                    if (!empty($brandElementId)) {
+                        $brandFilter = ['IBLOCK_ID' => 9, 'CODE' => $brandElementId];
+                        $brandSelect = ["ID", "NAME", "PREVIEW_PICTURE"];
+                        $brandResult = ElementTable::getList([
+                            'select' => $brandSelect,
+                            'filter' => $brandFilter,
+                        ]);
 
-                // ID элемента инфоблока, соответствующего бренду
-                $brandElementId = $arResult["DISPLAY_PROPERTIES"]["CML2_MANUFACTURER"]['VALUE_XML_ID'];
-                $brandElementIdMain = $arResult["DISPLAY_PROPERTIES"]["CML2_MANUFACTURER"]['ID'];
-
-                // Получаем изображение бренда
-                $brandImage = "";
-
-                if (!empty($brandElementId)) {
-                    $brandFilter = array(
-                        'IBLOCK_ID' => 9,
-                        'CODE' => $brandElementId,
-                    );
-
-                    $brandSelect = array("ID", "NAME", "PREVIEW_PICTURE");
-                    $brandResult = ElementTable::getList(array(
-                        'select' => $brandSelect,
-                        'filter' => $brandFilter,
-                    ));
-
-                    if ($brandData = $brandResult->fetch()) {
-                        $brandImageId = $brandData['PREVIEW_PICTURE'];
-                        if (!empty($brandImageId)) {
-                            $brandImage = CFile::GetPath($brandImageId);
+                        if ($brandData = $brandResult->fetch()) {
+                            $brandImageId = $brandData['PREVIEW_PICTURE'];
+                            if (!empty($brandImageId)) {
+                                $brandImage = CFile::GetPath($brandImageId);
+                            }
                         }
                     }
+
+                    $NameCategory = $arResult['SECTION']['NAME'];
+                    $urlFilterBrandCategory = $arResult['SECTION']['SECTION_PAGE_URL'].'filter/cml2_manufacturer-is-'.$brandElementId.'/apply/';
+
+                    // Сохраняем данные в кеш
+                    $cache->endDataCache([
+                        'brandElementId' => $brandElementId,
+                        'manufacturer' => $manufacturer,
+                        'manufacturerUrl' => $manufacturerUrl,
+                        'brandImage' => $brandImage,
+                        'NameCategory' => $NameCategory,
+                        'urlFilterBrandCategory' => $urlFilterBrandCategory,
+                    ]);
                 }
-                $NameCategory = $arResult['SECTION']['NAME'];
-                $urlFilterBrandCategory = $arResult['SECTION']['SECTION_PAGE_URL'].'filter/cml2_manufacturer-is-'.$brandElementId.'/apply/';
                 ?>
                 <div class="products-link__item">
-                    <?php
-                    // Вывод изображения бренда
-                    if (!empty($brandImage)) {
-                        echo '<img src="' . htmlspecialchars($brandImage) . '" class="products-link__logo" width="190" height="46" alt="' . htmlspecialchars($manufacturer) . '">';
-                    }
-                    ?>
+                    <?php if (!empty($brandImage)) : ?>
+                        <img src="<?=htmlspecialchars($brandImage)?>" class="products-link__logo" width="190" height="46" alt="<?=htmlspecialchars($manufacturer)?>">
+                    <?php endif; ?>
                     <div class="products-link__logo2">Официальный дилер</div>
                 </div>
                 <div class="products-link__item">
                     <a href="<?=$manufacturerUrl?>" class="products-link__link">Все товары <?=$manufacturer?></a>
-                    <a href="<?=$urlFilterBrandCategory?>" class="products-link__link">Все <?=$NameCategory?>  <?=$manufacturer?></a>
+                    <a href="<?=$urlFilterBrandCategory?>" class="products-link__link">Все <?=$NameCategory?> <?=$manufacturer?></a>
                 </div>
             </div>
             <div class="card__article">
@@ -519,7 +524,8 @@ setViewedProduct(<?=$arResult['ID']?>, <?=CUtil::PhpToJSObject($arViewedData, fa
                         )
                     );
                     ?>
-                </div><?php /*
+                </div>
+                <?php /*
                 <div class="delivery-order" id="deliveryOrderContainer"
                      data-weight="<?php echo isset($arResult['PROPERTIES']['VES']['VALUE_ENUM']) ? htmlspecialchars($arResult['PROPERTIES']['VES']['VALUE_ENUM']) : 1; ?>">
                     <div class="delivery-order-ajax">

@@ -52,18 +52,42 @@ $APPLICATION->SetTitle("Dev RuOborudovanie.ru");
             <section class="equipment">
                 <h2 class="h2 equipment__title">Подбор оборудования по типу предприятия</h2>
                 <div class="equipment__grid">
-                    <?$APPLICATION->IncludeComponent(
-                        "bitrix:main.include",
-                        ".default",
-                        Array(
-                            "AREA_FILE_RECURSIVE" => "Y",
-                            "AREA_FILE_SHOW" => "file",
-                            "AREA_FILE_SUFFIX" => "",
-                            "COMPONENT_TEMPLATE" => ".default",
-                            "EDIT_TEMPLATE" => "standard.php",
-                            "PATH" => SITE_DIR."include/mainpage/comp_equipment.php"
-                        )
-                    );?>
+                    <?php if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true) die();
+
+                    $cacheTime = 31536000; // время кеширования, например, 1 год
+                    $cacheId = 'include_component_' . md5(SITE_DIR . "include/mainpage/comp_equipment.php");
+                    $cacheDir = '/include_component/';
+
+                    $obCache = new CPHPCache();
+                    if ($obCache->InitCache($cacheTime, $cacheId, $cacheDir))
+                    {
+                        $vars = $obCache->GetVars();
+                        echo $vars['result'];
+                    }
+                    elseif ($obCache->StartDataCache())
+                    {
+                        // Включаем буферизацию вывода
+                        ob_start();
+                        $APPLICATION->IncludeComponent(
+                            "bitrix:main.include",
+                            ".default",
+                            Array(
+                                "AREA_FILE_RECURSIVE" => "Y",
+                                "AREA_FILE_SHOW" => "file",
+                                "AREA_FILE_SUFFIX" => "",
+                                "COMPONENT_TEMPLATE" => ".default",
+                                "EDIT_TEMPLATE" => "standard.php",
+                                "PATH" => SITE_DIR."include/mainpage/comp_equipment.php"
+                            )
+                        );
+                        // Получаем содержимое буфера и очищаем его
+                        $result = ob_get_clean();
+                        echo $result;
+
+                        $obCache->EndDataCache(array('result' => $result)); // Сохраняем результат в кеш
+                    }
+                    ?>
+
                 </div>
                 <!-- /.equipment__grid -->
             </section>
@@ -87,35 +111,77 @@ $APPLICATION->SetTitle("Dev RuOborudovanie.ru");
             <section class="selection">
                 <h2 class="h2 selection__title">Подбор оборудования по производителю</h2>
                 <div class="slider-wrapper">
-                    <?$APPLICATION->IncludeComponent(
-                        "bitrix:main.include",
-                        ".default",
-                        Array(
-                            "AREA_FILE_RECURSIVE" => "Y",
-                            "AREA_FILE_SHOW" => "file",
-                            "AREA_FILE_SUFFIX" => "",
-                            "COMPONENT_TEMPLATE" => ".default",
-                            "EDIT_TEMPLATE" => "standard.php",
-                            "PATH" => SITE_DIR."include/mainpage/comp_brands.php"
-                        )
-                    );?>
+                    <?php
+                    $cacheTime = 31536000; // 1 год
+                    $cacheId = 'include_comp_brands_' . md5(SITE_DIR . "include/mainpage/comp_brands.php");
+                    $cacheDir = '/include_component/brands/';
+
+                    $obCache = new CPHPCache();
+                    if ($obCache->InitCache($cacheTime, $cacheId, $cacheDir))
+                    {
+                        $vars = $obCache->GetVars();
+                        echo $vars['result'];
+                    }
+                    elseif ($obCache->StartDataCache())
+                    {
+                        ob_start();
+                        $APPLICATION->IncludeComponent(
+                            "bitrix:main.include",
+                            ".default",
+                            Array(
+                                "AREA_FILE_RECURSIVE" => "Y",
+                                "AREA_FILE_SHOW" => "file",
+                                "AREA_FILE_SUFFIX" => "",
+                                "COMPONENT_TEMPLATE" => ".default",
+                                "EDIT_TEMPLATE" => "standard.php",
+                                "PATH" => SITE_DIR."include/mainpage/comp_brands.php"
+                            )
+                        );
+                        $result = ob_get_clean();
+                        echo $result;
+
+                        $obCache->EndDataCache(array('result' => $result));
+                    }
+                    ?>
+
                 </div>
             </section>
             <section class="clients">
                 <h2 class="h2 selection__title">Наши клиенты</h2>
                 <div class="slider-wrapper">
-                    <?$APPLICATION->IncludeComponent(
-                        "bitrix:main.include",
-                        ".default",
-                        Array(
-                            "AREA_FILE_RECURSIVE" => "Y",
-                            "AREA_FILE_SHOW" => "file",
-                            "AREA_FILE_SUFFIX" => "",
-                            "COMPONENT_TEMPLATE" => ".default",
-                            "EDIT_TEMPLATE" => "standard.php",
-                            "PATH" => SITE_DIR."include/mainpage/comp_clients.php"
-                        )
-                    );?>
+                    <?php
+                    $cacheTime = 31536000; // 1 год
+                    $cacheId = 'include_comp_clients_' . md5(SITE_DIR . "include/mainpage/comp_clients.php");
+                    $cacheDir = '/include_component/clients/';
+
+                    $obCache = new CPHPCache();
+                    if ($obCache->InitCache($cacheTime, $cacheId, $cacheDir))
+                    {
+                        $vars = $obCache->GetVars();
+                        echo $vars['result'];
+                    }
+                    elseif ($obCache->StartDataCache())
+                    {
+                        ob_start();
+                        $APPLICATION->IncludeComponent(
+                            "bitrix:main.include",
+                            ".default",
+                            Array(
+                                "AREA_FILE_RECURSIVE" => "Y",
+                                "AREA_FILE_SHOW" => "file",
+                                "AREA_FILE_SUFFIX" => "",
+                                "COMPONENT_TEMPLATE" => ".default",
+                                "EDIT_TEMPLATE" => "standard.php",
+                                "PATH" => SITE_DIR."include/mainpage/comp_clients.php"
+                            )
+                        );
+                        $result = ob_get_clean();
+                        echo $result;
+
+                        $obCache->EndDataCache(array('result' => $result));
+                    }
+                    ?>
+
                 </div>
             </section>
 

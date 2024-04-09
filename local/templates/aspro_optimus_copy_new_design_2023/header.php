@@ -1,37 +1,56 @@
-<?if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) die();
+<?php
+if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) die();
+
 if($GET["debug"] == "y"){
-	error_reporting(E_ERROR | E_PARSE);
+    error_reporting(E_ERROR | E_PARSE);
 }
+
 IncludeTemplateLangFile(__FILE__);
 global $APPLICATION, $TEMPLATE_OPTIONS, $arSite;
-$arSite = CSite::GetByID(SITE_ID)->Fetch();
-$htmlClass = ($_REQUEST && isset($_REQUEST['print']) ? 'print' : false);
-?>
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<?=LANGUAGE_ID?>" <?=($htmlClass ? 'class="'.$htmlClass.'"' : '')?>>
-<head>
-	<title><?$APPLICATION->ShowTitle()?></title>
-	<?$APPLICATION->ShowMeta("viewport");?>
-	<?$APPLICATION->ShowMeta("HandheldFriendly");?>
-	<?$APPLICATION->ShowMeta("apple-mobile-web-app-capable", "yes");?>
-	<?$APPLICATION->ShowMeta("apple-mobile-web-app-status-bar-style");?>
-	<?$APPLICATION->ShowMeta("SKYPE_TOOLBAR");?>
-	<?$APPLICATION->ShowHead();?>
-	<?$APPLICATION->AddHeadString('<script>BX.message('.CUtil::PhpToJSObject( $MESS, false ).')</script>', true);?>
-	<?/*$APPLICATION->AddHeadString('<link rel="canonical" href="'.($APPLICATION->IsHTTPS() ? 'https://' : 'http://').SITE_SERVER_NAME.preg_replace('/\\/filter\\/(\S+)\\/apply\\//i', '/', $APPLICATION->GetCurPage(false)).'">', true);*/?>
-	<?if(CModule::IncludeModule("aspro.optimus")) {COptimus::Start(SITE_ID);}?>
-	<!--[if gte IE 9]><style type="text/css">.basket_button, .button30, .icon {filter: none;}</style><![endif]-->
-	<?$bIndexBot = (isset($_SERVER['HTTP_ACCEPT_LANGUAGE']) && strpos($_SERVER['HTTP_USER_AGENT'], 'Lighthouse') !== false);?>
-<?if(!$bIndexBot):?><link href='<?=CMain::IsHTTPS() ? 'https' : 'http'?>://fonts.googleapis.com/css?family=Ubuntu:400,500,700,400italic&subset=latin,cyrillic' rel='stylesheet' type='text/css'><?endif;?>
-    <link rel="stylesheet" href="/bitrix/templates/aspro_optimus_copy_new_design_2023/css/new_main.min.css?v=<?php echo filemtime($_SERVER['DOCUMENT_ROOT'] . '/bitrix/templates/aspro_optimus_copy_new_design_2023/css/new_main.min.css'); ?>">
-    <script type="text/javascript">
-var __cs = __cs || [];
-__cs.push(["setCsAccount", "tEFL0ZoXM1dNK9gTbWZ3Sof6apXMypHo"]);
-</script>
-<script type="text/javascript"> (function ab(){ var request = new XMLHttpRequest(); request.open('GET', "https://scripts.botfaqtor.ru/one/34907", false); request.send(); if(request.status == 200) eval(request.responseText); })(); </script>
 
- <link rel="stylesheet" href="/local/templates/aspro_optimus_copy_new_design_2023/css/mine-custom.css">
-</head>
+// Кеширование данных сайта
+$cache = new CPHPCache();
+$cacheTime = 86400; // 24 часа
+$cacheId = 'siteData' . SITE_ID;
+$cacheDir = '/siteData/';
+
+if($cache->InitCache($cacheTime, $cacheId, $cacheDir)) {
+    $vars = $cache->GetVars();
+    $arSite = $vars['arSite'];
+} elseif($cache->StartDataCache()) {
+    $arSite = CSite::GetByID(SITE_ID)->Fetch();
+    $cache->EndDataCache(array('arSite' => $arSite));
+}
+
+$htmlClass = ($_REQUEST && isset($_REQUEST['print']) ? 'print' : '');
+?>
+    <!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<?=LANGUAGE_ID?>" lang="<?=LANGUAGE_ID?>" <?=($htmlClass ? 'class="'.$htmlClass.'"' : '')?>>
+    <head>
+        <title><?$APPLICATION->ShowTitle()?></title>
+        <?$APPLICATION->ShowMeta("viewport");?>
+        <?$APPLICATION->ShowMeta("HandheldFriendly");?>
+        <?$APPLICATION->ShowMeta("apple-mobile-web-app-capable", "yes");?>
+        <?$APPLICATION->ShowMeta("apple-mobile-web-app-status-bar-style");?>
+        <?$APPLICATION->ShowMeta("SKYPE_TOOLBAR");?>
+        <?$APPLICATION->ShowHead();?>
+        <?$APPLICATION->AddHeadString('<script>BX.message('.CUtil::PhpToJSObject($MESS, false).')</script>', true);?>
+        <?if(CModule::IncludeModule("aspro.optimus")) {COptimus::Start(SITE_ID);}?>
+        <?$bIndexBot = (isset($_SERVER['HTTP_ACCEPT_LANGUAGE']) && strpos($_SERVER['HTTP_USER_AGENT'], 'Lighthouse') !== false);?>
+        <?if(!$bIndexBot):?>
+            <!-- Оптимизированное подключение шрифтов -->
+            <style>
+                @font-face {
+                    font-family: 'Ubuntu';
+                    font-style: normal;
+                    font-weight: 400;
+                    src: local('Ubuntu'), local('Ubuntu-Regular'), url('/local/fonts/Ubuntu-Regular.woff2') format('woff2');
+                }
+                /* Добавьте необходимые варианты шрифтов */
+            </style>
+        <?endif;?>
+        <link rel="stylesheet" href="/bitrix/templates/aspro_optimus_copy_new_design_2023/css/new_main.min.css?v=<?php echo filemtime($_SERVER['DOCUMENT_ROOT'] . '/bitrix/templates/aspro_optimus_copy_new_design_2023/css/new_main.min.css'); ?>">
+    </head>
 <body class='<?=($bIndexBot ? "wbot" : "");?>' id="main">
 		<div id="panel"><?$APPLICATION->ShowPanel();?></div>
 		<?if(!CModule::IncludeModule("aspro.optimus")){?><center><?$APPLICATION->IncludeFile(SITE_DIR."include/error_include_module.php");?></center></body></html><?die();?><?}?>
@@ -60,56 +79,65 @@ __cs.push(["setCsAccount", "tEFL0ZoXM1dNK9gTbWZ3Sof6apXMypHo"]);
 
 <?else:?>
 <?if(!COptimus::IsOrderPage() && !COptimus::IsBasketPage() && strpos($_SERVER['REQUEST_URI'], '/info/articles/') !== 0){?>
-						<?$APPLICATION->ShowViewContent('detail_filter');?>
-						<div class="left_block">
-							<?$APPLICATION->IncludeComponent("bitrix:main.include", ".default",
-								array(
-									"COMPONENT_TEMPLATE" => ".default",
-									"PATH" => SITE_DIR."include/left_block/menu.left_menu.php",
-									"AREA_FILE_SHOW" => "file",
-									"AREA_FILE_SUFFIX" => "",
-									"AREA_FILE_RECURSIVE" => "Y",
-									"EDIT_TEMPLATE" => "standard.php"
-								),
-								false
-							);?>
+    <?$APPLICATION->ShowViewContent('detail_filter');?>
+    <div class="left_block">
+        <?$APPLICATION->IncludeComponent("bitrix:main.include", ".default",
+            array(
+                "COMPONENT_TEMPLATE" => ".default",
+                "PATH" => SITE_DIR."include/left_block/menu.left_menu.php",
+                "AREA_FILE_SHOW" => "file",
+                "AREA_FILE_SUFFIX" => "",
+                "AREA_FILE_RECURSIVE" => "Y",
+                "EDIT_TEMPLATE" => "standard.php",
+                "CACHE_TYPE" => "A", // Включено кеширование
+                "CACHE_TIME" => 86400, // Время кеширования - 24 часа
+            ),
+            false
+        );?>
 
-							<?$APPLICATION->ShowViewContent('left_menu');?>
+        <?$APPLICATION->ShowViewContent('left_menu');?>
 
-							<?$APPLICATION->IncludeComponent("bitrix:main.include", ".default",
-								array(
-									"COMPONENT_TEMPLATE" => ".default",
-									"PATH" => SITE_DIR."include/left_block/comp_banners_left.php",
-									"AREA_FILE_SHOW" => "file",
-									"AREA_FILE_SUFFIX" => "",
-									"AREA_FILE_RECURSIVE" => "Y",
-									"EDIT_TEMPLATE" => "standard.php"
-								),
-								false
-							);?>
-							<?$APPLICATION->IncludeComponent("bitrix:main.include", ".default",
-								array(
-									"COMPONENT_TEMPLATE" => ".default",
-									"PATH" => SITE_DIR."include/left_block/comp_subscribe.php",
-									"AREA_FILE_SHOW" => "file",
-									"AREA_FILE_SUFFIX" => "",
-									"AREA_FILE_RECURSIVE" => "Y",
-									"EDIT_TEMPLATE" => "standard.php"
-								),
-								false
-							);?>
-							<?$APPLICATION->IncludeComponent("bitrix:main.include", ".default",
-								array(
-									"COMPONENT_TEMPLATE" => ".default",
-									"PATH" => SITE_DIR."include/left_block/comp_news.php",
-									"AREA_FILE_SHOW" => "file",
-									"AREA_FILE_SUFFIX" => "",
-									"AREA_FILE_RECURSIVE" => "Y",
-									"EDIT_TEMPLATE" => "standard.php"
-								),
-								false
-							);?>
-							<?/*$APPLICATION->IncludeComponent("bitrix:main.include", ".default",
+        <?$APPLICATION->IncludeComponent("bitrix:main.include", ".default",
+            array(
+                "COMPONENT_TEMPLATE" => ".default",
+                "PATH" => SITE_DIR."include/left_block/comp_banners_left.php",
+                "AREA_FILE_SHOW" => "file",
+                "AREA_FILE_SUFFIX" => "",
+                "AREA_FILE_RECURSIVE" => "Y",
+                "EDIT_TEMPLATE" => "standard.php",
+                "CACHE_TYPE" => "A",
+                "CACHE_TIME" => 86400,
+            ),
+            false
+        );?>
+        <?$APPLICATION->IncludeComponent("bitrix:main.include", ".default",
+            array(
+                "COMPONENT_TEMPLATE" => ".default",
+                "PATH" => SITE_DIR."include/left_block/comp_subscribe.php",
+                "AREA_FILE_SHOW" => "file",
+                "AREA_FILE_SUFFIX" => "",
+                "AREA_FILE_RECURSIVE" => "Y",
+                "EDIT_TEMPLATE" => "standard.php",
+                "CACHE_TYPE" => "A",
+                "CACHE_TIME" => 86400,
+            ),
+            false
+        );?>
+        <?$APPLICATION->IncludeComponent("bitrix:main.include", ".default",
+            array(
+                "COMPONENT_TEMPLATE" => ".default",
+                "PATH" => SITE_DIR."include/left_block/comp_news.php",
+                "AREA_FILE_SHOW" => "file",
+                "AREA_FILE_SUFFIX" => "",
+                "AREA_FILE_RECURSIVE" => "Y",
+                "EDIT_TEMPLATE" => "standard.php",
+                "CACHE_TYPE" => "A",
+                "CACHE_TIME" => 86400,
+            ),
+            false
+        );?>
+
+    <?/*$APPLICATION->IncludeComponent("bitrix:main.include", ".default",
 								array(
 									"COMPONENT_TEMPLATE" => ".default",
 									"PATH" => SITE_DIR."include/left_block/comp_news_articles.php",
@@ -127,14 +155,29 @@ __cs.push(["setCsAccount", "tEFL0ZoXM1dNK9gTbWZ3Sof6apXMypHo"]);
 							<?if(!COptimus::IsMainPage() && strpos($_SERVER['REQUEST_URI'], '/info/articles/') !== 0):?>
 								<div class="container">
 									<div id="navigation">
-										<?$APPLICATION->IncludeComponent("bitrix:breadcrumb", "optimus", array(
-											"START_FROM" => "0",
-											"PATH" => "",
-											"SITE_ID" => "-",
-											"SHOW_SUBSECTIONS" => "N"
-											),
-											false
-										);?>
+                                        <?
+                                        $cache = Bitrix\Main\Data\Cache::createInstance();
+                                        $cacheTime = 86400; // 24 часа
+                                        $cacheId = 'breadcrumb_' . md5($_SERVER['REQUEST_URI']); // Уникальный ID для текущего URL
+                                        $cachePath = '/breadcrumb/';
+
+                                        if ($cache->initCache($cacheTime, $cacheId, $cachePath)) {
+                                            $vars = $cache->getVars();
+                                            echo $vars['breadcrumb'];
+                                        } elseif ($cache->startDataCache()) {
+                                            ob_start();
+                                            $APPLICATION->IncludeComponent("bitrix:breadcrumb", "optimus", array(
+                                                "START_FROM" => "0",
+                                                "PATH" => "",
+                                                "SITE_ID" => "-",
+                                                "SHOW_SUBSECTIONS" => "N"
+                                            ), false);
+                                            $breadcrumb = ob_get_clean();
+                                            echo $breadcrumb;
+
+                                            $cache->endDataCache(array('breadcrumb' => $breadcrumb));
+                                        }
+                                        ?>
 									</div>
 									<?$APPLICATION->ShowViewContent('section_bnr_content');?>
     <?if($APPLICATION->GetCurPage() == "/order/"):?>

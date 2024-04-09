@@ -74,18 +74,39 @@
         <div class="footer__right">
             <div id="phone-container-footer">
                 <?php
-                $phoneNumber = $APPLICATION->IncludeComponent("bitrix:main.include", ".default",
-                    array(
-                        "COMPONENT_TEMPLATE" => ".default",
-                        "PATH" => SITE_DIR."include/phone.php",
-                        "AREA_FILE_SHOW" => "file",
-                        "AREA_FILE_SUFFIX" => "",
-                        "AREA_FILE_RECURSIVE" => "Y",
-                        "EDIT_TEMPLATE" => "standard.php"
-                    ),
-                    true
-                );
+                $cache = Bitrix\Main\Data\Cache::createInstance();
+                $cacheTime = 86400; // 24 часа
+                $cacheId = 'phoneNumber_' . SITE_ID; // Уникальный идентификатор кеша
+                $cacheDir = '/phoneNumber/'; // Путь для сохранения кеша
+
+                if ($cache->initCache($cacheTime, $cacheId, $cacheDir)) {
+                    // Если кеш валиден, получаем сохраненные данные
+                    $phoneNumber = $cache->getVars();
+                } elseif ($cache->startDataCache()) {
+                    // Начало буферизации вывода
+                    ob_start();
+                    $phoneNumber = $APPLICATION->IncludeComponent("bitrix:main.include", ".default",
+                        array(
+                            "COMPONENT_TEMPLATE" => ".default",
+                            "PATH" => SITE_DIR."include/phone.php",
+                            "AREA_FILE_SHOW" => "file",
+                            "AREA_FILE_SUFFIX" => "",
+                            "AREA_FILE_RECURSIVE" => "Y",
+                            "EDIT_TEMPLATE" => "standard.php"
+                        ),
+                        false
+                    );
+                    // Получаем содержимое буфера и очищаем его
+                    $phoneNumber = ob_get_contents();
+                    ob_end_clean();
+
+                    // Сохраняем данные в кеш
+                    $cache->endDataCache($phoneNumber);
+                }
+
+                echo $phoneNumber;
                 ?>
+
             </div>
             <script>
                 // Находим элемент с id "phone-container"

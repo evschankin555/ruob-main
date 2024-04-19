@@ -1,0 +1,1497 @@
+
+# 40.6s user time, 1.2s system time, 31.38M rss, 36.81M vsz
+# Current date: Thu Apr 11 13:38:35 2024
+# Hostname: logstorage2.beget.ru
+# Files: /dev/fd/63
+# Overall: 6.71k total, 75 unique, 0.01 QPS, 0.02x concurrency ___________
+# Time range: 2024-03-31T21:02:42 to 2024-04-11T10:28:05
+# Attribute          total     min     max     avg     95%  stddev  median
+# ============     ======= ======= ======= ======= ======= ======= =======
+# Exec time         17275s      2s     33s      3s      3s   705ms      2s
+# Lock time             2s       0    27ms   345us   568us   682us   301us
+# Rows sent         57.61M       0   6.33M   8.79k   97.36 167.20k   19.46
+# Rows examine       3.51G       0   6.33M 547.87k 683.15k 298.64k 683.15k
+# Rows affecte     898.79k       0 298.39k  137.08       0   5.15k       0
+# Bytes sent         2.24G      11 208.36M 349.74k 136.54k   4.76M  34.83k
+# Query size        13.22M      25   6.44k   2.02k   3.35k   1.06k   1.53k
+
+# Profile
+# Rank Query ID                       Response time   Calls R/Call V/M   I
+# ==== ============================== =============== ===== ====== ===== =
+#    1 0x2F146735560AB7183D71E176F... 6270.2923 36.3%  2278 2.7525  0.05 SELECT BE.ACTIVE_FROM BE.ACTIVE_TO BE.ACTIVE_FROM BE.ACTIVE_TO b_iblock b_lang b_iblock_element b_catalog_product b_catalog_price b_catalog_iblock b_catalog_vat b_catalog_price b_catalog_product b_user
+#    2 0x64EDFA8B0FBBA28444E0B5D93... 4117.8663 23.8%  1674 2.4599  0.03 SELECT b_iblock b_lang b_iblock_element b_catalog_product b_catalog_price b_catalog_iblock b_catalog_vat b_catalog_price b_catalog_product b_user
+#    3 0x4668E314BA15102A351C73455... 1496.6106  8.7%   665 2.2505  0.02 SELECT b_iblock b_lang b_iblock_element b_iblock_?_index b_iblock_group b_iblock_element_right b_iblock_right b_user_access
+#    4 0x3790A22747CBFC3310C2AA198... 1242.6145  7.2%   473 2.6271  0.18 SELECT b_iblock b_lang b_iblock_element b_catalog_product b_catalog_price b_iblock_section_element b_iblock_section
+#    5 0x9EA4A252CB2DB8C9DCA0B1C73... 1119.5808  6.5%   504 2.2214  0.01 SELECT b_iblock_property b_iblock
+#    6 0xC860257F1D9A72E3AB97AB417...  594.5936  3.4%   236 2.5195  0.07 SELECT b_iblock b_lang b_iblock_element b_iblock_section_element b_iblock_section b_catalog_product b_catalog_price
+#    7 0xFE5291214A60E63BDC9C44727...  567.0063  3.3%   223 2.5426  0.08 SELECT b_iblock b_lang b_iblock_element b_iblock_section_element b_iblock_section b_catalog_product b_catalog_price
+#    8 0x2A1813DAFDA23C3B0E1619AB5...  258.4180  1.5%    96 2.6919  0.01 TRUNCATE TABLE tdrd_rule_quick
+#    9 0xE3C753C2F267B2D767A347A28...  208.4813  1.2%    31 6.7252  1.24 SELECT b_iblock_element
+#   10 0x945C55D6EB294CFEFB08E9CD4...  152.8843  0.9%    66 2.3164  0.01 SELECT wd_seo_url wd_seo_smartfilter_rule wd_seo_smartfilter_profile
+#   11 0x93F4148E74E8416C9FBE6F40F...  150.0738  0.9%    67 2.2399  0.01 SELECT b_iblock b_lang b_iblock_element b_iblock_element_property
+#   12 0x380E5A1112391AF4C615D868C...  122.4723  0.7%    54 2.2680  0.01 SELECT b_iblock b_iblock_property b_iblock_element_property b_iblock_property_enum
+#   13 0x1E36821D7F6FE2F24DA71F211...  114.0229  0.7%    37 3.0817  0.15 SELECT wd_seo_url wd_seo_smartfilter_rule wd_seo_smartfilter_profile
+#   14 0x230CE4704F99189067F733C60...  101.3652  0.6%    45 2.2526  0.02 SELECT b_iblock b_lang b_iblock_element b_iblock_property b_iblock_element_property
+#   15 0x4C0A6EEA3F559FE228B4B41BC...   78.5370  0.5%    12 6.5447  0.15 DELETE SELECT b_iblock_element_iprop b_iblock_section_element b_iblock_section
+#   16 0x80EA66583BA096C12E9520D0C...   75.2406  0.4%    29 2.5945  0.07 SELECT b_iblock b_lang b_iblock_element b_iblock_section_element b_iblock_section b_catalog_product b_catalog_store_product b_catalog_price
+#   18 0xC2560A370125EC15EF85A4A1B...   58.0587  0.3%    26 2.2330  0.02 DROP TABLE b_xml_tree_askaron_parallel?c_a? `b_xml_tree_askaron_parallel1c_a02`
+#   19 0xCBBF090457569312187BCE852...   56.1257  0.3%    24 2.3386  0.01 SELECT b_iblock b_lang b_iblock_element b_iblock_property b_iblock_element_property
+#   20 0x8AC6B0E40030A0D0DA798CA24...   50.8609  0.3%    22 2.3119  0.02 SELECT b_iblock b_lang b_iblock_element b_iblock_property b_iblock_element_property
+#   21 0x1782B10099A06903D226FC1D9...   29.7952  0.2%    11 2.7087  0.01 TRUNCATE TABLE yamarket_watcher_changes `yamarket_watcher_changes`
+# MISC 0xMISC                          409.9660  2.4%   141 2.9076   0.0 <55 ITEMS>
+
+# Query 1: 0.00 QPS, 0.01x concurrency, ID 0x2F146735560AB7183D71E176F246E3A0 at byte 140816511
+# This item is included in the report because it matches --limit.
+# Scores: V/M = 0.05
+# Time range: 2024-04-01T06:24:05 to 2024-04-11T08:12:06
+# Attribute    pct   total     min     max     avg     95%  stddev  median
+# ============ === ======= ======= ======= ======= ======= ======= =======
+# Count         33    2278
+# Exec time     36   6270s      2s      5s      3s      3s   379ms      3s
+# Lock time     46      1s   362us     1ms   474us   596us    67us   445us
+# Rows sent      0  44.47k       9      20   19.99   19.46    0.24   19.46
+# Rows examine  42   1.50G 602.50k 697.86k 689.30k 683.15k  12.94k 683.15k
+# Rows affecte   0       0       0       0       0       0       0       0
+# Bytes sent     6 139.08M  29.33k  97.18k  62.52k  83.83k  15.16k  59.57k
+# Query size    52   6.90M   3.10k   3.10k   3.10k   3.04k       0   3.04k
+# String:
+# Databases    torgsnhm_ruobo32
+# Hosts        localhost
+# Last errno   0
+# Users        torgsnhm_ruobo32
+# Query_time distribution
+#   1us
+#  10us
+# 100us
+#   1ms
+#  10ms
+# 100ms
+#    1s  ################################################################
+#  10s+
+# Tables
+#    SHOW TABLE STATUS FROM `BE` LIKE 'ACTIVE_FROM'\G
+#    SHOW CREATE TABLE `BE`.`ACTIVE_FROM`\G
+#    SHOW TABLE STATUS FROM `BE` LIKE 'ACTIVE_TO'\G
+#    SHOW CREATE TABLE `BE`.`ACTIVE_TO`\G
+#    SHOW TABLE STATUS FROM `torgsnhm_ruobo32` LIKE 'b_iblock'\G
+#    SHOW CREATE TABLE `torgsnhm_ruobo32`.`b_iblock`\G
+#    SHOW TABLE STATUS FROM `torgsnhm_ruobo32` LIKE 'b_lang'\G
+#    SHOW CREATE TABLE `torgsnhm_ruobo32`.`b_lang`\G
+#    SHOW TABLE STATUS FROM `torgsnhm_ruobo32` LIKE 'b_iblock_element'\G
+#    SHOW CREATE TABLE `torgsnhm_ruobo32`.`b_iblock_element`\G
+#    SHOW TABLE STATUS FROM `torgsnhm_ruobo32` LIKE 'b_catalog_product'\G
+#    SHOW CREATE TABLE `torgsnhm_ruobo32`.`b_catalog_product`\G
+#    SHOW TABLE STATUS FROM `torgsnhm_ruobo32` LIKE 'b_catalog_price'\G
+#    SHOW CREATE TABLE `torgsnhm_ruobo32`.`b_catalog_price`\G
+#    SHOW TABLE STATUS FROM `torgsnhm_ruobo32` LIKE 'b_catalog_iblock'\G
+#    SHOW CREATE TABLE `torgsnhm_ruobo32`.`b_catalog_iblock`\G
+#    SHOW TABLE STATUS FROM `torgsnhm_ruobo32` LIKE 'b_catalog_vat'\G
+#    SHOW CREATE TABLE `torgsnhm_ruobo32`.`b_catalog_vat`\G
+#    SHOW TABLE STATUS FROM `torgsnhm_ruobo32` LIKE 'b_user'\G
+#    SHOW CREATE TABLE `torgsnhm_ruobo32`.`b_user`\G
+# EXPLAIN /*!50100 PARTITIONS*/
+SELECT  BE.ID as ID,BE.NAME as NAME,BE.DETAIL_PICTURE as DETAIL_PICTURE,DATE_FORMAT(BE.TIMESTAMP_X, '%d.%m.%Y %H:%i:%s') as TIMESTAMP_X,UNIX_TIMESTAMP(BE.TIMESTAMP_X) as TIMESTAMP_X_UNIX,BE.MODIFIED_BY as MODIFIED_BY,DATE_FORMAT(BE.DATE_CREATE, '%d.%m.%Y %H:%i:%s') as DATE_CREATE,UNIX_TIMESTAMP(BE.DATE_CREATE) as DATE_CREATE_UNIX,BE.CREATED_BY as CREATED_BY,BE.IBLOCK_ID as IBLOCK_ID,BE.IBLOCK_SECTION_ID as IBLOCK_SECTION_ID,BE.ACTIVE as ACTIVE,BE.ACTIVE_FROM as ACTIVE_FROM_X, case when EXTRACT(HOUR FROM BE.ACTIVE_FROM) > 0 OR EXTRACT(MINUTE FROM BE.ACTIVE_FROM) > 0 OR EXTRACT(SECOND FROM BE.ACTIVE_FROM) > 0 then DATE_FORMAT(BE.ACTIVE_FROM, '%d.%m.%Y %H:%i:%s') else DATE_FORMAT(BE.ACTIVE_FROM, '%d.%m.%Y') end as ACTIVE_FROM,case when EXTRACT(HOUR FROM BE.ACTIVE_TO) > 0 OR EXTRACT(MINUTE FROM BE.ACTIVE_TO) > 0 OR EXTRACT(SECOND FROM BE.ACTIVE_TO) > 0 then DATE_FORMAT(BE.ACTIVE_TO, '%d.%m.%Y %H:%i:%s') else DATE_FORMAT(BE.ACTIVE_TO, '%d.%m.%Y') end as ACTIVE_TO,case when EXTRACT(HOUR FROM BE.ACTIVE_FROM) > 0 OR EXTRACT(MINUTE FROM BE.ACTIVE_FROM) > 0 OR EXTRACT(SECOND FROM BE.ACTIVE_FROM) > 0 then DATE_FORMAT(BE.ACTIVE_FROM, '%d.%m.%Y %H:%i:%s') else DATE_FORMAT(BE.ACTIVE_FROM, '%d.%m.%Y') end as DATE_ACTIVE_FROM,case when EXTRACT(HOUR FROM BE.ACTIVE_TO) > 0 OR EXTRACT(MINUTE FROM BE.ACTIVE_TO) > 0 OR EXTRACT(SECOND FROM BE.ACTIVE_TO) > 0 then DATE_FORMAT(BE.ACTIVE_TO, '%d.%m.%Y %H:%i:%s') else DATE_FORMAT(BE.ACTIVE_TO, '%d.%m.%Y') end as DATE_ACTIVE_TO,BE.SORT as SORT,BE.PREVIEW_PICTURE as PREVIEW_PICTURE,BE.PREVIEW_TEXT as PREVIEW_TEXT,BE.PREVIEW_TEXT_TYPE as PREVIEW_TEXT_TYPE,BE.DETAIL_TEXT as DETAIL_TEXT,BE.DETAIL_TEXT_TYPE as DETAIL_TEXT_TYPE,BE.SEARCHABLE_CONTENT as SEARCHABLE_CONTENT,BE.WF_STATUS_ID as WF_STATUS_ID,BE.WF_PARENT_ELEMENT_ID as WF_PARENT_ELEMENT_ID,BE.WF_LAST_HISTORY_ID as WF_LAST_HISTORY_ID,BE.WF_NEW as WF_NEW,case when BE.WF_DATE_LOCK is null then 'green' when DATE_ADD(BE.WF_DATE_LOCK, INTERVAL 3600 SECOND) < NOW() then 'green' when BE.WF_LOCKED_BY = 0 then 'yellow' else 'red' end as LOCK_STA
+					FROM 
+			b_iblock B
+			INNER JOIN b_lang L ON B.LID=L.LID
+			INNER JOIN b_iblock_element BE ON BE.IBLOCK_ID = B.ID
+			left join b_catalog_product as CAT_PR on (CAT_PR.ID = BE.ID)
+			left join b_catalog_price as CAT_P1 on (CAT_P1.PRODUCT_ID = BE.ID and CAT_P1.CATALOG_GROUP_ID = 1)
+			left join b_catalog_iblock as CAT_IB on ((CAT_PR.VAT_ID IS NULL or CAT_PR.VAT_ID = 0) and CAT_IB.IBLOCK_ID = BE.IBLOCK_ID)
+			left join b_catalog_vat as CAT_VAT on (CAT_VAT.ID = CASE WHEN (CAT_PR.VAT_ID IS NULL OR CAT_PR.VAT_ID = 0) THEN CAT_IB.VAT_ID ELSE CAT_PR.VAT_ID END)
+			left join b_catalog_price as PRC_FT on (PRC_FT.PRODUCT_ID = BE.ID)
+			left join b_catalog_product as PRD on (PRD.ID = BE.ID)
+			LEFT JOIN b_user U ON U.ID=BE.MODIFIED_BY
+			LEFT JOIN b_user UL ON UL.ID=BE.WF_LOCKED_BY
+			LEFT JOIN b_user UC ON UC.ID=BE.CREATED_BY
+		
+					WHERE 1=1 
+			AND (
+			
+				((((BE.IBLOCK_ID = '14'))))
+				AND ((((PRC_FT.PRICE > '0'))))
+				AND ((((PRD.QUANTITY > '0'))))
+			)
+			AND (((BE.WF_STATUS_ID=1 AND BE.WF_PARENT_ELEMENT_ID IS NULL)))
+					
+					 ORDER BY CAT_PR.QUANTITY desc ,CAT_P1.PRICE_SCALE asc 
+				 LIMIT 20 OFFSET 7820\G
+
+# Query 2: 0.01 QPS, 0.01x concurrency, ID 0x64EDFA8B0FBBA28444E0B5D93EF4D18C at byte 128596990
+# This item is included in the report because it matches --limit.
+# Scores: V/M = 0.03
+# Time range: 2024-04-07T12:22:56 to 2024-04-10T17:55:42
+# Attribute    pct   total     min     max     avg     95%  stddev  median
+# ============ === ======= ======= ======= ======= ======= ======= =======
+# Count         24    1674
+# Exec time     23   4118s      2s      3s      2s      3s   265ms      2s
+# Lock time     17   408ms   124us     2ms   243us   490us   124us   185us
+# Rows sent      0   1.63k       1       1       1       1       0       1
+# Rows examine  31   1.09G 602.42k 684.79k 683.66k 683.15k   8.47k 683.15k
+# Rows affecte   0       0       0       0       0       0       0       0
+# Bytes sent     0  98.09k      60      60      60      60       0      60
+# Query size    12   1.70M   1.04k   1.04k   1.04k   1.04k       0   1.04k
+# String:
+# Databases    torgsnhm_ruobo32
+# Hosts        localhost
+# Last errno   0
+# Users        torgsnhm_ruobo32
+# Query_time distribution
+#   1us
+#  10us
+# 100us
+#   1ms
+#  10ms
+# 100ms
+#    1s  ################################################################
+#  10s+
+# Tables
+#    SHOW TABLE STATUS FROM `torgsnhm_ruobo32` LIKE 'b_iblock'\G
+#    SHOW CREATE TABLE `torgsnhm_ruobo32`.`b_iblock`\G
+#    SHOW TABLE STATUS FROM `torgsnhm_ruobo32` LIKE 'b_lang'\G
+#    SHOW CREATE TABLE `torgsnhm_ruobo32`.`b_lang`\G
+#    SHOW TABLE STATUS FROM `torgsnhm_ruobo32` LIKE 'b_iblock_element'\G
+#    SHOW CREATE TABLE `torgsnhm_ruobo32`.`b_iblock_element`\G
+#    SHOW TABLE STATUS FROM `torgsnhm_ruobo32` LIKE 'b_catalog_product'\G
+#    SHOW CREATE TABLE `torgsnhm_ruobo32`.`b_catalog_product`\G
+#    SHOW TABLE STATUS FROM `torgsnhm_ruobo32` LIKE 'b_catalog_price'\G
+#    SHOW CREATE TABLE `torgsnhm_ruobo32`.`b_catalog_price`\G
+#    SHOW TABLE STATUS FROM `torgsnhm_ruobo32` LIKE 'b_catalog_iblock'\G
+#    SHOW CREATE TABLE `torgsnhm_ruobo32`.`b_catalog_iblock`\G
+#    SHOW TABLE STATUS FROM `torgsnhm_ruobo32` LIKE 'b_catalog_vat'\G
+#    SHOW CREATE TABLE `torgsnhm_ruobo32`.`b_catalog_vat`\G
+#    SHOW TABLE STATUS FROM `torgsnhm_ruobo32` LIKE 'b_user'\G
+#    SHOW CREATE TABLE `torgsnhm_ruobo32`.`b_user`\G
+# EXPLAIN /*!50100 PARTITIONS*/
+SELECT COUNT('x') as C
+						FROM 
+			b_iblock B
+			INNER JOIN b_lang L ON B.LID=L.LID
+			INNER JOIN b_iblock_element BE ON BE.IBLOCK_ID = B.ID
+			left join b_catalog_product as CAT_PR on (CAT_PR.ID = BE.ID)
+			left join b_catalog_price as CAT_P1 on (CAT_P1.PRODUCT_ID = BE.ID and CAT_P1.CATALOG_GROUP_ID = 1)
+			left join b_catalog_iblock as CAT_IB on ((CAT_PR.VAT_ID IS NULL or CAT_PR.VAT_ID = 0) and CAT_IB.IBLOCK_ID = BE.IBLOCK_ID)
+			left join b_catalog_vat as CAT_VAT on (CAT_VAT.ID = CASE WHEN (CAT_PR.VAT_ID IS NULL OR CAT_PR.VAT_ID = 0) THEN CAT_IB.VAT_ID ELSE CAT_PR.VAT_ID END)
+			left join b_catalog_price as PRC_FT on (PRC_FT.PRODUCT_ID = BE.ID)
+			left join b_catalog_product as PRD on (PRD.ID = BE.ID)
+			LEFT JOIN b_user U ON U.ID=BE.MODIFIED_BY
+			LEFT JOIN b_user UL ON UL.ID=BE.WF_LOCKED_BY
+			LEFT JOIN b_user UC ON UC.ID=BE.CREATED_BY
+		
+						WHERE 1=1 
+			AND (
+			
+				((((BE.IBLOCK_ID = '14'))))
+				AND ((((PRC_FT.PRICE > '0'))))
+				AND ((((PRD.QUANTITY > '0'))))
+			)
+			AND (((BE.WF_STATUS_ID=1 AND BE.WF_PARENT_ELEMENT_ID IS NULL)))\G
+
+# Query 3: 0.00 QPS, 0.00x concurrency, ID 0x4668E314BA15102A351C734552BEB900 at byte 94959834
+# This item is included in the report because it matches --limit.
+# Scores: V/M = 0.02
+# Time range: 2024-03-31T22:02:15 to 2024-04-11T10:21:35
+# Attribute    pct   total     min     max     avg     95%  stddev  median
+# ============ === ======= ======= ======= ======= ======= ======= =======
+# Count          9     665
+# Exec time      8   1497s      2s      3s      2s      3s   196ms      2s
+# Lock time      4   108ms   100us   371us   163us   247us    52us   159us
+# Rows sent      0     665       1       1       1       1       0       1
+# Rows examine   8 292.92M 447.63k 454.64k 451.05k 440.37k       0 440.37k
+# Rows affecte   0       0       0       0       0       0       0       0
+# Bytes sent     0  40.26k      62      62      62      62       0      62
+# Query size     5 707.86k   1.06k   1.06k   1.06k   1.06k       0   1.06k
+# String:
+# Databases    torgsnhm_ruobo32
+# Hosts        localhost
+# Last errno   0
+# Users        torgsnhm_ruobo32
+# Query_time distribution
+#   1us
+#  10us
+# 100us
+#   1ms
+#  10ms
+# 100ms
+#    1s  ################################################################
+#  10s+
+# Tables
+#    SHOW TABLE STATUS FROM `torgsnhm_ruobo32` LIKE 'b_iblock'\G
+#    SHOW CREATE TABLE `torgsnhm_ruobo32`.`b_iblock`\G
+#    SHOW TABLE STATUS FROM `torgsnhm_ruobo32` LIKE 'b_lang'\G
+#    SHOW CREATE TABLE `torgsnhm_ruobo32`.`b_lang`\G
+#    SHOW TABLE STATUS FROM `torgsnhm_ruobo32` LIKE 'b_iblock_element'\G
+#    SHOW CREATE TABLE `torgsnhm_ruobo32`.`b_iblock_element`\G
+#    SHOW TABLE STATUS FROM `torgsnhm_ruobo32` LIKE 'b_iblock_14_index'\G
+#    SHOW CREATE TABLE `torgsnhm_ruobo32`.`b_iblock_14_index`\G
+#    SHOW TABLE STATUS FROM `torgsnhm_ruobo32` LIKE 'b_iblock_group'\G
+#    SHOW CREATE TABLE `torgsnhm_ruobo32`.`b_iblock_group`\G
+#    SHOW TABLE STATUS FROM `torgsnhm_ruobo32` LIKE 'b_iblock_element_right'\G
+#    SHOW CREATE TABLE `torgsnhm_ruobo32`.`b_iblock_element_right`\G
+#    SHOW TABLE STATUS FROM `torgsnhm_ruobo32` LIKE 'b_iblock_right'\G
+#    SHOW CREATE TABLE `torgsnhm_ruobo32`.`b_iblock_right`\G
+#    SHOW TABLE STATUS FROM `torgsnhm_ruobo32` LIKE 'b_user_access'\G
+#    SHOW CREATE TABLE `torgsnhm_ruobo32`.`b_user_access`\G
+# EXPLAIN /*!50100 PARTITIONS*/
+SELECT COUNT(DISTINCT BE.ID) as CNT
+				FROM 
+			b_iblock B
+			INNER JOIN b_lang L ON B.LID=L.LID
+			INNER JOIN b_iblock_element BE ON BE.IBLOCK_ID = B.ID
+			INNER JOIN b_iblock_14_index FC on FC.ELEMENT_ID = BE.ID
+		
+				WHERE 1=1 
+			AND (
+			
+				(FC.SECTION_ID = 2423 AND FC.FACET_ID = 1 AND FC.VALUE_NUM = 0 AND FC.VALUE in (0))
+				AND ((((BE.IBLOCK_ID = '14'))))
+				AND ((((BE.ACTIVE='Y'))))
+				AND (((BE.ACTIVE_TO >= now() OR BE.ACTIVE_TO IS NULL) AND (BE.ACTIVE_FROM <= now() OR BE.ACTIVE_FROM IS NULL)))
+			)
+			AND (((BE.WF_STATUS_ID=1 AND BE.WF_PARENT_ELEMENT_ID IS NULL)))
+			AND ((
+				B.ID IN (
+			SELECT IBLOCK_ID
+			FROM b_iblock_group IBG
+			WHERE IBG.GROUP_ID IN (2)
+			AND IBG.PERMISSION >= 'R'
+		
+				AND (IBG.PERMISSION='X' OR B.ACTIVE='Y')
+			)
+				OR (B.RIGHTS_MODE = 'E' AND EXISTS (
+				SELECT ER.ELEMENT_ID
+				FROM b_iblock_element_right ER
+				INNER JOIN b_iblock_right IBR ON IBR.ID = ER.RIGHT_ID
+				INNER JOIN b_user_access UA ON UA.ACCESS_CODE = IBR.GROUP_CODE AND UA.USER_ID = 0
+				WHERE ER.ELEMENT_ID = BE.ID
+				AND IBR.OP_EREAD = 'Y'
+				
+			))
+			))\G
+
+# Query 4: 0.00 QPS, 0.00x concurrency, ID 0x3790A22747CBFC3310C2AA198473860D at byte 14248903
+# This item is included in the report because it matches --limit.
+# Scores: V/M = 0.18
+# Time range: 2024-03-31T21:30:51 to 2024-04-11T10:28:05
+# Attribute    pct   total     min     max     avg     95%  stddev  median
+# ============ === ======= ======= ======= ======= ======= ======= =======
+# Count          7     473
+# Exec time      7   1243s      2s     10s      3s      4s   697ms      2s
+# Lock time      4   112ms   173us     1ms   237us   316us    68us   214us
+# Rows sent      0  46.19k     100     100     100     100       0     100
+# Rows examine   6 230.91M  28.50k 581.55k 499.89k 562.03k  70.95k 509.78k
+# Rows affecte   0       0       0       0       0       0       0       0
+# Bytes sent     2  57.30M  40.62k 184.98k 124.05k 150.54k  19.00k 117.95k
+# Query size     5 743.22k   1.57k   1.57k   1.57k   1.57k       0   1.57k
+# String:
+# Databases    torgsnhm_ruobo32
+# Hosts        localhost
+# Last errno   0
+# Users        torgsnhm_ruobo32
+# Query_time distribution
+#   1us
+#  10us
+# 100us
+#   1ms
+#  10ms
+# 100ms
+#    1s  ################################################################
+#  10s+
+# Tables
+#    SHOW TABLE STATUS FROM `torgsnhm_ruobo32` LIKE 'b_iblock'\G
+#    SHOW CREATE TABLE `torgsnhm_ruobo32`.`b_iblock`\G
+#    SHOW TABLE STATUS FROM `torgsnhm_ruobo32` LIKE 'b_lang'\G
+#    SHOW CREATE TABLE `torgsnhm_ruobo32`.`b_lang`\G
+#    SHOW TABLE STATUS FROM `torgsnhm_ruobo32` LIKE 'b_iblock_element'\G
+#    SHOW CREATE TABLE `torgsnhm_ruobo32`.`b_iblock_element`\G
+#    SHOW TABLE STATUS FROM `torgsnhm_ruobo32` LIKE 'b_catalog_product'\G
+#    SHOW CREATE TABLE `torgsnhm_ruobo32`.`b_catalog_product`\G
+#    SHOW TABLE STATUS FROM `torgsnhm_ruobo32` LIKE 'b_catalog_price'\G
+#    SHOW CREATE TABLE `torgsnhm_ruobo32`.`b_catalog_price`\G
+#    SHOW TABLE STATUS FROM `torgsnhm_ruobo32` LIKE 'b_iblock_section_element'\G
+#    SHOW CREATE TABLE `torgsnhm_ruobo32`.`b_iblock_section_element`\G
+#    SHOW TABLE STATUS FROM `torgsnhm_ruobo32` LIKE 'b_iblock_section'\G
+#    SHOW CREATE TABLE `torgsnhm_ruobo32`.`b_iblock_section`\G
+# EXPLAIN /*!50100 PARTITIONS*/
+SELECT  BE.IBLOCK_ID as IBLOCK_ID,BE.ID as ID,B.DETAIL_PAGE_URL as DETAIL_PAGE_URL,BE.IBLOCK_SECTION_ID as IBLOCK_SECTION_ID,BE.DETAIL_PICTURE as DETAIL_PICTURE,BE.DETAIL_TEXT as DETAIL_TEXT,L.DIR as LANG_DIR,BE.CODE as CODE,BE.XML_ID as EXTERNAL_ID,B.IBLOCK_TYPE_ID as IBLOCK_TYPE_ID,B.CODE as IBLOCK_CODE,B.XML_ID as IBLOCK_EXTERNAL_ID,B.LID as LID,BE.DETAIL_TEXT_TYPE as DETAIL_TEXT_TYPE , PRD.TYPE as TYPE
+					FROM 
+			b_iblock B
+			INNER JOIN b_lang L ON B.LID=L.LID
+			INNER JOIN b_iblock_element BE ON BE.IBLOCK_ID = B.ID
+			left join b_catalog_product as PRD on (PRD.ID = BE.ID)
+			left join b_catalog_price as PRC_1 on (PRC_1.PRODUCT_ID = BE.ID and PRC_1.CATALOG_GROUP_ID = 1  and  ((PRC_1.QUANTITY_FROM <= 1 or PRC_1.QUANTITY_FROM IS NULL) and (PRC_1.QUANTITY_TO >= 1 or PRC_1.QUANTITY_TO IS NULL)))
+		
+					WHERE 1=1 
+			AND (
+			
+				((((BE.IBLOCK_ID = '14'))))
+				AND ((((BE.ACTIVE='Y'))))
+				AND (((BE.ACTIVE_TO >= now() OR BE.ACTIVE_TO IS NULL) AND (BE.ACTIVE_FROM <= now() OR BE.ACTIVE_FROM IS NULL)))
+				AND (
+				
+					(
+					
+						((((PRC_1.PRICE > '10000'))))
+					)
+				)
+				AND (
+				
+					(( EXISTS (
+						SELECT BSE.IBLOCK_ELEMENT_ID
+						FROM b_iblock_section_element BSE
+						
+						INNER JOIN b_iblock_section BS ON BSE.IBLOCK_SECTION_ID = BS.ID
+						
+						WHERE BSE.IBLOCK_ELEMENT_ID = BE.ID
+						AND ((BS.GLOBAL_ACTIVE = 'Y'))
+						)))
+				)
+				AND (
+				
+					((((BE.ID > '360516'))))
+				)
+				AND ((( PRD.TYPE IS NULL OR NOT (PRD.TYPE = '3'))))
+			)
+			AND (((BE.WF_STATUS_ID=1 AND BE.WF_PARENT_ELEMENT_ID IS NULL)))
+					
+					 ORDER BY BE.ID asc 
+					LIMIT 100\G
+
+# Query 5: 0.00 QPS, 0.00x concurrency, ID 0x9EA4A252CB2DB8C9DCA0B1C73151916D at byte 92468654
+# This item is included in the report because it matches --limit.
+# Scores: V/M = 0.01
+# Time range: 2024-03-31T23:39:05 to 2024-04-09T17:46:09
+# Attribute    pct   total     min     max     avg     95%  stddev  median
+# ============ === ======= ======= ======= ======= ======= ======= =======
+# Count          7     504
+# Exec time      6   1120s      2s      3s      2s      3s   154ms      2s
+# Lock time      3    78ms    47us    27ms   153us   167us     1ms    98us
+# Rows sent      0     504       1       1       1       1       0       1
+# Rows examine   0     504       1       1       1       1       0       1
+# Rows affecte   0       0       0       0       0       0       0       0
+# Bytes sent     0   1.30M   2.64k   2.68k   2.65k   2.62k       0   2.62k
+# Query size     5 777.25k   1.54k   1.54k   1.54k   1.53k       0   1.53k
+# String:
+# Databases    torgsnhm_ruobo32
+# Hosts        localhost
+# Last errno   0
+# Users        torgsnhm_ruobo32
+# Query_time distribution
+#   1us
+#  10us
+# 100us
+#   1ms
+#  10ms
+# 100ms
+#    1s  ################################################################
+#  10s+
+# Tables
+#    SHOW TABLE STATUS FROM `torgsnhm_ruobo32` LIKE 'b_iblock_property'\G
+#    SHOW CREATE TABLE `torgsnhm_ruobo32`.`b_iblock_property`\G
+#    SHOW TABLE STATUS FROM `torgsnhm_ruobo32` LIKE 'b_iblock'\G
+#    SHOW CREATE TABLE `torgsnhm_ruobo32`.`b_iblock`\G
+# EXPLAIN /*!50100 PARTITIONS*/
+SELECT 
+	`iblock_property`.`ID` AS `ID`,
+	`iblock_property`.`TIMESTAMP_X` AS `TIMESTAMP_X`,
+	`iblock_property`.`IBLOCK_ID` AS `IBLOCK_ID`,
+	`iblock_property`.`NAME` AS `NAME`,
+	`iblock_property`.`ACTIVE` AS `ACTIVE`,
+	`iblock_property`.`SORT` AS `SORT`,
+	`iblock_property`.`CODE` AS `CODE`,
+	`iblock_property`.`DEFAULT_VALUE` AS `DEFAULT_VALUE`,
+	`iblock_property`.`PROPERTY_TYPE` AS `PROPERTY_TYPE`,
+	`iblock_property`.`ROW_COUNT` AS `ROW_COUNT`,
+	`iblock_property`.`COL_COUNT` AS `COL_COUNT`,
+	`iblock_property`.`LIST_TYPE` AS `LIST_TYPE`,
+	`iblock_property`.`MULTIPLE` AS `MULTIPLE`,
+	`iblock_property`.`XML_ID` AS `XML_ID`,
+	`iblock_property`.`FILE_TYPE` AS `FILE_TYPE`,
+	`iblock_property`.`MULTIPLE_CNT` AS `MULTIPLE_CNT`,
+	`iblock_property`.`TMP_ID` AS `TMP_ID`,
+	`iblock_property`.`LINK_IBLOCK_ID` AS `LINK_IBLOCK_ID`,
+	`iblock_property`.`WITH_DESCRIPTION` AS `WITH_DESCRIPTION`,
+	`iblock_property`.`SEARCHABLE` AS `SEARCHABLE`,
+	`iblock_property`.`FILTRABLE` AS `FILTRABLE`,
+	`iblock_property`.`IS_REQUIRED` AS `IS_REQUIRED`,
+	`iblock_property`.`VERSION` AS `VERSION`,
+	`iblock_property`.`USER_TYPE` AS `USER_TYPE`,
+	`iblock_property`.`USER_TYPE_SETTINGS` AS `USER_TYPE_SETTINGS_LIST`,
+	`iblock_property`.`USER_TYPE_SETTINGS` AS `USER_TYPE_SETTINGS`,
+	`iblock_property`.`HINT` AS `HINT`,
+	`iblock_property_iblock`.`ID` AS `UALIAS_0`
+FROM `b_iblock_property` `iblock_property` 
+LEFT JOIN `b_iblock` `iblock_property_iblock` ON `iblock_property`.`IBLOCK_ID` = `iblock_property_iblock`.`ID`
+WHERE `iblock_property_iblock`.`ID` IN (26)
+AND `iblock_property`.`CODE` = 'IS_BASE'\G
+
+# Query 6: 0.00 QPS, 0.00x concurrency, ID 0xC860257F1D9A72E3AB97AB41748DC01A at byte 142072941
+# This item is included in the report because it matches --limit.
+# Scores: V/M = 0.07
+# Time range: 2024-03-31T21:26:32 to 2024-04-11T10:25:06
+# Attribute    pct   total     min     max     avg     95%  stddev  median
+# ============ === ======= ======= ======= ======= ======= ======= =======
+# Count          3     236
+# Exec time      3    595s      2s      4s      3s      3s   427ms      2s
+# Lock time      3    92ms   288us   594us   389us   490us    63us   366us
+# Rows sent      0  23.05k     100     100     100     100       0     100
+# Rows examine   3 126.00M 329.25k 631.38k 546.70k 619.64k  67.39k 562.03k
+# Rows affecte   0       0       0       0       0       0       0       0
+# Bytes sent     1  31.05M  45.69k 199.70k 134.71k 174.27k  22.74k 130.04k
+# Query size     6 892.14k   3.78k   3.78k   3.78k   3.78k       0   3.78k
+# String:
+# Databases    torgsnhm_ruobo32
+# Hosts        localhost
+# Last errno   0
+# Users        torgsnhm_ruobo32
+# Query_time distribution
+#   1us
+#  10us
+# 100us
+#   1ms
+#  10ms
+# 100ms
+#    1s  ################################################################
+#  10s+
+# Tables
+#    SHOW TABLE STATUS FROM `torgsnhm_ruobo32` LIKE 'b_iblock'\G
+#    SHOW CREATE TABLE `torgsnhm_ruobo32`.`b_iblock`\G
+#    SHOW TABLE STATUS FROM `torgsnhm_ruobo32` LIKE 'b_lang'\G
+#    SHOW CREATE TABLE `torgsnhm_ruobo32`.`b_lang`\G
+#    SHOW TABLE STATUS FROM `torgsnhm_ruobo32` LIKE 'b_iblock_element'\G
+#    SHOW CREATE TABLE `torgsnhm_ruobo32`.`b_iblock_element`\G
+#    SHOW TABLE STATUS FROM `torgsnhm_ruobo32` LIKE 'b_iblock_section_element'\G
+#    SHOW CREATE TABLE `torgsnhm_ruobo32`.`b_iblock_section_element`\G
+#    SHOW TABLE STATUS FROM `torgsnhm_ruobo32` LIKE 'b_iblock_section'\G
+#    SHOW CREATE TABLE `torgsnhm_ruobo32`.`b_iblock_section`\G
+#    SHOW TABLE STATUS FROM `torgsnhm_ruobo32` LIKE 'b_catalog_product'\G
+#    SHOW CREATE TABLE `torgsnhm_ruobo32`.`b_catalog_product`\G
+#    SHOW TABLE STATUS FROM `torgsnhm_ruobo32` LIKE 'b_catalog_price'\G
+#    SHOW CREATE TABLE `torgsnhm_ruobo32`.`b_catalog_price`\G
+# EXPLAIN /*!50100 PARTITIONS*/
+SELECT  BE.IBLOCK_ID as IBLOCK_ID,BE.ID as ID,BE.IBLOCK_SECTION_ID as IBLOCK_SECTION_ID,BE.NAME as NAME,BE.DETAIL_TEXT as DETAIL_TEXT,BE.DETAIL_PICTURE as DETAIL_PICTURE,B.DETAIL_PAGE_URL as DETAIL_PAGE_URL,L.DIR as LANG_DIR,BE.CODE as CODE,BE.XML_ID as EXTERNAL_ID,B.IBLOCK_TYPE_ID as IBLOCK_TYPE_ID,B.CODE as IBLOCK_CODE,B.XML_ID as IBLOCK_EXTERNAL_ID,B.LID as LID,BE.DETAIL_TEXT_TYPE as DETAIL_TEXT_TYPE , PRD.TYPE as TYPE
+					FROM 
+			b_iblock B
+			INNER JOIN b_lang L ON B.LID=L.LID
+			INNER JOIN b_iblock_element BE ON BE.IBLOCK_ID = B.ID
+			 INNER JOIN (
+					SELECT DISTINCT BSE.IBLOCK_ELEMENT_ID
+					FROM b_iblock_section_element BSE
+					
+					INNER JOIN b_iblock_section BS ON BSE.IBLOCK_SECTION_ID = BS.ID
+					
+					WHERE ((BS.GLOBAL_ACTIVE = 'Y') AND (( NOT (BS.LEFT_MARGIN >= 2 AND BS.RIGHT_MARGIN <= 5)
+AND  NOT (BS.LEFT_MARGIN >= 398 AND BS.RIGHT_MARGIN <= 401)
+AND  NOT (BS.LEFT_MARGIN >= 466 AND BS.RIGHT_MARGIN <= 467)
+AND  NOT (BS.LEFT_MARGIN >= 475 AND BS.RIGHT_MARGIN <= 498)
+AND  NOT (BS.LEFT_MARGIN >= 500 AND BS.RIGHT_MARGIN <= 521)
+AND  NOT (BS.LEFT_MARGIN >= 588 AND BS.RIGHT_MARGIN <= 601)
+AND  NOT (BS.LEFT_MARGIN >= 664 AND BS.RIGHT_MARGIN <= 667)
+AND  NOT (BS.LEFT_MARGIN >= 808 AND BS.RIGHT_MARGIN <= 809)
+AND  NOT (BS.LEFT_MARGIN >= 820 AND BS.RIGHT_MARGIN <= 823)
+AND  NOT (BS.LEFT_MARGIN >= 904 AND BS.RIGHT_MARGIN <= 905)
+AND  NOT (BS.LEFT_MARGIN >= 942 AND BS.RIGHT_MARGIN <= 945)
+AND  NOT (BS.LEFT_MARGIN >= 973 AND BS.RIGHT_MARGIN <= 974)
+AND  NOT (BS.LEFT_MARGIN >= 975 AND BS.RIGHT_MARGIN <= 1080)
+AND  NOT (BS.LEFT_MARGIN >= 1102 AND BS.RIGHT_MARGIN <= 1103)
+AND  NOT (BS.LEFT_MARGIN >= 1126 AND BS.RIGHT_MARGIN <= 1127)
+AND  NOT (BS.LEFT_MARGIN >= 1128 AND BS.RIGHT_MARGIN <= 1129)
+AND  NOT (BS.LEFT_MARGIN >= 1130 AND BS.RIGHT_MARGIN <= 1131)
+AND  NOT (BS.LEFT_MARGIN >= 1132 AND BS.RIGHT_MARGIN <= 1133)
+AND  NOT (BS.LEFT_MARGIN >= 1134 AND BS.RIGHT_MARGIN <= 1135)
+AND  NOT (BS.LEFT_MARGIN >= 1136 AND BS.RIGHT_MARGIN <= 1137)
+AND  NOT (BS.LEFT_MARGIN >= 1138 AND BS.RIGHT_MARGIN <= 1139)
+AND  NOT (BS.LEFT_MARGIN >= 1140 AND BS.RIGHT_MARGIN <= 1141)
+AND  NOT (BS.LEFT_MARGIN >= 1142 AND BS.RIGHT_MARGIN <= 1143)
+AND  NOT (BS.LEFT_MARGIN >= 1144 AND BS.RIGHT_MARGIN <= 1145)
+AND  NOT (BS.LEFT_MARGIN >= 1150 AND BS.RIGHT_MARGIN <= 1151)
+AND  NOT (BS.LEFT_MARGIN >= 1162 AND BS.RIGHT_MARGIN <= 1163)
+AND  NOT (BS.LEFT_MARGIN >= 1164 AND BS.RIGHT_MARGIN <= 1165)
+AND  NOT (BS.LEFT_MARGIN >= 1168 AND BS.RIGHT_MARGIN <= 1169)
+AND  NOT (BS.LEFT_MARGIN >= 1172 AND BS.RIGHT_MARGIN <= 1173)
+AND  NOT (BS.LEFT_MARGIN >= 1174 AND BS.RIGHT_MARGIN <= 1175)
+AND  NOT (BS.LEFT_MARGIN >= 1176 AND BS.RIGHT_MARGIN <= 1177)
+AND  NOT (BS.LEFT_MARGIN >= 1178 AND BS.RIGHT_MARGIN <= 1179)
+AND  NOT (BS.LEFT_MARGIN >= 1181 AND BS.RIGHT_MARGIN <= 1182)
+AND  NOT (BS.LEFT_MARGIN >= 1196 AND BS.RIGHT_MARGIN <= 1205)
+AND  NOT (BS.LEFT_MARGIN >= 1344 AND BS.RIGHT_MARGIN <= 1345)
+AND  NOT (BS.LEFT_MARGIN >= 1346 AND BS.RIGHT_MARGIN <= 1347)
+AND  NOT (BS.LEFT_MARGIN >= 1360 AND BS.RIGHT_MARGIN <= 1361)
+)))
+					) BES ON BES.IBLOCK_ELEMENT_ID = BE.ID
+			left join b_catalog_product as PRD on (PRD.ID = BE.ID)
+			left join b_catalog_price as PRC_1 on (PRC_1.PRODUCT_ID = BE.ID and PRC_1.CATALOG_GROUP_ID = 1  and  ((PRC_1.QUANTITY_FROM <= 1 or PRC_1.QUANTITY_FROM IS NULL) and (PRC_1.QUANTITY_TO >= 1 or PRC_1.QUANTITY_TO IS NULL)))
+		
+					WHERE 1=1 
+			AND (
+			
+				((((BE.IBLOCK_ID = '14'))))
+				AND ((((BE.ACTIVE='Y'))))
+				AND (((BE.ACTIVE_TO >= now() OR BE.ACTIVE_TO IS NULL) AND (BE.ACTIVE_FROM <= now() OR BE.ACTIVE_FROM IS NULL)))
+				AND (
+				
+					(
+					
+						((((PRC_1.PRICE > '10000'))))
+					)
+				)
+				AND (
+				
+					((((BE.ID > '366665'))))
+				)
+				AND ((( PRD.TYPE IS NULL OR NOT (PRD.TYPE = '3'))))
+			)
+			AND (((BE.WF_STATUS_ID=1 AND BE.WF_PARENT_ELEMENT_ID IS NULL)))
+					
+					 ORDER BY BE.ID asc 
+					LIMIT 100\G
+
+# Query 7: 0.00 QPS, 0.00x concurrency, ID 0xFE5291214A60E63BDC9C44727629A4B4 at byte 6309271
+# This item is included in the report because it matches --limit.
+# Scores: V/M = 0.08
+# Time range: 2024-03-31T23:37:07 to 2024-04-11T07:42:04
+# Attribute    pct   total     min     max     avg     95%  stddev  median
+# ============ === ======= ======= ======= ======= ======= ======= =======
+# Count          3     223
+# Exec time      3    567s      2s      5s      3s      3s   461ms      2s
+# Lock time      3    74ms   230us   970us   331us   424us    65us   301us
+# Rows sent      0  21.78k     100     100     100     100       0     100
+# Rows examine   3 142.24M 439.01k 730.77k 653.14k 717.31k  75.92k 650.62k
+# Rows affecte   0       0       0       0       0       0       0       0
+# Bytes sent     1  28.53M  52.23k 200.11k 131.01k 150.54k  15.55k 123.85k
+# Query size     4 652.01k   2.92k   2.92k   2.92k   2.92k       0   2.92k
+# String:
+# Databases    torgsnhm_ruobo32
+# Hosts        localhost
+# Last errno   0
+# Users        torgsnhm_ruobo32
+# Query_time distribution
+#   1us
+#  10us
+# 100us
+#   1ms
+#  10ms
+# 100ms
+#    1s  ################################################################
+#  10s+
+# Tables
+#    SHOW TABLE STATUS FROM `torgsnhm_ruobo32` LIKE 'b_iblock'\G
+#    SHOW CREATE TABLE `torgsnhm_ruobo32`.`b_iblock`\G
+#    SHOW TABLE STATUS FROM `torgsnhm_ruobo32` LIKE 'b_lang'\G
+#    SHOW CREATE TABLE `torgsnhm_ruobo32`.`b_lang`\G
+#    SHOW TABLE STATUS FROM `torgsnhm_ruobo32` LIKE 'b_iblock_element'\G
+#    SHOW CREATE TABLE `torgsnhm_ruobo32`.`b_iblock_element`\G
+#    SHOW TABLE STATUS FROM `torgsnhm_ruobo32` LIKE 'b_iblock_section_element'\G
+#    SHOW CREATE TABLE `torgsnhm_ruobo32`.`b_iblock_section_element`\G
+#    SHOW TABLE STATUS FROM `torgsnhm_ruobo32` LIKE 'b_iblock_section'\G
+#    SHOW CREATE TABLE `torgsnhm_ruobo32`.`b_iblock_section`\G
+#    SHOW TABLE STATUS FROM `torgsnhm_ruobo32` LIKE 'b_catalog_product'\G
+#    SHOW CREATE TABLE `torgsnhm_ruobo32`.`b_catalog_product`\G
+#    SHOW TABLE STATUS FROM `torgsnhm_ruobo32` LIKE 'b_catalog_price'\G
+#    SHOW CREATE TABLE `torgsnhm_ruobo32`.`b_catalog_price`\G
+# EXPLAIN /*!50100 PARTITIONS*/
+SELECT  BE.IBLOCK_ID as IBLOCK_ID,BE.ID as ID,B.DETAIL_PAGE_URL as DETAIL_PAGE_URL,BE.IBLOCK_SECTION_ID as IBLOCK_SECTION_ID,BE.DETAIL_PICTURE as DETAIL_PICTURE,BE.NAME as NAME,BE.DETAIL_TEXT as DETAIL_TEXT,L.DIR as LANG_DIR,BE.CODE as CODE,BE.XML_ID as EXTERNAL_ID,B.IBLOCK_TYPE_ID as IBLOCK_TYPE_ID,B.CODE as IBLOCK_CODE,B.XML_ID as IBLOCK_EXTERNAL_ID,B.LID as LID,BE.DETAIL_TEXT_TYPE as DETAIL_TEXT_TYPE , PRD.TYPE as TYPE
+					FROM 
+			b_iblock B
+			INNER JOIN b_lang L ON B.LID=L.LID
+			INNER JOIN b_iblock_element BE ON BE.IBLOCK_ID = B.ID
+			 INNER JOIN (
+					SELECT DISTINCT BSE.IBLOCK_ELEMENT_ID
+					FROM b_iblock_section_element BSE
+					
+					INNER JOIN b_iblock_section BS ON BSE.IBLOCK_SECTION_ID = BS.ID
+					
+					WHERE ((BS.GLOBAL_ACTIVE = 'Y') AND (( NOT (BS.LEFT_MARGIN >= 2 AND BS.RIGHT_MARGIN <= 5)
+AND  NOT (BS.LEFT_MARGIN >= 80 AND BS.RIGHT_MARGIN <= 81)
+AND  NOT (BS.LEFT_MARGIN >= 106 AND BS.RIGHT_MARGIN <= 107)
+AND  NOT (BS.LEFT_MARGIN >= 348 AND BS.RIGHT_MARGIN <= 349)
+AND  NOT (BS.LEFT_MARGIN >= 398 AND BS.RIGHT_MARGIN <= 401)
+AND  NOT (BS.LEFT_MARGIN >= 466 AND BS.RIGHT_MARGIN <= 467)
+AND  NOT (BS.LEFT_MARGIN >= 475 AND BS.RIGHT_MARGIN <= 498)
+AND  NOT (BS.LEFT_MARGIN >= 500 AND BS.RIGHT_MARGIN <= 521)
+AND  NOT (BS.LEFT_MARGIN >= 588 AND BS.RIGHT_MARGIN <= 601)
+AND  NOT (BS.LEFT_MARGIN >= 664 AND BS.RIGHT_MARGIN <= 667)
+AND  NOT (BS.LEFT_MARGIN >= 786 AND BS.RIGHT_MARGIN <= 787)
+AND  NOT (BS.LEFT_MARGIN >= 808 AND BS.RIGHT_MARGIN <= 809)
+AND  NOT (BS.LEFT_MARGIN >= 820 AND BS.RIGHT_MARGIN <= 823)
+AND  NOT (BS.LEFT_MARGIN >= 904 AND BS.RIGHT_MARGIN <= 905)
+AND  NOT (BS.LEFT_MARGIN >= 942 AND BS.RIGHT_MARGIN <= 945)
+AND  NOT (BS.LEFT_MARGIN >= 973 AND BS.RIGHT_MARGIN <= 974)
+AND  NOT (BS.LEFT_MARGIN >= 1084 AND BS.RIGHT_MARGIN <= 1085)
+AND  NOT (BS.LEFT_MARGIN >= 1102 AND BS.RIGHT_MARGIN <= 1103)
+AND  NOT (BS.LEFT_MARGIN >= 1125 AND BS.RIGHT_MARGIN <= 1180)
+AND  NOT (BS.LEFT_MARGIN >= 1181 AND BS.RIGHT_MARGIN <= 1182)
+AND  NOT (BS.LEFT_MARGIN >= 1196 AND BS.RIGHT_MARGIN <= 1205)
+AND  NOT (BS.LEFT_MARGIN >= 1327 AND BS.RIGHT_MARGIN <= 1362)
+AND  NOT (BS.LEFT_MARGIN >= 1406 AND BS.RIGHT_MARGIN <= 1407)
+)))
+					) BES ON BES.IBLOCK_ELEMENT_ID = BE.ID
+			left join b_catalog_product as PRD on (PRD.ID = BE.ID)
+			left join b_catalog_price as PRC_1 on (PRC_1.PRODUCT_ID = BE.ID and PRC_1.CATALOG_GROUP_ID = 1  and  ((PRC_1.QUANTITY_FROM <= 1 or PRC_1.QUANTITY_FROM IS NULL) and (PRC_1.QUANTITY_TO >= 1 or PRC_1.QUANTITY_TO IS NULL)))
+		
+					WHERE 1=1 
+			AND (
+			
+				((((BE.IBLOCK_ID = '14'))))
+				AND ((((BE.ACTIVE='Y'))))
+				AND (((BE.ACTIVE_TO >= now() OR BE.ACTIVE_TO IS NULL) AND (BE.ACTIVE_FROM <= now() OR BE.ACTIVE_FROM IS NULL)))
+				AND (
+				
+					(
+					
+						((((PRC_1.PRICE > '10000'))))
+					)
+				)
+				AND (
+				
+					((((BE.ID > '362391'))))
+				)
+				AND ((( PRD.TYPE IS NULL OR NOT (PRD.TYPE = '3'))))
+			)
+			AND (((BE.WF_STATUS_ID=1 AND BE.WF_PARENT_ELEMENT_ID IS NULL)))
+					
+					 ORDER BY BE.ID asc 
+					LIMIT 100\G
+
+# Query 8: 0.00 QPS, 0.00x concurrency, ID 0x2A1813DAFDA23C3B0E1619AB534A5B3E at byte 134246326
+# This item is included in the report because it matches --limit.
+# Scores: V/M = 0.01
+# Time range: 2024-03-31T21:02:42 to 2024-04-11T10:20:44
+# Attribute    pct   total     min     max     avg     95%  stddev  median
+# ============ === ======= ======= ======= ======= ======= ======= =======
+# Count          1      96
+# Exec time      1    258s      2s      3s      3s      3s   168ms      3s
+# Lock time      7   171ms   590us    25ms     2ms     7ms     4ms   799us
+# Rows sent      0       0       0       0       0       0       0       0
+# Rows examine   0       0       0       0       0       0       0       0
+# Rows affecte   0       0       0       0       0       0       0       0
+# Bytes sent     0   1.03k      11      11      11      11       0      11
+# Query size     0   2.81k      30      30      30      30       0      30
+# String:
+# Databases    torgsnhm_ruobo32
+# Hosts        localhost
+# Last errno   0
+# Users        torgsnhm_ruobo32
+# Query_time distribution
+#   1us
+#  10us
+# 100us
+#   1ms
+#  10ms
+# 100ms
+#    1s  ################################################################
+#  10s+
+# Tables
+#    SHOW TABLE STATUS FROM `torgsnhm_ruobo32` LIKE 'tdrd_rule_quick'\G
+#    SHOW CREATE TABLE `torgsnhm_ruobo32`.`tdrd_rule_quick`\G
+TRUNCATE TABLE tdrd_rule_quick\G
+
+# Query 9: 0.00 QPS, 0.00x concurrency, ID 0xE3C753C2F267B2D767A347A2812914DF at byte 122355140
+# This item is included in the report because it matches --limit.
+# Scores: V/M = 1.24
+# Time range: 2024-04-01T21:06:31 to 2024-04-09T13:58:05
+# Attribute    pct   total     min     max     avg     95%  stddev  median
+# ============ === ======= ======= ======= ======= ======= ======= =======
+# Count          0      31
+# Exec time      1    208s      3s     12s      7s     12s      3s      5s
+# Lock time      0   760us    19us    42us    24us    31us     5us    21us
+# Rows sent     96  55.37M 166.17k   6.33M   1.79M   3.50M   1.63M   1.20M
+# Rows examine   1  55.37M 166.17k   6.33M   1.79M   3.50M   1.63M   1.20M
+# Rows affecte   0       0       0       0       0       0       0       0
+# Bytes sent    72   1.62G  16.25M 134.48M  53.38M 129.62M  29.58M  44.31M
+# Query size     0   1.80k      47      74   59.39   72.65    7.12   56.92
+# String:
+# Databases    torgsnhm_ruobo32
+# Hosts        localhost
+# Last errno   1681
+# Users        root
+# Query_time distribution
+#   1us
+#  10us
+# 100us
+#   1ms
+#  10ms
+# 100ms
+#    1s  ################################################################
+#  10s+  ###############
+# Tables
+#    SHOW TABLE STATUS FROM `torgsnhm_ruobo32` LIKE 'b_iblock_element'\G
+#    SHOW CREATE TABLE `torgsnhm_ruobo32`.`b_iblock_element`\G
+SELECT /*!40001 SQL_NO_CACHE */ * FROM `b_iblock_element`\G
+# Converted for EXPLAIN
+# EXPLAIN /*!50100 PARTITIONS*/
+SELECT /*!40001 SQL_NO_CACHE */ * FROM `b_iblock_element`\G
+
+# Query 10: 0.00 QPS, 0.00x concurrency, ID 0x945C55D6EB294CFEFB08E9CD4FF1BBDF at byte 113093095
+# This item is included in the report because it matches --limit.
+# Scores: V/M = 0.01
+# Time range: 2024-04-01T09:41:05 to 2024-04-09T14:00:09
+# Attribute    pct   total     min     max     avg     95%  stddev  median
+# ============ === ======= ======= ======= ======= ======= ======= =======
+# Count          0      66
+# Exec time      0    153s      2s      3s      2s      3s   183ms      2s
+# Lock time      0    17ms   161us     1ms   261us   316us   155us   247us
+# Rows sent      0       0       0       0       0       0       0       0
+# Rows examine   0   1.71M  25.86k  26.87k  26.51k  25.99k  154.82  25.99k
+# Rows affecte   0       0       0       0       0       0       0       0
+# Bytes sent     0 315.37k   4.78k   4.78k   4.78k   4.78k       0   4.78k
+# Query size     1 235.93k   3.45k   4.82k   3.57k   3.69k  212.12   3.52k
+# String:
+# Databases    torgsnhm_ruobo32
+# Hosts        localhost
+# Last errno   0
+# Users        torgsnhm_ruobo32
+# Query_time distribution
+#   1us
+#  10us
+# 100us
+#   1ms
+#  10ms
+# 100ms
+#    1s  ################################################################
+#  10s+
+# Tables
+#    SHOW TABLE STATUS FROM `torgsnhm_ruobo32` LIKE 'wd_seo_url'\G
+#    SHOW CREATE TABLE `torgsnhm_ruobo32`.`wd_seo_url`\G
+#    SHOW TABLE STATUS FROM `torgsnhm_ruobo32` LIKE 'wd_seo_smartfilter_rule'\G
+#    SHOW CREATE TABLE `torgsnhm_ruobo32`.`wd_seo_smartfilter_rule`\G
+#    SHOW TABLE STATUS FROM `torgsnhm_ruobo32` LIKE 'wd_seo_smartfilter_profile'\G
+#    SHOW CREATE TABLE `torgsnhm_ruobo32`.`wd_seo_smartfilter_profile`\G
+# EXPLAIN /*!50100 PARTITIONS*/
+SELECT 
+	`wd_seo_url`.`ID` AS `ID`,
+	`wd_seo_url`.`TYPE` AS `TYPE`,
+	`wd_seo_url`.`PARENT_ID` AS `PARENT_ID`,
+	`wd_seo_url`.`ACTIVE` AS `ACTIVE`,
+	`wd_seo_url`.`LOCKED` AS `LOCKED`,
+	`wd_seo_url`.`URL_REAL` AS `URL_REAL`,
+	`wd_seo_url`.`URL_SEO` AS `URL_SEO`,
+	`wd_seo_url`.`URL_NAME` AS `URL_NAME`,
+	`wd_seo_url`.`SITE_ID` AS `SITE_ID`,
+	`wd_seo_url`.`DESCRIPTION` AS `DESCRIPTION`,
+	`wd_seo_url`.`SORT` AS `SORT`,
+	`wd_seo_url`.`DATA` AS `DATA`,
+	`wd_seo_url`.`SEO_TITLE` AS `SEO_TITLE`,
+	`wd_seo_url`.`SEO_DESCRIPTION` AS `SEO_DESCRIPTION`,
+	`wd_seo_url`.`SEO_KEYWORDS` AS `SEO_KEYWORDS`,
+	`wd_seo_url`.`SEO_PAGE_TITLE` AS `SEO_PAGE_TITLE`,
+	`wd_seo_url`.`SEO_BREADCRUMB_ITEM_NAME` AS `SEO_BREADCRUMB_ITEM_NAME`,
+	`wd_seo_url`.`SEO_DISABLE_INDEXING` AS `SEO_DISABLE_INDEXING`,
+	`wd_seo_url`.`SEO_DISABLE_SEARCHING` AS `SEO_DISABLE_SEARCHING`,
+	`wd_seo_url`.`SEO_HIDE_FROM_SITEMAP` AS `SEO_HIDE_FROM_SITEMAP`,
+	`wd_seo_url`.`SEO_SITEMAP_PRIORITY` AS `SEO_SITEMAP_PRIORITY`,
+	`wd_seo_url`.`SEO_SITEMAP_CHANGEFREQ` AS `SEO_SITEMAP_CHANGEFREQ`,
+	`wd_seo_url`.`HASH` AS `HASH`,
+	`wd_seo_url`.`SESSION_ID` AS `SESSION_ID`,
+	`wd_seo_url`.`EXTERNAL_ID` AS `EXTERNAL_ID`,
+	`wd_seo_url`.`DATE_CREATED` AS `DATE_CREATED`,
+	`wd_seo_url`.`DATE_MODIFIED` AS `DATE_MODIFIED`,
+	`wd_seo_url`.`SEO_TEXT_1` AS `SEO_TEXT_1`,
+	`wd_seo_url`.`SEO_TEXT_1_TYPE` AS `SEO_TEXT_1_TYPE`,
+	`wd_seo_url`.`SEO_TEXT_2` AS `SEO_TEXT_2`,
+	`wd_seo_url`.`SEO_TEXT_2_TYPE` AS `SEO_TEXT_2_TYPE`,
+	`wd_seo_url`.`SEO_TEXT_3` AS `SEO_TEXT_3`,
+	`wd_seo_url`.`SEO_TEXT_3_TYPE` AS `SEO_TEXT_3_TYPE`,
+	`wd_seo_url`.`SEO_TEXT_4` AS `SEO_TEXT_4`,
+	`wd_seo_url`.`SEO_TEXT_4_TYPE` AS `SEO_TEXT_4_TYPE`,
+	`wd_seo_url`.`SEO_TEXT_5` AS `SEO_TEXT_5`,
+	`wd_seo_url`.`SEO_TEXT_5_TYPE` AS `SEO_TEXT_5_TYPE`,
+	`wd_seo_url`.`SEO_TEXT_6` AS `SEO_TEXT_6`,
+	`wd_seo_url`.`SEO_TEXT_6_TYPE` AS `SEO_TEXT_6_TYPE`,
+	`wd_seo_url`.`SEO_TEXT_7` AS `SEO_TEXT_7`,
+	`wd_seo_url`.`SEO_TEXT_7_TYPE` AS `SEO_TEXT_7_TYPE`,
+	`wd_seo_url`.`SEO_TEXT_8` AS `SEO_TEXT_8`,
+	`wd_seo_url`.`SEO_TEXT_8_TYPE` AS `SEO_TEXT_8_TYPE`,
+	`wd_seo_url`.`SEO_TEXT_9` AS `SEO_TEXT_9`,
+	`wd_seo_url`.`SEO_TEXT_9_TYPE` AS `SEO_TEXT_9_TYPE`,
+	`wd_seo_url_rule`.`ID` AS `RULE_ID`,
+	`wd_seo_url_rule`.`NAME` AS `RULE_NAME`,
+	`wd_seo_url_rule`.`ACTIVE` AS `RULE_ACTIVE`,
+	`wd_seo_url_rule`.`SECTION_ID` AS `RULE_SECTION_ID`,
+	`wd_seo_url_profile`.`ACTIVE` AS `PROFILE_ACTIVE`,
+	`wd_seo_url_profile`.`SITE_ID` AS `PROFILE_SITE_ID`,
+	`wd_seo_url_rule`.`PROFILE_ID` AS `PROFILE_ID`,
+	`wd_seo_url_profile`.`IBLOCK_ID` AS `PROFILE_IBLOCK_ID`,
+	`wd_seo_url_profile`.`FILTER_TYPE` AS `PROFILE_FILTER_TYPE`,
+	`wd_seo_url_profile`.`ID` AS `UALIAS_0`
+FROM `wd_seo_url` `wd_seo_url` 
+LEFT JOIN `wd_seo_smartfilter_rule` `wd_seo_url_rule` ON `wd_seo_url_rule`.`ID` = `wd_seo_url`.`PARENT_ID`
+LEFT JOIN `wd_seo_smartfilter_profile` `wd_seo_url_profile` ON `wd_seo_url_profile`.`ID` = `wd_seo_url_rule`.`PROFILE_ID`
+WHERE (`wd_seo_url`.`ACTIVE` IS NULL OR `wd_seo_url`.`ACTIVE` <> 'N')
+AND (
+	(
+		`wd_seo_url_rule`.`ACTIVE` = 'Y'
+	)
+	OR (
+		(`wd_seo_url_rule`.`ACTIVE` IS NULL OR `wd_seo_url_rule`.`ACTIVE` = '')
+	)
+)
+AND (
+	(
+		`wd_seo_url_profile`.`ACTIVE` = 'Y'
+	)
+	OR (
+		(`wd_seo_url_profile`.`ACTIVE` IS NULL OR `wd_seo_url_profile`.`ACTIVE` = '')
+	)
+)
+AND (
+	(
+		`wd_seo_url_profile`.`SITE_ID` = 's1'
+	)
+	OR (
+		`wd_seo_url`.`SITE_ID` = 's1'
+	)
+)
+AND (
+	(
+		`wd_seo_url`.`URL_REAL` = '/catalog/teplovoe_oborudovanie/grili_kontaktnye/399313/'
+	)
+	OR (
+		`wd_seo_url`.`URL_SEO` = '/catalog/teplovoe_oborudovanie/grili_kontaktnye/399313/'
+	)
+)
+ORDER BY `ID` ASC
+LIMIT 0, 1\G
+
+# Query 11: 0.00 QPS, 0.00x concurrency, ID 0x93F4148E74E8416C9FBE6F40FD1DD2CD at byte 116208859
+# This item is included in the report because it matches --limit.
+# Scores: V/M = 0.01
+# Time range: 2024-03-31T23:47:05 to 2024-04-11T09:50:05
+# Attribute    pct   total     min     max     avg     95%  stddev  median
+# ============ === ======= ======= ======= ======= ======= ======= =======
+# Count          0      67
+# Exec time      0    150s      2s      3s      2s      3s   170ms      2s
+# Lock time      1    31ms   354us   728us   458us   657us    86us   424us
+# Rows sent      0  72.92k     129   1.78k   1.09k   1.61k  314.23   1.04k
+# Rows examine   0 225.03k     397   5.43k   3.36k   4.95k  950.85   3.19k
+# Rows affecte   0       0       0       0       0       0       0       0
+# Bytes sent     0   2.93M   8.23k  89.80k  44.72k  62.55k  12.52k  44.45k
+# Query size     1 231.08k   2.61k   3.49k   3.45k   3.35k  166.36   3.35k
+# String:
+# Databases    torgsnhm_ruobo32
+# Hosts        localhost
+# Last errno   0
+# Users        torgsnhm_ruobo32
+# Query_time distribution
+#   1us
+#  10us
+# 100us
+#   1ms
+#  10ms
+# 100ms
+#    1s  ################################################################
+#  10s+
+# Tables
+#    SHOW TABLE STATUS FROM `torgsnhm_ruobo32` LIKE 'b_iblock'\G
+#    SHOW CREATE TABLE `torgsnhm_ruobo32`.`b_iblock`\G
+#    SHOW TABLE STATUS FROM `torgsnhm_ruobo32` LIKE 'b_lang'\G
+#    SHOW CREATE TABLE `torgsnhm_ruobo32`.`b_lang`\G
+#    SHOW TABLE STATUS FROM `torgsnhm_ruobo32` LIKE 'b_iblock_element'\G
+#    SHOW CREATE TABLE `torgsnhm_ruobo32`.`b_iblock_element`\G
+#    SHOW TABLE STATUS FROM `torgsnhm_ruobo32` LIKE 'b_iblock_element_property'\G
+#    SHOW CREATE TABLE `torgsnhm_ruobo32`.`b_iblock_element_property`\G
+# EXPLAIN /*!50100 PARTITIONS*/
+SELECT
+					BE.ID IBLOCK_ELEMENT_ID
+					,BEP.IBLOCK_PROPERTY_ID
+					,BEP.VALUE
+					,BEP.VALUE_NUM
+					,BEP.ID PROPERTY_VALUE_ID
+						,BEP.DESCRIPTION
+						
+				FROM
+					
+			b_iblock B
+			INNER JOIN b_lang L ON B.LID=L.LID
+			INNER JOIN b_iblock_element BE ON BE.IBLOCK_ID = B.ID
+			
+		
+					LEFT JOIN b_iblock_element_property BEP ON BEP.IBLOCK_ELEMENT_ID = BE.ID WHERE 1=1 
+			AND (
+			
+				(((BE.ID IN ('378385', '378387', '378389', '378392', '378398', '378402', '378406', '378410', '378419', '378425', '378427', '378429', '378430', '378431', '378433', '378435', '378439', '378442', '378451', '378453'/*... omitted 80 items ...*/))))
+				AND ((((BE.IBLOCK_ID = '14'))))
+			)
+			AND (((BE.WF_STATUS_ID=1 AND BE.WF_PARENT_ELEMENT_ID IS NULL))) AND BEP.IBLOCK_PROPERTY_ID IN (18558, 18578, 18584, 18786, 18807, 18969, 20914, 20915, 20916, 20917, 20918, 20919, 20920, 20921, 20922, 20923, 20924, 20925, 20926, 20927, 20928, 20929, 20930, 20931, 20932, 20933, 20934, 20935, 20936, 20937, 20938, 20939, 20940, 20941, 20942, 20943, 20944, 20945, 20946, 20947, 20948, 20949, 20950, 20951, 20952, 20953, 20954, 20955, 20956, 20957, 20958, 20959, 20960, 20961, 20962, 20963, 20964, 20965, 20966, 20967, 20968, 20969, 20970, 20971, 20972, 20973, 20974, 20975, 20976, 20977, 20978, 20979, 20980, 20981, 20982, 20983, 20984, 20985, 20986, 20987, 20988, 20989, 20990, 20991, 20992, 20993, 20994, 20995, 20996, 20997, 20998, 20999, 21000, 21001, 21002, 21003, 21004, 21005, 21006, 21007, 21008, 21009, 21010, 21011, 21012, 21013, 21014, 21015, 21016, 21017, 21018, 21019, 21020, 21021, 21022, 21023, 21024, 21025, 21027, 21028, 21029, 21030, 21031, 21033, 21034, 21035, 21036, 21037, 21038, 21039, 21040, 21041, 21042, 21043, 21044, 21045, 21046, 21047, 21048, 21049, 21050, 21051, 21052, 21053, 21054, 21055, 21056, 21057, 21058, 21059, 21060, 21061, 21062, 21063, 21064, 21065, 21066, 21067, 21068, 21069, 21070, 21071, 21072, 21073, 21074, 21075, 21076, 21077, 21078, 21079, 21080, 21081, 21082, 21083, 21084, 21085, 21086, 21087, 21088, 21089, 21090, 21091, 21092, 21093, 21094, 21095, 21096, 21097, 21098, 21099, 21100, 21101, 21102, 21103, 21105, 21106, 21107, 21108, 21109, 21110, 21111, 21112, 21113, 21114, 21115, 21116, 21117, 21118, 21119, 21120, 21121, 21122, 21123, 21124, 21125, 21126, 21127, 21128, 21129, 21130, 21131, 21132, 21133, 21134, 21135, 21136, 21137, 21138, 21139, 21140, 21141, 21142, 21143, 21144, 21145, 21146, 21147, 21148, 21149, 21150, 21151, 21152, 21154, 21155, 21156, 21157, 21158, 21159, 21160, 21161, 21162, 21163, 21164, 21165, 21166, 21168, 21169, 21170, 21171, 21172, 21173, 21174, 21175, 21176, 21177, 21178, 21179, 21180, 21181, 21182, 21183, 21184, 21185, 21186, 21187, 21188, 21189, 21190, 211
+				ORDER BY
+					BEP.IBLOCK_ELEMENT_ID, BEP.IBLOCK_PROPERTY_ID, BEP.ID\G
+
+# Query 12: 0.00 QPS, 0.00x concurrency, ID 0x380E5A1112391AF4C615D868CDCEABF2 at byte 55984959
+# This item is included in the report because it matches --limit.
+# Scores: V/M = 0.01
+# Time range: 2024-03-31T23:52:06 to 2024-04-11T09:31:04
+# Attribute    pct   total     min     max     avg     95%  stddev  median
+# ============ === ======= ======= ======= ======= ======= ======= =======
+# Count          0      54
+# Exec time      0    122s      2s      3s      2s      3s   171ms      2s
+# Lock time      0     5ms    57us   161us    88us   131us    22us    80us
+# Rows sent      0     111       0       4    2.06    3.89    1.85    0.99
+# Rows examine   0     622       0      22   11.52   21.45    9.70    9.83
+# Rows affecte   0       0       0       0       0       0       0       0
+# Bytes sent     0 152.63k   2.52k   3.12k   2.83k   3.04k  262.60   2.62k
+# Query size     0  30.17k     571     575  572.04  563.87       0  563.87
+# String:
+# Databases    torgsnhm_ruobo32
+# Hosts        localhost
+# Last errno   0
+# Users        torgsnhm_ruobo32
+# Query_time distribution
+#   1us
+#  10us
+# 100us
+#   1ms
+#  10ms
+# 100ms
+#    1s  ################################################################
+#  10s+
+# Tables
+#    SHOW TABLE STATUS FROM `torgsnhm_ruobo32` LIKE 'b_iblock'\G
+#    SHOW CREATE TABLE `torgsnhm_ruobo32`.`b_iblock`\G
+#    SHOW TABLE STATUS FROM `torgsnhm_ruobo32` LIKE 'b_iblock_property'\G
+#    SHOW CREATE TABLE `torgsnhm_ruobo32`.`b_iblock_property`\G
+#    SHOW TABLE STATUS FROM `torgsnhm_ruobo32` LIKE 'b_iblock_element_property'\G
+#    SHOW CREATE TABLE `torgsnhm_ruobo32`.`b_iblock_element_property`\G
+#    SHOW TABLE STATUS FROM `torgsnhm_ruobo32` LIKE 'b_iblock_property_enum'\G
+#    SHOW CREATE TABLE `torgsnhm_ruobo32`.`b_iblock_property_enum`\G
+# EXPLAIN /*!50100 PARTITIONS*/
+SELECT BP.*, BEP.ID as PROPERTY_VALUE_ID, BEP.VALUE, BEP.DESCRIPTION, BEPE.VALUE VALUE_ENUM, BEPE.XML_ID VALUE_XML_ID, BEPE.SORT VALUE_SORT
+			FROM b_iblock B
+				INNER JOIN b_iblock_property BP ON B.ID=BP.IBLOCK_ID
+				LEFT JOIN b_iblock_element_property BEP ON (BP.ID = BEP.IBLOCK_PROPERTY_ID AND BEP.IBLOCK_ELEMENT_ID = 361023)
+				LEFT JOIN b_iblock_property_enum BEPE ON (BP.PROPERTY_TYPE = 'L' AND BEPE.ID=BEP.VALUE_ENUM AND BEPE.PROPERTY_ID=BP.ID)
+			WHERE B.ID = 14
+				AND BP.CODE LIKE 'CML2_TRAITS'
+			 ORDER BY  BP.SORT asc, BP.ID asc, BEPE.SORT asc, BEP.ID asc\G
+
+# Query 13: 0.00 QPS, 0.00x concurrency, ID 0x1E36821D7F6FE2F24DA71F211DB47903 at byte 8750346
+# This item is included in the report because it matches --limit.
+# Scores: V/M = 0.15
+# Time range: 2024-04-01T16:09:57 to 2024-04-07T23:16:05
+# Attribute    pct   total     min     max     avg     95%  stddev  median
+# ============ === ======= ======= ======= ======= ======= ======= =======
+# Count          0      37
+# Exec time      0    114s      2s      5s      3s      4s   677ms      3s
+# Lock time      0     9ms   184us   358us   236us   273us    30us   224us
+# Rows sent      0  34.71k       0    1000  960.76  964.41  169.29  964.41
+# Rows examine   0   3.32M  78.85k 106.38k  91.80k 101.89k   7.89k  88.02k
+# Rows affecte   0       0       0       0       0       0       0       0
+# Bytes sent     0   9.52M   1.60k 332.05k 263.51k 328.61k  79.06k 328.61k
+# Query size     0  66.18k   1.79k   1.79k   1.79k   1.78k       0   1.78k
+# String:
+# Databases    torgsnhm_ruobo32
+# Hosts        localhost
+# Last errno   0
+# Users        torgsnhm_ruobo32
+# Query_time distribution
+#   1us
+#  10us
+# 100us
+#   1ms
+#  10ms
+# 100ms
+#    1s  ################################################################
+#  10s+
+# Tables
+#    SHOW TABLE STATUS FROM `torgsnhm_ruobo32` LIKE 'wd_seo_url'\G
+#    SHOW CREATE TABLE `torgsnhm_ruobo32`.`wd_seo_url`\G
+#    SHOW TABLE STATUS FROM `torgsnhm_ruobo32` LIKE 'wd_seo_smartfilter_rule'\G
+#    SHOW CREATE TABLE `torgsnhm_ruobo32`.`wd_seo_smartfilter_rule`\G
+#    SHOW TABLE STATUS FROM `torgsnhm_ruobo32` LIKE 'wd_seo_smartfilter_profile'\G
+#    SHOW CREATE TABLE `torgsnhm_ruobo32`.`wd_seo_smartfilter_profile`\G
+# EXPLAIN /*!50100 PARTITIONS*/
+SELECT 
+	`wd_seo_url`.`ID` AS `ID`,
+	`wd_seo_url`.`SITE_ID` AS `SITE_ID`,
+	`wd_seo_url`.`URL_SEO` AS `URL_SEO`,
+	`wd_seo_url`.`URL_REAL` AS `URL_REAL`,
+	`wd_seo_url`.`SEO_SITEMAP_PRIORITY` AS `SEO_SITEMAP_PRIORITY`,
+	`wd_seo_url`.`SEO_SITEMAP_CHANGEFREQ` AS `SEO_SITEMAP_CHANGEFREQ`,
+	`wd_seo_url`.`DATE_MODIFIED` AS `DATE_MODIFIED`,
+	`wd_seo_url_rule`.`ID` AS `RULE_ID`,
+	`wd_seo_url_rule`.`NAME` AS `RULE_NAME`,
+	`wd_seo_url_rule`.`ACTIVE` AS `RULE_ACTIVE`,
+	`wd_seo_url_rule`.`SECTION_ID` AS `RULE_SECTION_ID`,
+	`wd_seo_url_profile`.`ACTIVE` AS `PROFILE_ACTIVE`,
+	`wd_seo_url_profile`.`SITE_ID` AS `PROFILE_SITE_ID`,
+	`wd_seo_url_rule`.`PROFILE_ID` AS `PROFILE_ID`,
+	`wd_seo_url_profile`.`IBLOCK_ID` AS `PROFILE_IBLOCK_ID`,
+	`wd_seo_url_profile`.`FILTER_TYPE` AS `PROFILE_FILTER_TYPE`,
+	`wd_seo_url_profile`.`ID` AS `UALIAS_0`
+FROM `wd_seo_url` `wd_seo_url` 
+LEFT JOIN `wd_seo_smartfilter_rule` `wd_seo_url_rule` ON `wd_seo_url_rule`.`ID` = `wd_seo_url`.`PARENT_ID`
+LEFT JOIN `wd_seo_smartfilter_profile` `wd_seo_url_profile` ON `wd_seo_url_profile`.`ID` = `wd_seo_url_rule`.`PROFILE_ID`
+WHERE (`wd_seo_url`.`ACTIVE` IS NULL OR `wd_seo_url`.`ACTIVE` <> 'N')
+AND (
+	(
+		`wd_seo_url_rule`.`ACTIVE` = 'Y'
+	)
+	OR (
+		(`wd_seo_url_rule`.`ACTIVE` IS NULL OR `wd_seo_url_rule`.`ACTIVE` = '')
+	)
+)
+AND (
+	(
+		`wd_seo_url_profile`.`ACTIVE` = 'Y'
+	)
+	OR (
+		(`wd_seo_url_profile`.`ACTIVE` IS NULL OR `wd_seo_url_profile`.`ACTIVE` = '')
+	)
+)
+AND (
+	(
+		`wd_seo_url_profile`.`SITE_ID` = 's1'
+	)
+	OR (
+		`wd_seo_url`.`SITE_ID` = 's1'
+	)
+)
+AND UPPER(`wd_seo_url`.`SEO_HIDE_FROM_SITEMAP`) not like upper('Y')
+AND (
+	(
+		(`wd_seo_url`.`URL_SEO` IS NOT NULL AND LENGTH(`wd_seo_url`.`URL_SEO`) > 0)
+	)
+	OR (
+		(`wd_seo_url`.`URL_REAL` IS NOT NULL AND LENGTH(`wd_seo_url`.`URL_REAL`) > 0)
+	)
+)
+ORDER BY `SEO_SITEMAP_PRIORITY` DESC
+LIMIT 13000, 1000\G
+
+# Query 14: 0.00 QPS, 0.00x concurrency, ID 0x230CE4704F99189067F733C602BC3B56 at byte 2760299
+# This item is included in the report because it matches --outliers.
+# Scores: V/M = 0.02
+# Time range: 2024-04-01T06:58:05 to 2024-04-11T06:00:38
+# Attribute    pct   total     min     max     avg     95%  stddev  median
+# ============ === ======= ======= ======= ======= ======= ======= =======
+# Count          0      45
+# Exec time      0    101s      2s      3s      2s      3s   214ms      2s
+# Lock time      0     7ms    66us     2ms   146us   152us   230us   103us
+# Rows sent      0      45       1       1       1       1       0       1
+# Rows examine   0  49.92k   1.11k   1.11k   1.11k   1.11k       0   1.11k
+# Rows affecte   0       0       0       0       0       0       0       0
+# Bytes sent     0   4.31k      98      98      98      98       0      98
+# Query size     0  25.93k     590     590     590     590       0     590
+# String:
+# Databases    torgsnhm_ruobo32
+# Hosts        localhost
+# Last errno   0
+# Users        torgsnhm_ruobo32
+# Query_time distribution
+#   1us
+#  10us
+# 100us
+#   1ms
+#  10ms
+# 100ms
+#    1s  ################################################################
+#  10s+
+# Tables
+#    SHOW TABLE STATUS FROM `torgsnhm_ruobo32` LIKE 'b_iblock'\G
+#    SHOW CREATE TABLE `torgsnhm_ruobo32`.`b_iblock`\G
+#    SHOW TABLE STATUS FROM `torgsnhm_ruobo32` LIKE 'b_lang'\G
+#    SHOW CREATE TABLE `torgsnhm_ruobo32`.`b_lang`\G
+#    SHOW TABLE STATUS FROM `torgsnhm_ruobo32` LIKE 'b_iblock_element'\G
+#    SHOW CREATE TABLE `torgsnhm_ruobo32`.`b_iblock_element`\G
+#    SHOW TABLE STATUS FROM `torgsnhm_ruobo32` LIKE 'b_iblock_property'\G
+#    SHOW CREATE TABLE `torgsnhm_ruobo32`.`b_iblock_property`\G
+#    SHOW TABLE STATUS FROM `torgsnhm_ruobo32` LIKE 'b_iblock_element_property'\G
+#    SHOW CREATE TABLE `torgsnhm_ruobo32`.`b_iblock_element_property`\G
+# EXPLAIN /*!50100 PARTITIONS*/
+SELECT  BE.ID as ID
+					FROM 
+			b_iblock B
+			INNER JOIN b_lang L ON B.LID=L.LID
+			INNER JOIN b_iblock_element BE ON BE.IBLOCK_ID = B.ID
+			LEFT JOIN b_iblock_property FP0 ON FP0.IBLOCK_ID = B.ID AND  FP0.CODE='IS_BASE'
+			LEFT JOIN b_iblock_element_property FPV0 ON FPV0.IBLOCK_PROPERTY_ID = FP0.ID AND FPV0.IBLOCK_ELEMENT_ID = BE.ID
+		
+					WHERE 1=1 
+			AND (
+			
+				((((BE.IBLOCK_ID = '26'))))
+				AND ((((BE.ACTIVE='Y'))))
+				AND (((FPV0.VALUE_ENUM IS NOT NULL)))
+			)
+			AND (((BE.WF_STATUS_ID=1 AND BE.WF_PARENT_ELEMENT_ID IS NULL)))
+					
+					 ORDER BY BE.ID asc 
+					LIMIT 1\G
+
+# Query 15: 0.01 QPS, 0.07x concurrency, ID 0x4C0A6EEA3F559FE228B4B41BC8D4AAED at byte 2592732
+# This item is included in the report because it matches --outliers.
+# Scores: V/M = 0.15
+# Time range: 2024-04-01T06:29:07 to 2024-04-01T06:46:40
+# Attribute    pct   total     min     max     avg     95%  stddev  median
+# ============ === ======= ======= ======= ======= ======= ======= =======
+# Count          0      12
+# Exec time      0     79s      5s      9s      7s      7s   975ms      6s
+# Lock time      1    25ms    43us    24ms     2ms   152us     6ms   108us
+# Rows sent      0       0       0       0       0       0       0       0
+# Rows examine   0  31.93M   2.63M   2.77M   2.66M   2.62M  37.01k   2.62M
+# Rows affecte   2  26.58k       0  11.84k   2.22k   7.68k   3.44k  537.02
+# Bytes sent     0     146      11      13   12.17   12.54    0.84   12.54
+# Query size     0   4.25k     362     364  362.50  363.48       1  346.17
+# String:
+# Databases    torgsnhm_ruobo32
+# Hosts        localhost
+# Last errno   0
+# Users        torgsnhm_ruobo32
+# Query_time distribution
+#   1us
+#  10us
+# 100us
+#   1ms
+#  10ms
+# 100ms
+#    1s  ################################################################
+#  10s+
+# Tables
+#    SHOW TABLE STATUS FROM `torgsnhm_ruobo32` LIKE 'b_iblock_element_iprop'\G
+#    SHOW CREATE TABLE `torgsnhm_ruobo32`.`b_iblock_element_iprop`\G
+#    SHOW TABLE STATUS FROM `torgsnhm_ruobo32` LIKE 'b_iblock_section_element'\G
+#    SHOW CREATE TABLE `torgsnhm_ruobo32`.`b_iblock_section_element`\G
+#    SHOW TABLE STATUS FROM `torgsnhm_ruobo32` LIKE 'b_iblock_section'\G
+#    SHOW CREATE TABLE `torgsnhm_ruobo32`.`b_iblock_section`\G
+DELETE FROM b_iblock_element_iprop
+				WHERE IBLOCK_ID = 14
+				AND ELEMENT_ID in (
+					SELECT BSE.IBLOCK_ELEMENT_ID
+					FROM b_iblock_section_element BSE
+					INNER JOIN b_iblock_section BS ON BSE.IBLOCK_SECTION_ID = BS.ID AND BSE.ADDITIONAL_PROPERTY_ID IS NULL
+					WHERE BS.IBLOCK_ID = 14
+					AND BS.LEFT_MARGIN <= 673
+					AND BS.RIGHT_MARGIN >= 672
+				)\G
+# Converted for EXPLAIN
+# EXPLAIN /*!50100 PARTITIONS*/
+select * from  b_iblock_element_iprop
+				WHERE IBLOCK_ID = 14
+				AND ELEMENT_ID in (
+					SELECT BSE.IBLOCK_ELEMENT_ID
+					FROM b_iblock_section_element BSE
+					INNER JOIN b_iblock_section BS ON BSE.IBLOCK_SECTION_ID = BS.ID AND BSE.ADDITIONAL_PROPERTY_ID IS NULL
+					WHERE BS.IBLOCK_ID = 14
+					AND BS.LEFT_MARGIN <= 673
+					AND BS.RIGHT_MARGIN >= 672
+				)\G
+
+# Query 16: 0.00 QPS, 0.00x concurrency, ID 0x80EA66583BA096C12E9520D0CE4D6735 at byte 17429166
+# This item is included in the report because it matches --outliers.
+# Scores: V/M = 0.07
+# Time range: 2024-04-01T08:14:02 to 2024-04-10T23:38:04
+# Attribute    pct   total     min     max     avg     95%  stddev  median
+# ============ === ======= ======= ======= ======= ======= ======= =======
+# Count          0      29
+# Exec time      0     75s      2s      4s      3s      3s   439ms      3s
+# Lock time      0    10ms   283us   643us   353us   403us    67us   332us
+# Rows sent      0   2.83k     100     100     100     100       0     100
+# Rows examine   0  13.23M 391.03k 570.80k 467.13k 509.78k  48.64k 462.39k
+# Rows affecte   0       0       0       0       0       0       0       0
+# Bytes sent     0   4.41M  89.89k 190.78k 155.82k 165.97k  21.45k 158.07k
+# Query size     0  91.11k   3.14k   3.14k   3.14k   3.14k       0   3.14k
+# String:
+# Databases    torgsnhm_ruobo32
+# Hosts        localhost
+# Last errno   0
+# Users        torgsnhm_ruobo32
+# Query_time distribution
+#   1us
+#  10us
+# 100us
+#   1ms
+#  10ms
+# 100ms
+#    1s  ################################################################
+#  10s+
+# Tables
+#    SHOW TABLE STATUS FROM `torgsnhm_ruobo32` LIKE 'b_iblock'\G
+#    SHOW CREATE TABLE `torgsnhm_ruobo32`.`b_iblock`\G
+#    SHOW TABLE STATUS FROM `torgsnhm_ruobo32` LIKE 'b_lang'\G
+#    SHOW CREATE TABLE `torgsnhm_ruobo32`.`b_lang`\G
+#    SHOW TABLE STATUS FROM `torgsnhm_ruobo32` LIKE 'b_iblock_element'\G
+#    SHOW CREATE TABLE `torgsnhm_ruobo32`.`b_iblock_element`\G
+#    SHOW TABLE STATUS FROM `torgsnhm_ruobo32` LIKE 'b_iblock_section_element'\G
+#    SHOW CREATE TABLE `torgsnhm_ruobo32`.`b_iblock_section_element`\G
+#    SHOW TABLE STATUS FROM `torgsnhm_ruobo32` LIKE 'b_iblock_section'\G
+#    SHOW CREATE TABLE `torgsnhm_ruobo32`.`b_iblock_section`\G
+#    SHOW TABLE STATUS FROM `torgsnhm_ruobo32` LIKE 'b_catalog_product'\G
+#    SHOW CREATE TABLE `torgsnhm_ruobo32`.`b_catalog_product`\G
+#    SHOW TABLE STATUS FROM `torgsnhm_ruobo32` LIKE 'b_catalog_store_product'\G
+#    SHOW CREATE TABLE `torgsnhm_ruobo32`.`b_catalog_store_product`\G
+#    SHOW TABLE STATUS FROM `torgsnhm_ruobo32` LIKE 'b_catalog_price'\G
+#    SHOW CREATE TABLE `torgsnhm_ruobo32`.`b_catalog_price`\G
+# EXPLAIN /*!50100 PARTITIONS*/
+SELECT  BE.IBLOCK_ID as IBLOCK_ID,BE.ID as ID,BE.DETAIL_PICTURE as DETAIL_PICTURE,B.DETAIL_PAGE_URL as DETAIL_PAGE_URL,BE.IBLOCK_SECTION_ID as IBLOCK_SECTION_ID,BE.NAME as NAME,BE.DETAIL_TEXT as DETAIL_TEXT,L.DIR as LANG_DIR,BE.CODE as CODE,BE.XML_ID as EXTERNAL_ID,B.IBLOCK_TYPE_ID as IBLOCK_TYPE_ID,B.CODE as IBLOCK_CODE,B.XML_ID as IBLOCK_EXTERNAL_ID,B.LID as LID,BE.DETAIL_TEXT_TYPE as DETAIL_TEXT_TYPE , PRD.TYPE as TYPE
+					FROM 
+			b_iblock B
+			INNER JOIN b_lang L ON B.LID=L.LID
+			INNER JOIN b_iblock_element BE ON BE.IBLOCK_ID = B.ID
+			 INNER JOIN (
+					SELECT DISTINCT BSE.IBLOCK_ELEMENT_ID
+					FROM b_iblock_section_element BSE
+					
+					INNER JOIN b_iblock_section BS ON BSE.IBLOCK_SECTION_ID = BS.ID
+					
+					WHERE ((BS.GLOBAL_ACTIVE = 'Y') AND (( NOT (BS.LEFT_MARGIN >= 2 AND BS.RIGHT_MARGIN <= 5)
+AND  NOT (BS.LEFT_MARGIN >= 80 AND BS.RIGHT_MARGIN <= 81)
+AND  NOT (BS.LEFT_MARGIN >= 348 AND BS.RIGHT_MARGIN <= 349)
+AND  NOT (BS.LEFT_MARGIN >= 398 AND BS.RIGHT_MARGIN <= 401)
+AND  NOT (BS.LEFT_MARGIN >= 466 AND BS.RIGHT_MARGIN <= 467)
+AND  NOT (BS.LEFT_MARGIN >= 475 AND BS.RIGHT_MARGIN <= 498)
+AND  NOT (BS.LEFT_MARGIN >= 500 AND BS.RIGHT_MARGIN <= 521)
+AND  NOT (BS.LEFT_MARGIN >= 664 AND BS.RIGHT_MARGIN <= 667)
+AND  NOT (BS.LEFT_MARGIN >= 786 AND BS.RIGHT_MARGIN <= 787)
+AND  NOT (BS.LEFT_MARGIN >= 808 AND BS.RIGHT_MARGIN <= 809)
+AND  NOT (BS.LEFT_MARGIN >= 820 AND BS.RIGHT_MARGIN <= 823)
+AND  NOT (BS.LEFT_MARGIN >= 904 AND BS.RIGHT_MARGIN <= 905)
+AND  NOT (BS.LEFT_MARGIN >= 942 AND BS.RIGHT_MARGIN <= 945)
+AND  NOT (BS.LEFT_MARGIN >= 973 AND BS.RIGHT_MARGIN <= 974)
+AND  NOT (BS.LEFT_MARGIN >= 975 AND BS.RIGHT_MARGIN <= 1080)
+AND  NOT (BS.LEFT_MARGIN >= 1084 AND BS.RIGHT_MARGIN <= 1085)
+AND  NOT (BS.LEFT_MARGIN >= 1102 AND BS.RIGHT_MARGIN <= 1103)
+AND  NOT (BS.LEFT_MARGIN >= 1125 AND BS.RIGHT_MARGIN <= 1180)
+AND  NOT (BS.LEFT_MARGIN >= 1181 AND BS.RIGHT_MARGIN <= 1182)
+AND  NOT (BS.LEFT_MARGIN >= 1196 AND BS.RIGHT_MARGIN <= 1205)
+AND  NOT (BS.LEFT_MARGIN >= 1346 AND BS.RIGHT_MARGIN <= 1347)
+AND  NOT (BS.LEFT_MARGIN >= 1360 AND BS.RIGHT_MARGIN <= 1361)
+AND  NOT (BS.LEFT_MARGIN >= 1406 AND BS.RIGHT_MARGIN <= 1407)
+AND  NOT (BS.LEFT_MARGIN >= 1458 AND BS.RIGHT_MARGIN <= 1459)
+)))
+					) BES ON BES.IBLOCK_ELEMENT_ID = BE.ID
+			left join b_catalog_product as PRD on (PRD.ID = BE.ID)
+			left join b_catalog_store_product as WHS_3 on (WHS_3.PRODUCT_ID = BE.ID and WHS_3.STORE_ID = 3)
+			left join b_catalog_price as PRC_1 on (PRC_1.PRODUCT_ID = BE.ID and PRC_1.CATALOG_GROUP_ID = 1  and  ((PRC_1.QUANTITY_FROM <= 1 or PRC_1.QUANTITY_FROM IS NULL) and (PRC_1.QUANTITY_TO >= 1 or PRC_1.QUANTITY_TO IS NULL)))
+		
+					WHERE 1=1 
+			AND (
+			
+				((((BE.IBLOCK_ID = '14'))))
+				AND ((((BE.ACTIVE='Y'))))
+				AND (((BE.ACTIVE_TO >= now() OR BE.ACTIVE_TO IS NULL) AND (BE.ACTIVE_FROM <= now() OR BE.ACTIVE_FROM IS NULL)))
+				AND (
+				
+					(
+					
+						((((WHS_3.AMOUNT >= '1'))))
+					)
+					AND (
+					
+						((((PRC_1.PRICE >= '10000'))))
+					)
+				)
+				AND (
+				
+					((((BE.ID > '351093'))))
+				)
+				AND ((( PRD.TYPE IS NULL OR NOT (PRD.TYPE = '3'))))
+			)
+			AND (((BE.WF_STATUS_ID=1 AND BE.WF_PARENT_ELEMENT_ID IS NULL)))
+					
+					 ORDER BY BE.ID asc 
+					LIMIT 100\G
+
+# Query 18: 0.00 QPS, 0.00x concurrency, ID 0xC2560A370125EC15EF85A4A1B5100E5B at byte 4440491
+# This item is included in the report because it matches --outliers.
+# Scores: V/M = 0.02
+# Time range: 2024-04-01T00:01:07 to 2024-04-11T10:20:00
+# Attribute    pct   total     min     max     avg     95%  stddev  median
+# ============ === ======= ======= ======= ======= ======= ======= =======
+# Count          0      26
+# Exec time      0     58s      2s      3s      2s      3s   205ms      2s
+# Lock time      0       0       0       0       0       0       0       0
+# Rows sent      0       0       0       0       0       0       0       0
+# Rows examine   0       0       0       0       0       0       0       0
+# Rows affecte   0       0       0       0       0       0       0       0
+# Bytes sent     0     286      11      11      11      11       0      11
+# Query size     0   1.17k      46      46      46      46       0      46
+# String:
+# Databases    torgsnhm_ruobo32
+# Hosts        localhost
+# Last errno   0
+# Users        torgsnhm_ruobo32
+# Query_time distribution
+#   1us
+#  10us
+# 100us
+#   1ms
+#  10ms
+# 100ms
+#    1s  ################################################################
+#  10s+
+# Tables
+#    SHOW TABLE STATUS FROM `torgsnhm_ruobo32` LIKE 'b_xml_tree_askaron_parallel1c_a02'\G
+#    SHOW CREATE TABLE `torgsnhm_ruobo32`.`b_xml_tree_askaron_parallel1c_a02`\G
+DROP TABLE `b_xml_tree_askaron_parallel1c_a02`\G
+
+# Query 19: 0.00 QPS, 0.00x concurrency, ID 0xCBBF090457569312187BCE8524B477B9 at byte 110706586
+# This item is included in the report because it matches --outliers.
+# Scores: V/M = 0.01
+# Time range: 2024-04-03T08:24:05 to 2024-04-11T09:26:25
+# Attribute    pct   total     min     max     avg     95%  stddev  median
+# ============ === ======= ======= ======= ======= ======= ======= =======
+# Count          0      24
+# Exec time      0     56s      2s      3s      2s      3s   187ms      2s
+# Lock time      0     3ms    91us   262us   141us   185us    39us   138us
+# Rows sent      0      16       0       1    0.67    0.99    0.47    0.99
+# Rows examine   0  73.04k       0   3.32k   3.04k   3.19k  902.63   3.19k
+# Rows affecte   0       0       0       0       0       0       0       0
+# Bytes sent     0   8.95k     349     430  381.75  381.65   19.48  381.65
+# Query size     0  23.85k    1009   1.03k 1017.79 1012.63   19.58 1012.63
+# String:
+# Databases    torgsnhm_ruobo32
+# Hosts        localhost
+# Last errno   0
+# Users        torgsnhm_ruobo32
+# Query_time distribution
+#   1us
+#  10us
+# 100us
+#   1ms
+#  10ms
+# 100ms
+#    1s  ################################################################
+#  10s+
+# Tables
+#    SHOW TABLE STATUS FROM `torgsnhm_ruobo32` LIKE 'b_iblock'\G
+#    SHOW CREATE TABLE `torgsnhm_ruobo32`.`b_iblock`\G
+#    SHOW TABLE STATUS FROM `torgsnhm_ruobo32` LIKE 'b_lang'\G
+#    SHOW CREATE TABLE `torgsnhm_ruobo32`.`b_lang`\G
+#    SHOW TABLE STATUS FROM `torgsnhm_ruobo32` LIKE 'b_iblock_element'\G
+#    SHOW CREATE TABLE `torgsnhm_ruobo32`.`b_iblock_element`\G
+#    SHOW TABLE STATUS FROM `torgsnhm_ruobo32` LIKE 'b_iblock_property'\G
+#    SHOW CREATE TABLE `torgsnhm_ruobo32`.`b_iblock_property`\G
+#    SHOW TABLE STATUS FROM `torgsnhm_ruobo32` LIKE 'b_iblock_element_property'\G
+#    SHOW CREATE TABLE `torgsnhm_ruobo32`.`b_iblock_element_property`\G
+# EXPLAIN /*!50100 PARTITIONS*/
+SELECT DISTINCT BE.ID as ID,BE.NAME as NAME, FPV0.VALUE as PROPERTY_REGION_VALUE, FPV0.ID as PROPERTY_REGION_VALUE_ID
+				FROM 
+			b_iblock B
+			INNER JOIN b_lang L ON B.LID=L.LID
+			INNER JOIN b_iblock_element BE ON BE.IBLOCK_ID = B.ID
+			LEFT JOIN b_iblock_property FP0 ON FP0.IBLOCK_ID = B.ID AND  FP0.CODE='REGION'
+			LEFT JOIN b_iblock_property FP1 ON FP1.IBLOCK_ID = B.ID AND  FP1.CODE='CODE'
+			LEFT JOIN b_iblock_element_property FPV0 ON FPV0.IBLOCK_PROPERTY_ID = FP0.ID AND FPV0.IBLOCK_ELEMENT_ID = BE.ID
+			LEFT JOIN b_iblock_element_property FPV1 ON FPV1.IBLOCK_PROPERTY_ID = FP1.ID AND FPV1.IBLOCK_ELEMENT_ID = BE.ID
+		
+				WHERE 1=1 
+			AND (
+			
+				((((BE.ACTIVE='Y'))))
+				AND (
+				
+					(
+					
+						((((BE.NAME = 'Москва'))))
+					)
+					OR (
+					
+						((((BE.CODE = 'moskva'))))
+					)
+					OR (
+					
+						((((FPV1.VALUE = 'moskva'))))
+					)
+				)
+				AND ((((BE.IBLOCK_ID = '26'))))
+			)
+			AND (((BE.WF_STATUS_ID=1 AND BE.WF_PARENT_ELEMENT_ID IS NULL)))
+				
+				 ORDER BY BE.ID asc\G
+
+# Query 20: 0.00 QPS, 0.00x concurrency, ID 0x8AC6B0E40030A0D0DA798CA246658031 at byte 110564670
+# This item is included in the report because it matches --outliers.
+# Scores: V/M = 0.02
+# Time range: 2024-04-01T09:27:13 to 2024-04-10T23:38:04
+# Attribute    pct   total     min     max     avg     95%  stddev  median
+# ============ === ======= ======= ======= ======= ======= ======= =======
+# Count          0      22
+# Exec time      0     51s      2s      3s      2s      3s   187ms      2s
+# Lock time      0     3ms    87us   172us   120us   152us    26us   108us
+# Rows sent      0       0       0       0       0       0       0       0
+# Rows examine   0       0       0       0       0       0       0       0
+# Rows affecte   0       0       0       0       0       0       0       0
+# Bytes sent     0   8.08k     376     376     376     376       0     376
+# Query size     0  29.37k   1.33k   1.33k   1.33k   1.33k       0   1.33k
+# String:
+# Databases    torgsnhm_ruobo32
+# Hosts        localhost
+# Last errno   0
+# Users        torgsnhm_ruobo32
+# Query_time distribution
+#   1us
+#  10us
+# 100us
+#   1ms
+#  10ms
+# 100ms
+#    1s  ################################################################
+#  10s+
+# Tables
+#    SHOW TABLE STATUS FROM `torgsnhm_ruobo32` LIKE 'b_iblock'\G
+#    SHOW CREATE TABLE `torgsnhm_ruobo32`.`b_iblock`\G
+#    SHOW TABLE STATUS FROM `torgsnhm_ruobo32` LIKE 'b_lang'\G
+#    SHOW CREATE TABLE `torgsnhm_ruobo32`.`b_lang`\G
+#    SHOW TABLE STATUS FROM `torgsnhm_ruobo32` LIKE 'b_iblock_element'\G
+#    SHOW CREATE TABLE `torgsnhm_ruobo32`.`b_iblock_element`\G
+#    SHOW TABLE STATUS FROM `torgsnhm_ruobo32` LIKE 'b_iblock_property'\G
+#    SHOW CREATE TABLE `torgsnhm_ruobo32`.`b_iblock_property`\G
+#    SHOW TABLE STATUS FROM `torgsnhm_ruobo32` LIKE 'b_iblock_element_property'\G
+#    SHOW CREATE TABLE `torgsnhm_ruobo32`.`b_iblock_element_property`\G
+# EXPLAIN /*!50100 PARTITIONS*/
+SELECT
+					BE.ID IBLOCK_ELEMENT_ID
+					,BEP.IBLOCK_PROPERTY_ID
+					,BEP.VALUE
+					,BEP.VALUE_NUM
+					
+				FROM
+					
+			b_iblock B
+			INNER JOIN b_lang L ON B.LID=L.LID
+			INNER JOIN b_iblock_element BE ON BE.IBLOCK_ID = B.ID
+			INNER JOIN b_iblock_property FP0 ON FP0.IBLOCK_ID = B.ID AND  FP0.ID=3398
+			INNER JOIN b_iblock_element_property FPV0 ON FPV0.IBLOCK_PROPERTY_ID = FP0.ID AND FPV0.IBLOCK_ELEMENT_ID = BE.ID
+		
+					LEFT JOIN b_iblock_element_property BEP ON BEP.IBLOCK_ELEMENT_ID = BE.ID WHERE 1=1 
+			AND (
+			
+				((((BE.IBLOCK_ID = '22'))))
+				AND ((((BE.ACTIVE='Y'))))
+				AND ((((FPV0.VALUE_NUM = '445971'))))
+			)
+			AND (((BE.WF_STATUS_ID=1 AND BE.WF_PARENT_ELEMENT_ID IS NULL))) AND BEP.IBLOCK_PROPERTY_ID IN (18584, 18786, 18807, 18969, 20917, 20920, 20922, 20926, 20929, 20966, 20981, 21002, 21027, 21060, 21071, 21088, 21091, 21114, 21115, 21119/*... omitted 60 items ...*/)
+				ORDER BY
+					BEP.IBLOCK_ELEMENT_ID, BEP.IBLOCK_PROPERTY_ID, BEP.ID\G
+
+# Query 21: 0.00 QPS, 0.00x concurrency, ID 0x1782B10099A06903D226FC1D9432C79A at byte 3018719
+# This item is included in the report because it matches --outliers.
+# Scores: V/M = 0.01
+# Time range: 2024-03-31T23:27:29 to 2024-04-08T12:57:35
+# Attribute    pct   total     min     max     avg     95%  stddev  median
+# ============ === ======= ======= ======= ======= ======= ======= =======
+# Count          0      11
+# Exec time      0     30s      3s      3s      3s      3s   118ms      3s
+# Lock time      0     4ms   166us   698us   342us   403us   133us   332us
+# Rows sent      0       0       0       0       0       0       0       0
+# Rows examine   0       0       0       0       0       0       0       0
+# Rows affecte   0       0       0       0       0       0       0       0
+# Bytes sent     0     121      11      11      11      11       0      11
+# Query size     0     451      41      41      41      41       0      41
+# String:
+# Databases    torgsnhm_ruobo32
+# Hosts        localhost
+# Last errno   0
+# Users        torgsnhm_ruobo32
+# Query_time distribution
+#   1us
+#  10us
+# 100us
+#   1ms
+#  10ms
+# 100ms
+#    1s  ################################################################
+#  10s+
+# Tables
+#    SHOW TABLE STATUS FROM `torgsnhm_ruobo32` LIKE 'yamarket_watcher_changes'\G
+#    SHOW CREATE TABLE `torgsnhm_ruobo32`.`yamarket_watcher_changes`\G
+TRUNCATE TABLE `yamarket_watcher_changes`\G

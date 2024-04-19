@@ -109,6 +109,8 @@ footer .submenu li{
 }
 .menu_top_block.catalog_block .dropdown>li>a .image img, .menu_top_block.catalogfirst .dropdown>li>a .image img{
     filter: grayscale(1);
+    width: 32px;
+    min-width: 32px;
 }
 
 #title-search, #title-search form {
